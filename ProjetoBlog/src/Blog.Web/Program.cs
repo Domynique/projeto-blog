@@ -1,6 +1,19 @@
+using Blog.Data.Configurations;
+using Blog.Data.Context;
+using Blog.Data.Models;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+builder.Services.AddDbContext<MeuDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+builder.Services.AddIdentity<User, IdentityRole<Guid>>()
+                .AddEntityFrameworkStores<MeuDbContext>()
+                .AddDefaultTokenProviders();
+
+builder.Services.ResolveDependencies();
+
 builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
