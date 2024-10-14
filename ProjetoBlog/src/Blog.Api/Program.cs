@@ -8,7 +8,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddDbContext<MeuDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-builder.Services.AddIdentity<User, IdentityRole<Guid>>()
+builder.Services.AddIdentity<Autor, IdentityRole<Guid>>()
                 .AddEntityFrameworkStores<MeuDbContext>()
                 .AddDefaultTokenProviders();
 

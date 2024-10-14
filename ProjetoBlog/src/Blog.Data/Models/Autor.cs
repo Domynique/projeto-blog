@@ -1,8 +1,12 @@
-﻿namespace Blog.Data.Models
+﻿using Microsoft.AspNetCore.Identity;
+
+namespace Blog.Data.Models
 {
-    public class Autor : User 
+    public class Autor : IdentityUser<Guid>
     {
-        public required ICollection <Post> Posts { get; set; }
-        public required ICollection <Comentario> Comentarios { get; set; }
+        public string? Nome { get; set; }
+        public string? Biografia { get; set; }
+        public ICollection<Post>? Posts { get; set; }
+        public ICollection<Comentario>?  Comentarios { get; set; }
     }
 }

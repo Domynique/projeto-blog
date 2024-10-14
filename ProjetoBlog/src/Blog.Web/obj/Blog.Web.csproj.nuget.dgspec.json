@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Desenvolvedor.IO\\Projetos\\projeto-blog\\projeto-blog\\ProjetoBlog\\src\\Blog.Web\\Blog.Web.csproj": {}
+    "C:\\Desenvolvedor.IO\\Projetos\\projeto-blog\\ProjetoBlog\\src\\Blog.Web\\Blog.Web.csproj": {}
   },
   "projects": {
-    "C:\\Desenvolvedor.IO\\Projetos\\projeto-blog\\projeto-blog\\ProjetoBlog\\src\\Blog.Data\\Blog.Data.csproj": {
+    "C:\\Desenvolvedor.IO\\Projetos\\projeto-blog\\ProjetoBlog\\src\\Blog.Data\\Blog.Data.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Desenvolvedor.IO\\Projetos\\projeto-blog\\projeto-blog\\ProjetoBlog\\src\\Blog.Data\\Blog.Data.csproj",
+        "projectUniqueName": "C:\\Desenvolvedor.IO\\Projetos\\projeto-blog\\ProjetoBlog\\src\\Blog.Data\\Blog.Data.csproj",
         "projectName": "Blog.Data",
-        "projectPath": "C:\\Desenvolvedor.IO\\Projetos\\projeto-blog\\projeto-blog\\ProjetoBlog\\src\\Blog.Data\\Blog.Data.csproj",
-        "packagesPath": "C:\\Users\\hugo.nunes\\.nuget\\packages\\",
-        "outputPath": "C:\\Desenvolvedor.IO\\Projetos\\projeto-blog\\projeto-blog\\ProjetoBlog\\src\\Blog.Data\\obj\\",
+        "projectPath": "C:\\Desenvolvedor.IO\\Projetos\\projeto-blog\\ProjetoBlog\\src\\Blog.Data\\Blog.Data.csproj",
+        "packagesPath": "C:\\Users\\HugoNunes\\.nuget\\packages\\",
+        "outputPath": "C:\\Desenvolvedor.IO\\Projetos\\projeto-blog\\ProjetoBlog\\src\\Blog.Data\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\hugo.nunes\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\HugoNunes\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -46,6 +46,10 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "dependencies": {
+            "FluentValidation": {
+              "target": "Package",
+              "version": "[11.10.0, )"
+            },
             "Microsoft.AspNetCore.Identity.EntityFrameworkCore": {
               "target": "Package",
               "version": "[8.0.10, )"
@@ -95,17 +99,17 @@
         }
       }
     },
-    "C:\\Desenvolvedor.IO\\Projetos\\projeto-blog\\projeto-blog\\ProjetoBlog\\src\\Blog.Web\\Blog.Web.csproj": {
+    "C:\\Desenvolvedor.IO\\Projetos\\projeto-blog\\ProjetoBlog\\src\\Blog.Web\\Blog.Web.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Desenvolvedor.IO\\Projetos\\projeto-blog\\projeto-blog\\ProjetoBlog\\src\\Blog.Web\\Blog.Web.csproj",
+        "projectUniqueName": "C:\\Desenvolvedor.IO\\Projetos\\projeto-blog\\ProjetoBlog\\src\\Blog.Web\\Blog.Web.csproj",
         "projectName": "Blog.Web",
-        "projectPath": "C:\\Desenvolvedor.IO\\Projetos\\projeto-blog\\projeto-blog\\ProjetoBlog\\src\\Blog.Web\\Blog.Web.csproj",
-        "packagesPath": "C:\\Users\\hugo.nunes\\.nuget\\packages\\",
-        "outputPath": "C:\\Desenvolvedor.IO\\Projetos\\projeto-blog\\projeto-blog\\ProjetoBlog\\src\\Blog.Web\\obj\\",
+        "projectPath": "C:\\Desenvolvedor.IO\\Projetos\\projeto-blog\\ProjetoBlog\\src\\Blog.Web\\Blog.Web.csproj",
+        "packagesPath": "C:\\Users\\HugoNunes\\.nuget\\packages\\",
+        "outputPath": "C:\\Desenvolvedor.IO\\Projetos\\projeto-blog\\ProjetoBlog\\src\\Blog.Web\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\hugo.nunes\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\HugoNunes\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -120,8 +124,8 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "C:\\Desenvolvedor.IO\\Projetos\\projeto-blog\\projeto-blog\\ProjetoBlog\\src\\Blog.Data\\Blog.Data.csproj": {
-                "projectPath": "C:\\Desenvolvedor.IO\\Projetos\\projeto-blog\\projeto-blog\\ProjetoBlog\\src\\Blog.Data\\Blog.Data.csproj"
+              "C:\\Desenvolvedor.IO\\Projetos\\projeto-blog\\ProjetoBlog\\src\\Blog.Data\\Blog.Data.csproj": {
+                "projectPath": "C:\\Desenvolvedor.IO\\Projetos\\projeto-blog\\ProjetoBlog\\src\\Blog.Data\\Blog.Data.csproj"
               }
             }
           }
@@ -140,6 +144,14 @@
       "frameworks": {
         "net8.0": {
           "targetAlias": "net8.0",
+          "dependencies": {
+            "Microsoft.EntityFrameworkCore.Design": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[8.0.10, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",
