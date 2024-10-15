@@ -1,5 +1,4 @@
-﻿using Blog.Data.Context;
-using Blog.Data.Models;
+﻿using Blog.Data.Models;
 using Blog.Data.Notifications;
 using Blog.Data.Repository;
 using Blog.Data.Services;
