@@ -17,6 +17,10 @@ namespace Blog.Data.Mappings
                 .HasColumnType("varchar(1000)")
                 .HasMaxLength(1000);
 
+            builder.HasOne(c => c.Post)
+                   .WithMany(p => p.Comentarios)
+                   .HasForeignKey(c => c.PostId);
+
             builder.HasOne(c => c.Autor)
                    .WithMany(a => a.Comentarios)
                    .HasForeignKey(c => c.AutorId);

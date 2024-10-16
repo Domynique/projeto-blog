@@ -31,7 +31,7 @@ namespace Blog.Api.Controllers
         }
 
         [HttpPost("registrar")]
-        public async Task<IActionResult> Register([FromBody] RegisterViewModel registerAutor)
+        public async Task<ActionResult> Registrar(RegisterViewModel registerAutor)
         {
             if (!ModelState.IsValid)
             {
@@ -63,7 +63,7 @@ namespace Blog.Api.Controllers
         }
 
         [HttpPost("login")]
-        public async Task<IActionResult> Login(LoginViewModel loginAutor)
+        public async Task<ActionResult> Login(LoginViewModel loginAutor)
         {
             if (!ModelState.IsValid)
             {
