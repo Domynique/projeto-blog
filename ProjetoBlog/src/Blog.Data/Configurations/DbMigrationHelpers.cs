@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using System;
 
 
 namespace Blog.Data.Configurations
@@ -28,7 +29,12 @@ namespace Blog.Data.Configurations
 
         public static async Task EnsureSeedData(IServiceProvider serviceProvider)
         {
+            var userManager = serviceProvider.GetRequiredService<UserManager<Autor>>();
+            
+            var roleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole<Guid>>>();
+
             using var scope = serviceProvider.GetRequiredService<IServiceScopeFactory>().CreateScope();
+            
             var env = scope.ServiceProvider.GetRequiredService<IWebHostEnvironment>();
 
             var context = scope.ServiceProvider.GetRequiredService<MeuDbContext>();
@@ -37,27 +43,27 @@ namespace Blog.Data.Configurations
             {
                 await context.Database.MigrateAsync();
 
-                await EnsureSeedProducts(context);
+                await EnsureSeedProducts(context, userManager, roleManager);
             }
         }
 
-        private static async Task EnsureSeedProducts(MeuDbContext context)
-        {
+        private static async Task EnsureSeedProducts(MeuDbContext context, UserManager<Autor> userManager, RoleManager<IdentityRole<Guid>> roleManager)
+        {           
+
             if (context.Autores.Any())
             {
                 return;
             }
 
-            // Adicionando usuários ao contexto diretamente
             var autor1 = new Autor
             {
                 Id = Guid.NewGuid(),
-                UserName = "autor123",
-                NormalizedUserName = "AUTOR123",
-                Email = "autor123@example.com",
-                NormalizedEmail = "AUTOR123@TESTE.COM",
-                Nome = "Autor Exemplar",
-                Biografia = "Autor Exemplar é conhecido por suas contribuições excepcionais na literatura contemporânea.",
+                UserName = "hugonunes@example.com",
+                NormalizedUserName = "HUGONUNES@EXAMPLE.COM",
+                Email = "hugonunes@example.com",
+                NormalizedEmail = "HUGONUNES@EXAMPLE.COM",
+                Nome = "Hugo Nunes",
+                Biografia = "Hugo Nunes é conhecido por suas contribuições excepcionais na literatura contemporânea.",
                 PasswordHash = new PasswordHasher<Autor>().HashPassword(null, "Teste@123"),
                 EmailConfirmed = true,
                 SecurityStamp = Guid.NewGuid().ToString(),
@@ -67,12 +73,12 @@ namespace Blog.Data.Configurations
             var autor2 = new Autor
             {
                 Id = Guid.NewGuid(),
-                UserName = "autor456",
-                NormalizedUserName = "AUTOR456",
-                Email = "autor456@example.com",
-                NormalizedEmail = "AUTOR456@TESTE.COM",
-                Nome = "Autor Fictício",
-                Biografia = "Autor Fictício é famoso por suas intrigantes narrativas de ficção científica.",
+                UserName = "paulanunes@example.com",
+                NormalizedUserName = "PAULANUNES@EXAMPLE.COM",
+                Email = "paulanunes@example.com",
+                NormalizedEmail = "PAULANUNES@EXAMPLE.COM",
+                Nome = "Paula Nunes",
+                Biografia = "Paula Nunes é famosa por suas intrigantes narrativas de ficção científica.",
                 PasswordHash = new PasswordHasher<Autor>().HashPassword(null, "Teste@123"),
                 EmailConfirmed = true,
                 SecurityStamp = Guid.NewGuid().ToString(),
@@ -80,7 +86,18 @@ namespace Blog.Data.Configurations
             };
 
             await context.Autores.AddRangeAsync(autor1, autor2);
+
             await context.SaveChangesAsync();
+
+            // Verificar se a role "Admin" existe, e cria se necessário
+            if (!await roleManager.RoleExistsAsync("Admin"))
+            {
+                await roleManager.CreateAsync(new IdentityRole<Guid>("Admin"));
+            }
+
+            // Adicionar role "Admin" ao primeiro autor
+            await userManager.AddToRoleAsync(autor1, "Admin"); 
+
 
             // Adicionando posts e comentários relacionados
             var post1 = new Post

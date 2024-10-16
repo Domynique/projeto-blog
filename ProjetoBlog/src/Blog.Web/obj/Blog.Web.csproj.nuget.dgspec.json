@@ -10,11 +10,11 @@
         "projectUniqueName": "C:\\Desenvolvedor.IO\\Projetos\\projeto-blog\\ProjetoBlog\\src\\Blog.Data\\Blog.Data.csproj",
         "projectName": "Blog.Data",
         "projectPath": "C:\\Desenvolvedor.IO\\Projetos\\projeto-blog\\ProjetoBlog\\src\\Blog.Data\\Blog.Data.csproj",
-        "packagesPath": "C:\\Users\\HugoNunes\\.nuget\\packages\\",
+        "packagesPath": "C:\\Users\\hugo.nunes\\.nuget\\packages\\",
         "outputPath": "C:\\Desenvolvedor.IO\\Projetos\\projeto-blog\\ProjetoBlog\\src\\Blog.Data\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\HugoNunes\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\hugo.nunes\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -113,11 +113,11 @@
         "projectUniqueName": "C:\\Desenvolvedor.IO\\Projetos\\projeto-blog\\ProjetoBlog\\src\\Blog.Web\\Blog.Web.csproj",
         "projectName": "Blog.Web",
         "projectPath": "C:\\Desenvolvedor.IO\\Projetos\\projeto-blog\\ProjetoBlog\\src\\Blog.Web\\Blog.Web.csproj",
-        "packagesPath": "C:\\Users\\HugoNunes\\.nuget\\packages\\",
+        "packagesPath": "C:\\Users\\hugo.nunes\\.nuget\\packages\\",
         "outputPath": "C:\\Desenvolvedor.IO\\Projetos\\projeto-blog\\ProjetoBlog\\src\\Blog.Web\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\HugoNunes\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\hugo.nunes\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [

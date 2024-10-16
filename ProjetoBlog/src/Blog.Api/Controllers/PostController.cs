@@ -20,6 +20,8 @@ namespace Blog.Api.Controllers
         }
 
         [HttpGet]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesDefaultResponseType]
         public async Task<ActionResult<IEnumerable<Post>>> ObterTodos()
         {
@@ -27,7 +29,9 @@ namespace Blog.Api.Controllers
             return CustomResponse(HttpStatusCode.OK, posts);
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("{id:guid}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesDefaultResponseType]
         public async Task<ActionResult<Post>> ObterPorId(Guid id)
         {
@@ -43,6 +47,8 @@ namespace Blog.Api.Controllers
 
         [Authorize]
         [HttpPost]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesDefaultResponseType]
         public async Task<IActionResult> Adicionar(Post post)
         {
@@ -58,16 +64,26 @@ namespace Blog.Api.Controllers
                 return CustomResponse(HttpStatusCode.Unauthorized);
             }
 
-            post.AutorId = Guid.Parse(usuarioId);
-            
-            await _postService.Adicionar(post);
+            var novopost = new Post
+            {
+                Titulo = post.Titulo,
+                Conteudo = post.Conteudo,
+                AutorId = Guid.Parse(usuarioId),
+                DataCadastro = DateTime.Now
+            };
 
-            return CreatedAtAction(nameof(ObterPorId), new { id = post.Id }, post);
+            await _postService.Adicionar(novopost);
+
+            return CreatedAtAction(nameof(ObterPorId), new { id = novopost.Id }, novopost);
 
         }
 
         [Authorize]
-        [HttpPut("{id}")]
+        [HttpPut("{id:guid}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [ProducesDefaultResponseType]
         public async Task<IActionResult> Atualizar(Guid id, Post post)
         {
@@ -99,7 +115,11 @@ namespace Blog.Api.Controllers
         }
 
         [Authorize]
-        [HttpDelete("{id}")]
+        [HttpDelete("{id:guid}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesDefaultResponseType]
         public async Task<IActionResult> Excluir(Guid id)
         {

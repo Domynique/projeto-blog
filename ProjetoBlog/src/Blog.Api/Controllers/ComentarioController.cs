@@ -2,7 +2,6 @@
 using Blog.Data.Notifications;
 using Blog.Data.Services;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
 using System.Security.Claims;
@@ -21,14 +20,18 @@ namespace Blog.Api.Controllers
         }
 
         [HttpGet]
-        [ProducesDefaultResponseType(typeof(IEnumerable<Comentario>))]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesDefaultResponseType]
         public async Task<ActionResult<IEnumerable<Comentario>>> ObterTodos()
         {
             var comentarios = await _comentarioService.ObterTodos();
             return CustomResponse(HttpStatusCode.OK, comentarios);
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("{id:guid}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesDefaultResponseType]
         public async Task<ActionResult<Comentario>> ObterPorId(Guid id)
         {
@@ -45,6 +48,8 @@ namespace Blog.Api.Controllers
 
         [Authorize]
         [HttpPost]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesDefaultResponseType]
         public async Task<IActionResult> Adicionar(Comentario comentario)
         {
@@ -60,16 +65,28 @@ namespace Blog.Api.Controllers
                 return CustomResponse(HttpStatusCode.Unauthorized);
             }
 
-            comentario.AutorId = Guid.Parse(usuarioId);
+            var novocomentario = new Comentario
+            {
+                Conteudo = comentario.Conteudo,
+                PostId = comentario.PostId,
+                AutorId = Guid.Parse(usuarioId), 
+                DataCadastro = DateTime.Now
+            };
 
-            await _comentarioService.Adicionar(comentario);
+            await _comentarioService.Adicionar(novocomentario);
 
-            return CreatedAtAction(nameof(ObterPorId), new { id = comentario.Id }, comentario);
+
+
+            return CreatedAtAction(nameof(ObterPorId), new { id = novocomentario.Id }, novocomentario);
 
         }
 
         [Authorize]
-        [HttpPut("{id}")]
+        [HttpPut("{id:guid}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [ProducesDefaultResponseType]
         public async Task<IActionResult> Atualizar(Guid id, Comentario comentario)
         {
@@ -101,7 +118,11 @@ namespace Blog.Api.Controllers
         }
 
         [Authorize]
-        [HttpDelete("{id}")]
+        [HttpDelete("{id:guid}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesDefaultResponseType]
         public async Task<IActionResult> Excluir(Guid id)
         {
