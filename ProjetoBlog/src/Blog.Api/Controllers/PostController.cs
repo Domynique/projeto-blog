@@ -8,6 +8,8 @@ using System.Security.Claims;
 
 namespace Blog.Api.Controllers
 {
+    [Route("api/[controller]")]
+    [ApiController]
     public class PostController : MainController
     {
         private readonly IPostService _postService;

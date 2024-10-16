@@ -1,4 +1,5 @@
-﻿using Blog.Data.Models;
+﻿using Blog.Data.Context;
+using Blog.Data.Models;
 using Blog.Data.Notifications;
 using Blog.Data.Repository;
 using Blog.Data.Services;
@@ -12,6 +13,7 @@ namespace Blog.Data.Configurations
     {
         public static IServiceCollection ResolveDependencies(this IServiceCollection services) 
         {
+            services.AddScoped<MeuDbContext>();
             services.AddScoped<IAutorRepository, AutorRepository>();
             services.AddScoped<IAutorService, AutorService>();
             services.AddScoped<IPostRepository, PostRepository>();
