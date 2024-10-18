@@ -1,6 +1,5 @@
 C:\Desenvolvedor.IO\Projetos\projeto-blog\ProjetoBlog\src\Blog.Web\bin\Debug\net8.0\appsettings.Development.json
 C:\Desenvolvedor.IO\Projetos\projeto-blog\ProjetoBlog\src\Blog.Web\bin\Debug\net8.0\appsettings.json
-C:\Desenvolvedor.IO\Projetos\projeto-blog\ProjetoBlog\src\Blog.Web\bin\Debug\net8.0\Blog.Web.staticwebassets.runtime.json
 C:\Desenvolvedor.IO\Projetos\projeto-blog\ProjetoBlog\src\Blog.Web\bin\Debug\net8.0\Blog.Web.exe
 C:\Desenvolvedor.IO\Projetos\projeto-blog\ProjetoBlog\src\Blog.Web\bin\Debug\net8.0\Blog.Web.deps.json
 C:\Desenvolvedor.IO\Projetos\projeto-blog\ProjetoBlog\src\Blog.Web\bin\Debug\net8.0\Blog.Web.runtimeconfig.json
@@ -67,16 +66,6 @@ C:\Desenvolvedor.IO\Projetos\projeto-blog\ProjetoBlog\src\Blog.Web\obj\Debug\net
 C:\Desenvolvedor.IO\Projetos\projeto-blog\ProjetoBlog\src\Blog.Web\obj\Debug\net8.0\Blog.Web.RazorAssemblyInfo.cache
 C:\Desenvolvedor.IO\Projetos\projeto-blog\ProjetoBlog\src\Blog.Web\obj\Debug\net8.0\Blog.Web.RazorAssemblyInfo.cs
 C:\Desenvolvedor.IO\Projetos\projeto-blog\ProjetoBlog\src\Blog.Web\obj\Debug\net8.0\Blog.Web.sourcelink.json
-C:\Desenvolvedor.IO\Projetos\projeto-blog\ProjetoBlog\src\Blog.Web\obj\Debug\net8.0\staticwebassets.build.json
-C:\Desenvolvedor.IO\Projetos\projeto-blog\ProjetoBlog\src\Blog.Web\obj\Debug\net8.0\staticwebassets.development.json
-C:\Desenvolvedor.IO\Projetos\projeto-blog\ProjetoBlog\src\Blog.Web\obj\Debug\net8.0\staticwebassets\msbuild.Blog.Web.Microsoft.AspNetCore.StaticWebAssets.props
-C:\Desenvolvedor.IO\Projetos\projeto-blog\ProjetoBlog\src\Blog.Web\obj\Debug\net8.0\staticwebassets\msbuild.build.Blog.Web.props
-C:\Desenvolvedor.IO\Projetos\projeto-blog\ProjetoBlog\src\Blog.Web\obj\Debug\net8.0\staticwebassets\msbuild.buildMultiTargeting.Blog.Web.props
-C:\Desenvolvedor.IO\Projetos\projeto-blog\ProjetoBlog\src\Blog.Web\obj\Debug\net8.0\staticwebassets\msbuild.buildTransitive.Blog.Web.props
-C:\Desenvolvedor.IO\Projetos\projeto-blog\ProjetoBlog\src\Blog.Web\obj\Debug\net8.0\staticwebassets.pack.json
-C:\Desenvolvedor.IO\Projetos\projeto-blog\ProjetoBlog\src\Blog.Web\obj\Debug\net8.0\scopedcss\Views\Shared\_Layout.cshtml.rz.scp.css
-C:\Desenvolvedor.IO\Projetos\projeto-blog\ProjetoBlog\src\Blog.Web\obj\Debug\net8.0\scopedcss\bundle\Blog.Web.styles.css
-C:\Desenvolvedor.IO\Projetos\projeto-blog\ProjetoBlog\src\Blog.Web\obj\Debug\net8.0\scopedcss\projectbundle\Blog.Web.bundle.scp.css
 C:\Desenvolvedor.IO\Projetos\projeto-blog\ProjetoBlog\src\Blog.Web\obj\Debug\net8.0\Blog.Web.csproj.Up2Date
 C:\Desenvolvedor.IO\Projetos\projeto-blog\ProjetoBlog\src\Blog.Web\obj\Debug\net8.0\Blog.Web.dll
 C:\Desenvolvedor.IO\Projetos\projeto-blog\ProjetoBlog\src\Blog.Web\obj\Debug\net8.0\refint\Blog.Web.dll
@@ -175,3 +164,9 @@ C:\Desenvolvedor.IO\Projetos\projeto-blog\ProjetoBlog\src\Blog.Web\bin\Debug\net
 C:\Desenvolvedor.IO\Projetos\projeto-blog\ProjetoBlog\src\Blog.Web\bin\Debug\net8.0\runtimes\win-arm64\native\e_sqlite3.dll
 C:\Desenvolvedor.IO\Projetos\projeto-blog\ProjetoBlog\src\Blog.Web\bin\Debug\net8.0\runtimes\win-x64\native\e_sqlite3.dll
 C:\Desenvolvedor.IO\Projetos\projeto-blog\ProjetoBlog\src\Blog.Web\bin\Debug\net8.0\runtimes\win-x86\native\e_sqlite3.dll
+C:\Desenvolvedor.IO\Projetos\projeto-blog\ProjetoBlog\src\Blog.Web\bin\Debug\net8.0\Microsoft.AspNetCore.JsonPatch.dll
+C:\Desenvolvedor.IO\Projetos\projeto-blog\ProjetoBlog\src\Blog.Web\bin\Debug\net8.0\Microsoft.AspNetCore.Mvc.Razor.Extensions.dll
+C:\Desenvolvedor.IO\Projetos\projeto-blog\ProjetoBlog\src\Blog.Web\bin\Debug\net8.0\Microsoft.AspNetCore.Razor.Language.dll
+C:\Desenvolvedor.IO\Projetos\projeto-blog\ProjetoBlog\src\Blog.Web\bin\Debug\net8.0\Microsoft.CodeAnalysis.Razor.dll
+C:\Desenvolvedor.IO\Projetos\projeto-blog\ProjetoBlog\src\Blog.Web\bin\Debug\net8.0\Newtonsoft.Json.dll
+C:\Desenvolvedor.IO\Projetos\projeto-blog\ProjetoBlog\src\Blog.Web\bin\Debug\net8.0\Newtonsoft.Json.Bson.dll
