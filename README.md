@@ -39,7 +39,7 @@ O projeto consiste em:
 
 A estrutura do projeto é organizada da seguinte forma:
 - src/
-  - Blog.Web/ - Projeto MVC
+  - Blog.Web/ - Projeto MVC (Pendente)
   - Blog.Api/ - API RESTful
   - Blog.Data/ - Modelos de Dados e Configuração do EF Core
 - README.md - Arquivo de Documentação do Projeto
