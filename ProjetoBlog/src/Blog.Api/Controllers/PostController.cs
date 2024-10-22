@@ -10,7 +10,7 @@ using AutoMapper;
 
 namespace Blog.Api.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/Posts")]
     [ApiController]
     public class PostController : MainController
     {
@@ -31,7 +31,6 @@ namespace Blog.Api.Controllers
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [ProducesDefaultResponseType]
         public async Task<ActionResult<IEnumerable<PostViewModel>>> ObterTodos()
         {
             var posts = _mapper.Map<IEnumerable<PostViewModel>>(await _postRepository.ObterPostsAutores());
@@ -41,7 +40,6 @@ namespace Blog.Api.Controllers
         [HttpGet("{id:guid}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [ProducesDefaultResponseType]
         public async Task<ActionResult<PostViewModel>> ObterPorId(Guid id)
         {
             var post = await ObterPost(id);
@@ -58,7 +56,6 @@ namespace Blog.Api.Controllers
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        [ProducesDefaultResponseType]
         public async Task<IActionResult> Adicionar(PostViewModel postViewModel)
         {
             if (!ModelState.IsValid) 
@@ -73,17 +70,13 @@ namespace Blog.Api.Controllers
                 return CustomResponse(HttpStatusCode.Unauthorized);
             }
 
-            var novopost = new Post
-            {
-                Titulo = postViewModel.Titulo,
-                Conteudo = postViewModel.Conteudo,
-                AutorId = Guid.Parse(usuarioId),
-                DataCadastro = DateTime.Now
-            };
+            var novoPost = _mapper.Map<Post>(postViewModel);
+            novoPost.AutorId = Guid.Parse(usuarioId);
+            novoPost.DataCadastro = DateTime.Now;           
 
-            await _postService.Adicionar(novopost);
+            await _postService.Adicionar(novoPost);
 
-            return CreatedAtAction(nameof(ObterPorId), new { id = novopost.Id }, novopost);
+            return CreatedAtAction(nameof(ObterPorId), new { id = novoPost.Id }, novoPost);
 
         }
 
@@ -93,7 +86,6 @@ namespace Blog.Api.Controllers
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
-        [ProducesDefaultResponseType]
         public async Task<IActionResult> Atualizar(Guid id, PostViewModel postViewModel)
         {
             if (!ModelState.IsValid) 
@@ -115,8 +107,7 @@ namespace Blog.Api.Controllers
                 return CustomResponse(HttpStatusCode.Forbidden);
             }
 
-            existePost.Titulo = postViewModel.Titulo;
-            existePost.Conteudo = postViewModel.Conteudo;
+            _mapper.Map(postViewModel, existePost);
 
             await _postService.Atualizar(existePost);
 
@@ -129,7 +120,6 @@ namespace Blog.Api.Controllers
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [ProducesDefaultResponseType]
         public async Task<IActionResult> Excluir(Guid id)
         {
             var usuarioId = User.FindFirstValue(ClaimTypes.NameIdentifier);

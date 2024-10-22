@@ -23,6 +23,8 @@ builder.Services.AddControllers()
         options.SuppressModelStateInvalidFilter = true;
     });
 
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
 builder.Services.AddEndpointsApiExplorer();
 
 builder.Services.AddSwaggerGen(c =>
@@ -53,7 +55,11 @@ builder.Services.AddSwaggerGen(c =>
     });
 });
 
-builder.Services.AddDbContext<MeuDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+builder.Services.AddDbContext<MeuDbContext>(options => {
+
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
+    
+});
 
 builder.Services.AddIdentity<Autor, IdentityRole<Guid>>()
                 .AddEntityFrameworkStores<MeuDbContext>()
@@ -85,8 +91,6 @@ builder.Services.AddAuthentication(options =>
         ValidAudience = jwtSettings.Audiencia
     };
 });
-
-//builder.Services.AddAuthorization();
 
 var app = builder.Build();
 

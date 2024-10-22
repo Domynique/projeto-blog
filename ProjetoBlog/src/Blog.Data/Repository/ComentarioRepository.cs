@@ -17,7 +17,13 @@ namespace Blog.Data.Repository
 
         public async Task<IEnumerable<Comentario>> ObterComentariosPosts()
         {
-            return await Db.Comentarios.AsNoTracking().Include(p => p.Post).OrderBy(c => c.DataCadastro).ToListAsync();
+            return await Db.Comentarios
+                .AsNoTracking()
+                .Include(p => p.Post)
+                .ThenInclude(p => p.Autor)
+                .OrderBy(c => c.DataCadastro)
+                .ToListAsync();
+
         }
 
         public async Task<Comentario> ObterComentarioPost(Guid id)

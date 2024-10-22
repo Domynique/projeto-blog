@@ -1,4 +1,5 @@
 ﻿using Blog.Business.Models.Base;
+using System.Text.Json.Serialization;
 
 namespace Blog.Business.Models
 {
@@ -8,7 +9,9 @@ namespace Blog.Business.Models
         public string? Conteudo { get; set; }
         public Guid AutorId { get; set; }
         public DateTime DataCadastro { get; set; }
+        [JsonIgnore]
         public Autor? Autor { get; set; }
+        [JsonIgnore]
         public ICollection<Comentario>? Comentarios { get; set; }
 
         public Post()

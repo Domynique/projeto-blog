@@ -17,7 +17,11 @@ namespace Blog.Data.Repository
  
         public async Task<IEnumerable<Post>> ObterPostsAutores()
         {
-            return await Db.Posts.AsNoTracking().Include(a => a.Autor).OrderBy(p => p.DataCadastro).ToListAsync();
+            return await Db.Posts
+                .AsNoTracking()
+                .Include(a => a.Autor)
+                .ThenInclude(a => a.Comentarios)
+                .OrderBy(p => p.DataCadastro).ToListAsync();
         }
 
         public async Task<Post> ObterPostAutor(Guid id)

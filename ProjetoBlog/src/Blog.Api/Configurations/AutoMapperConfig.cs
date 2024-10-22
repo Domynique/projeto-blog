@@ -8,8 +8,8 @@ namespace Blog.Api.Configurations
     {
         public AutoMapperConfig() 
         {
-            CreateMap<Post, PostViewModel>().ReverseMap();
-            CreateMap<Comentario, ComentarioViewModel>().ReverseMap();
+            CreateMap<PostViewModel, Post>().ReverseMap();
+            CreateMap<ComentarioViewModel, Comentario>().ReverseMap();
         }
     }
 }

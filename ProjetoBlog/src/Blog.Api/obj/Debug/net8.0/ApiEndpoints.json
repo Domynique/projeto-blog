@@ -2,14 +2,14 @@
   {
     "ContainingType": "Blog.Api.Controllers.ComentarioController",
     "Method": "ObterTodos",
-    "RelativePath": "api/Comentario",
+    "RelativePath": "api/Comentarios",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
     "Parameters": [],
     "ReturnTypes": [
       {
-        "Type": "System.Collections.Generic.IEnumerable\u00601[[Blog.Data.Models.Comentario, Blog.Data, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[Blog.Api.ViewModels.ComentarioViewModel, Blog.Api, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -25,29 +25,20 @@
           "text/json"
         ],
         "StatusCode": 404
-      },
-      {
-        "Type": "Microsoft.AspNetCore.Mvc.ProblemDetails",
-        "MediaTypes": [
-          "text/plain",
-          "application/json",
-          "text/json"
-        ],
-        "StatusCode": 0
       }
     ]
   },
   {
     "ContainingType": "Blog.Api.Controllers.ComentarioController",
     "Method": "Adicionar",
-    "RelativePath": "api/Comentario",
+    "RelativePath": "api/Comentarios",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "comentario",
-        "Type": "Blog.Data.Models.Comentario",
+        "Name": "comentarioViewModel",
+        "Type": "Blog.Api.ViewModels.ComentarioViewModel",
         "IsRequired": true
       }
     ],
@@ -65,22 +56,13 @@
           "text/json"
         ],
         "StatusCode": 401
-      },
-      {
-        "Type": "Microsoft.AspNetCore.Mvc.ProblemDetails",
-        "MediaTypes": [
-          "text/plain",
-          "application/json",
-          "text/json"
-        ],
-        "StatusCode": 0
       }
     ]
   },
   {
     "ContainingType": "Blog.Api.Controllers.ComentarioController",
     "Method": "ObterPorId",
-    "RelativePath": "api/Comentario/{id}",
+    "RelativePath": "api/Comentarios/{id}",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -93,7 +75,7 @@
     ],
     "ReturnTypes": [
       {
-        "Type": "Blog.Data.Models.Comentario",
+        "Type": "Blog.Api.ViewModels.ComentarioViewModel",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -109,22 +91,13 @@
           "text/json"
         ],
         "StatusCode": 404
-      },
-      {
-        "Type": "Microsoft.AspNetCore.Mvc.ProblemDetails",
-        "MediaTypes": [
-          "text/plain",
-          "application/json",
-          "text/json"
-        ],
-        "StatusCode": 0
       }
     ]
   },
   {
     "ContainingType": "Blog.Api.Controllers.ComentarioController",
     "Method": "Atualizar",
-    "RelativePath": "api/Comentario/{id}",
+    "RelativePath": "api/Comentarios/{id}",
     "HttpMethod": "PUT",
     "IsController": true,
     "Order": 0,
@@ -135,8 +108,8 @@
         "IsRequired": true
       },
       {
-        "Name": "comentario",
-        "Type": "Blog.Data.Models.Comentario",
+        "Name": "comentarioViewModel",
+        "Type": "Blog.Api.ViewModels.ComentarioViewModel",
         "IsRequired": true
       }
     ],
@@ -168,22 +141,13 @@
           "text/json"
         ],
         "StatusCode": 403
-      },
-      {
-        "Type": "Microsoft.AspNetCore.Mvc.ProblemDetails",
-        "MediaTypes": [
-          "text/plain",
-          "application/json",
-          "text/json"
-        ],
-        "StatusCode": 0
       }
     ]
   },
   {
     "ContainingType": "Blog.Api.Controllers.ComentarioController",
     "Method": "Excluir",
-    "RelativePath": "api/Comentario/{id}",
+    "RelativePath": "api/Comentarios/{id}",
     "HttpMethod": "DELETE",
     "IsController": true,
     "Order": 0,
@@ -222,15 +186,6 @@
           "text/json"
         ],
         "StatusCode": 404
-      },
-      {
-        "Type": "Microsoft.AspNetCore.Mvc.ProblemDetails",
-        "MediaTypes": [
-          "text/plain",
-          "application/json",
-          "text/json"
-        ],
-        "StatusCode": 0
       }
     ]
   },
@@ -244,7 +199,7 @@
     "Parameters": [
       {
         "Name": "loginAutor",
-        "Type": "Blog.Api.Models.LoginViewModel",
+        "Type": "Blog.Api.ViewModels.LoginViewModel",
         "IsRequired": true
       }
     ],
@@ -260,7 +215,7 @@
     "Parameters": [
       {
         "Name": "registerAutor",
-        "Type": "Blog.Api.Models.RegisterViewModel",
+        "Type": "Blog.Api.ViewModels.RegisterViewModel",
         "IsRequired": true
       }
     ],
@@ -269,14 +224,14 @@
   {
     "ContainingType": "Blog.Api.Controllers.PostController",
     "Method": "ObterTodos",
-    "RelativePath": "api/Post",
+    "RelativePath": "api/Posts",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
     "Parameters": [],
     "ReturnTypes": [
       {
-        "Type": "System.Collections.Generic.IEnumerable\u00601[[Blog.Data.Models.Post, Blog.Data, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[Blog.Api.ViewModels.PostViewModel, Blog.Api, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -292,29 +247,20 @@
           "text/json"
         ],
         "StatusCode": 404
-      },
-      {
-        "Type": "Microsoft.AspNetCore.Mvc.ProblemDetails",
-        "MediaTypes": [
-          "text/plain",
-          "application/json",
-          "text/json"
-        ],
-        "StatusCode": 0
       }
     ]
   },
   {
     "ContainingType": "Blog.Api.Controllers.PostController",
     "Method": "Adicionar",
-    "RelativePath": "api/Post",
+    "RelativePath": "api/Posts",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "post",
-        "Type": "Blog.Data.Models.Post",
+        "Name": "postViewModel",
+        "Type": "Blog.Api.ViewModels.PostViewModel",
         "IsRequired": true
       }
     ],
@@ -332,22 +278,13 @@
           "text/json"
         ],
         "StatusCode": 401
-      },
-      {
-        "Type": "Microsoft.AspNetCore.Mvc.ProblemDetails",
-        "MediaTypes": [
-          "text/plain",
-          "application/json",
-          "text/json"
-        ],
-        "StatusCode": 0
       }
     ]
   },
   {
     "ContainingType": "Blog.Api.Controllers.PostController",
     "Method": "ObterPorId",
-    "RelativePath": "api/Post/{id}",
+    "RelativePath": "api/Posts/{id}",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -360,7 +297,7 @@
     ],
     "ReturnTypes": [
       {
-        "Type": "Blog.Data.Models.Post",
+        "Type": "Blog.Api.ViewModels.PostViewModel",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -376,22 +313,13 @@
           "text/json"
         ],
         "StatusCode": 404
-      },
-      {
-        "Type": "Microsoft.AspNetCore.Mvc.ProblemDetails",
-        "MediaTypes": [
-          "text/plain",
-          "application/json",
-          "text/json"
-        ],
-        "StatusCode": 0
       }
     ]
   },
   {
     "ContainingType": "Blog.Api.Controllers.PostController",
     "Method": "Atualizar",
-    "RelativePath": "api/Post/{id}",
+    "RelativePath": "api/Posts/{id}",
     "HttpMethod": "PUT",
     "IsController": true,
     "Order": 0,
@@ -402,8 +330,8 @@
         "IsRequired": true
       },
       {
-        "Name": "post",
-        "Type": "Blog.Data.Models.Post",
+        "Name": "postViewModel",
+        "Type": "Blog.Api.ViewModels.PostViewModel",
         "IsRequired": true
       }
     ],
@@ -435,22 +363,13 @@
           "text/json"
         ],
         "StatusCode": 403
-      },
-      {
-        "Type": "Microsoft.AspNetCore.Mvc.ProblemDetails",
-        "MediaTypes": [
-          "text/plain",
-          "application/json",
-          "text/json"
-        ],
-        "StatusCode": 0
       }
     ]
   },
   {
     "ContainingType": "Blog.Api.Controllers.PostController",
     "Method": "Excluir",
-    "RelativePath": "api/Post/{id}",
+    "RelativePath": "api/Posts/{id}",
     "HttpMethod": "DELETE",
     "IsController": true,
     "Order": 0,
@@ -489,15 +408,6 @@
           "text/json"
         ],
         "StatusCode": 404
-      },
-      {
-        "Type": "Microsoft.AspNetCore.Mvc.ProblemDetails",
-        "MediaTypes": [
-          "text/plain",
-          "application/json",
-          "text/json"
-        ],
-        "StatusCode": 0
       }
     ]
   }

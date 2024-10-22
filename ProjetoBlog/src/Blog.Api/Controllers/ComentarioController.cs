@@ -7,12 +7,10 @@ using System.Net;
 using System.Security.Claims;
 using AutoMapper;
 using Blog.Api.ViewModels;
-using Blog.Data.Repository;
-using System.Collections.Generic;
 
 namespace Blog.Api.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/Comentarios")]
     [ApiController]
     public class ComentarioController : MainController
     {
@@ -33,7 +31,6 @@ namespace Blog.Api.Controllers
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [ProducesDefaultResponseType]
         public async Task<ActionResult<IEnumerable<ComentarioViewModel>>> ObterTodos()
         {
             var comentarios = _mapper.Map<IEnumerable<ComentarioViewModel>>(await _comentarioRepository.ObterComentariosPosts());
@@ -43,10 +40,9 @@ namespace Blog.Api.Controllers
         [HttpGet("{id:guid}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [ProducesDefaultResponseType]
-        public async Task<ActionResult<Comentario>> ObterPorId(Guid id)
+        public async Task<ActionResult<ComentarioViewModel>> ObterPorId(Guid id)
         {
-            var comentario = await _comentarioService.ObterPorId(id);
+            var comentario = await ObterComentario(id);
             if (comentario == null)
             {
                 NotificarErro("Comentário não encontrado!");
@@ -61,8 +57,7 @@ namespace Blog.Api.Controllers
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        [ProducesDefaultResponseType]
-        public async Task<IActionResult> Adicionar(Comentario comentario)
+        public async Task<IActionResult> Adicionar(ComentarioViewModel comentarioViewModel)
         {
             if (!ModelState.IsValid)
             {
@@ -76,19 +71,13 @@ namespace Blog.Api.Controllers
                 return CustomResponse(HttpStatusCode.Unauthorized);
             }
 
-            var novocomentario = new Comentario
-            {
-                Conteudo = comentario.Conteudo,
-                PostId = comentario.PostId,
-                AutorId = Guid.Parse(usuarioId), 
-                DataCadastro = DateTime.Now
-            };
+            var novoComentario = _mapper.Map<Comentario>(comentarioViewModel);
+            novoComentario.AutorId = Guid.Parse(usuarioId);
+            novoComentario.DataCadastro = DateTime.Now;
 
-            await _comentarioService.Adicionar(novocomentario);
+            await _comentarioService.Adicionar(novoComentario);
 
-
-
-            return CreatedAtAction(nameof(ObterPorId), new { id = novocomentario.Id }, novocomentario);
+            return CreatedAtAction(nameof(ObterPorId), new { id = novoComentario.Id }, novoComentario);
 
         }
 
@@ -98,8 +87,7 @@ namespace Blog.Api.Controllers
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
-        [ProducesDefaultResponseType]
-        public async Task<IActionResult> Atualizar(Guid id, Comentario comentario)
+        public async Task<IActionResult> Atualizar(Guid id, ComentarioViewModel comentarioViewModel)
         {
             if (!ModelState.IsValid)
             {
@@ -114,13 +102,13 @@ namespace Blog.Api.Controllers
             }
 
             var existeComentario = await _comentarioService.ObterPorId(id);
-            if (existeComentario == null || (comentario.AutorId != Guid.Parse(usuarioID) && !User.IsInRole("Admin")))
+            if (existeComentario == null || (comentarioViewModel.AutorId != Guid.Parse(usuarioID) && !User.IsInRole("Admin")))
             {
                 NotificarErro("Você não tem permissão para realizar esta ação.");
                 return CustomResponse(HttpStatusCode.Forbidden);
             }
 
-            existeComentario.Conteudo = comentario.Conteudo;
+            _mapper.Map(comentarioViewModel, existeComentario);
 
             await _comentarioService.Atualizar(existeComentario);
 
@@ -134,7 +122,6 @@ namespace Blog.Api.Controllers
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [ProducesDefaultResponseType]
         public async Task<IActionResult> Excluir(Guid id)
         {
             var usuarioId = User.FindFirstValue(ClaimTypes.NameIdentifier);
@@ -144,7 +131,7 @@ namespace Blog.Api.Controllers
                 return CustomResponse(HttpStatusCode.Unauthorized);
             }
 
-            var comentario = await _comentarioService.ObterPorId(id);
+            var comentario = await ObterComentario(id);
             if (comentario == null)
             {
                 return CustomResponse(HttpStatusCode.NotFound);
