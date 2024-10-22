@@ -7,6 +7,8 @@ using System.Security.Claims;
 using Blog.Api.ViewModels;
 using Blog.Business.Models;
 using AutoMapper;
+using Blog.Data.Repository;
+using Blog.Business.Services;
 
 namespace Blog.Api.Controllers
 {
@@ -15,16 +17,22 @@ namespace Blog.Api.Controllers
     public class PostController : MainController
     {
         private readonly IPostRepository _postRepository;
+        private readonly IComentarioRepository _comentarioRepository;
         private readonly IPostService _postService;
+        private readonly IComentarioService _comentarioService;
         private readonly IMapper _mapper;
 
         public PostController(INotificador notificador, 
                               IMapper mapper,
                               IPostService postService,
-                              IPostRepository postRepository) : base(notificador)
+                              IComentarioService comentarioService,
+                              IPostRepository postRepository,
+                              IComentarioRepository comentarioRepository ) : base(notificador)
         {
-            _postRepository = postRepository;   
+            _postRepository = postRepository;
+            _comentarioRepository = comentarioRepository;
             _postService = postService;
+            _comentarioService = comentarioService;
             _mapper = mapper;
         }
 
@@ -139,6 +147,12 @@ namespace Blog.Api.Controllers
             {
                 NotificarErro("Você não tem permissão para realizar esta ação.");
                 return CustomResponse(HttpStatusCode.Forbidden);
+            }
+
+            var comentarios =  _mapper.Map<IEnumerable<ComentarioViewModel>>(await _comentarioRepository.ObterComentarioPost(id));
+            foreach (var comentario in comentarios)
+            {
+                await _comentarioService.Remover(id, usuarioId, User.IsInRole("Admin"));
             }
 
             await _postService.Remover(id, usuarioId, User.IsInRole("Admin"));
