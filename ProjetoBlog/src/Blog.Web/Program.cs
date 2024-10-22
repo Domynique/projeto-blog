@@ -1,6 +1,6 @@
-using Blog.Data.Configurations;
+using Blog.Api.Configurations;
 using Blog.Data.Context;
-using Blog.Data.Models;
+using Blog.Business.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 

@@ -1,7 +1,7 @@
 ﻿using Blog.Data.Context;
-using Blog.Data.Models.Base;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
+using Blog.Business.Interfaces;
 
 namespace Blog.Data.Repository
 {

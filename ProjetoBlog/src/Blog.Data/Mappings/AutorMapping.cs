@@ -1,4 +1,4 @@
-﻿using Blog.Data.Models;
+﻿using Blog.Business.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

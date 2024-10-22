@@ -1,10 +1,14 @@
-﻿using Blog.Data.Models;
-using Blog.Data.Notifications;
-using Blog.Data.Services;
+﻿using Blog.Business.Models;
+using Blog.Business.Notifications;
+using Blog.Business.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
 using System.Security.Claims;
+using AutoMapper;
+using Blog.Api.ViewModels;
+using Blog.Data.Repository;
+using System.Collections.Generic;
 
 namespace Blog.Api.Controllers
 {
@@ -12,20 +16,27 @@ namespace Blog.Api.Controllers
     [ApiController]
     public class ComentarioController : MainController
     {
+        private readonly IComentarioRepository _comentarioRepository;
         private readonly IComentarioService _comentarioService;
+        private readonly IMapper _mapper;
 
-        public ComentarioController(IComentarioService comentarioService, INotificador notificador) : base(notificador)
+        public ComentarioController(IComentarioRepository comentarioRepository, 
+                                    IComentarioService comentarioService, 
+                                    IMapper mapper, 
+                                    INotificador notificador) : base(notificador)
         {
+            _comentarioRepository = comentarioRepository;
             _comentarioService = comentarioService;
+            _mapper = mapper;
         }
 
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesDefaultResponseType]
-        public async Task<ActionResult<IEnumerable<Comentario>>> ObterTodos()
+        public async Task<ActionResult<IEnumerable<ComentarioViewModel>>> ObterTodos()
         {
-            var comentarios = await _comentarioService.ObterTodos();
+            var comentarios = _mapper.Map<IEnumerable<ComentarioViewModel>>(await _comentarioRepository.ObterComentariosPosts());
             return CustomResponse(HttpStatusCode.OK, comentarios);
         }
 
@@ -149,6 +160,9 @@ namespace Blog.Api.Controllers
             return CustomResponse(HttpStatusCode.NoContent);
 
         }
-    
+        private async Task<ComentarioViewModel> ObterComentario(Guid id)
+        {
+            return _mapper.Map<ComentarioViewModel>(await _comentarioRepository.ObterComentarioPost(id));
+        }
     }
 }

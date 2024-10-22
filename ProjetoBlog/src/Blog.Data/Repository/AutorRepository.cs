@@ -1,5 +1,6 @@
 ﻿using Blog.Data.Context;
-using Blog.Data.Models;
+using Blog.Business.Models;
+using Blog.Business.Interfaces;
 
 namespace Blog.Data.Repository
 {

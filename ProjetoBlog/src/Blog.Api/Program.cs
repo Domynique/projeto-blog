@@ -1,7 +1,7 @@
-using Blog.Api.Models;
-using Blog.Data.Configurations;
+using Blog.Api.ViewModels;
+using Blog.Api.Configurations;
 using Blog.Data.Context;
-using Blog.Data.Models;
+using Blog.Business.Models;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;

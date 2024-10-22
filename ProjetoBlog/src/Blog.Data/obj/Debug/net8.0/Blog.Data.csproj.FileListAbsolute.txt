@@ -8,6 +8,9 @@ C:\Desenvolvedor.IO\Projetos\projeto-blog\ProjetoBlog\src\Blog.Data\bin\Debug\ne
 C:\Desenvolvedor.IO\Projetos\projeto-blog\ProjetoBlog\src\Blog.Data\bin\Debug\net8.0\Blog.Data.runtimeconfig.json
 C:\Desenvolvedor.IO\Projetos\projeto-blog\ProjetoBlog\src\Blog.Data\bin\Debug\net8.0\Blog.Data.dll
 C:\Desenvolvedor.IO\Projetos\projeto-blog\ProjetoBlog\src\Blog.Data\bin\Debug\net8.0\Blog.Data.pdb
+C:\Desenvolvedor.IO\Projetos\projeto-blog\ProjetoBlog\src\Blog.Data\bin\Debug\net8.0\Blog.Business.dll
+C:\Desenvolvedor.IO\Projetos\projeto-blog\ProjetoBlog\src\Blog.Data\bin\Debug\net8.0\Blog.Business.pdb
+C:\Desenvolvedor.IO\Projetos\projeto-blog\ProjetoBlog\src\Blog.Data\obj\Debug\net8.0\Blog.Data.csproj.Up2Date
 C:\Desenvolvedor.IO\Projetos\projeto-blog\ProjetoBlog\src\Blog.Data\obj\Debug\net8.0\Blog.Data.dll
 C:\Desenvolvedor.IO\Projetos\projeto-blog\ProjetoBlog\src\Blog.Data\obj\Debug\net8.0\refint\Blog.Data.dll
 C:\Desenvolvedor.IO\Projetos\projeto-blog\ProjetoBlog\src\Blog.Data\obj\Debug\net8.0\Blog.Data.pdb

@@ -1,4 +1,4 @@
-using Blog.Data.Services;
+using Blog.Business.Interfaces;
 using Blog.Web.Models;
 using Microsoft.AspNetCore.Mvc;
 

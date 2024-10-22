@@ -3,11 +3,22 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.11.35327.3
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Blog.Web", "src\Blog.Web\Blog.Web.csproj", "{4AAF3ABB-DC65-45DF-920B-0559F7348966}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blog.Web", "src\Blog.Web\Blog.Web.csproj", "{4AAF3ABB-DC65-45DF-920B-0559F7348966}"
+	ProjectSection(ProjectDependencies) = postProject
+		{327E9387-0987-4F9B-A8AF-4D02AEFDE282} = {327E9387-0987-4F9B-A8AF-4D02AEFDE282}
+	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Blog.Api", "src\Blog.Api\Blog.Api.csproj", "{4B8C5799-3A4C-4F27-84B0-0BE3898947EA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blog.Api", "src\Blog.Api\Blog.Api.csproj", "{4B8C5799-3A4C-4F27-84B0-0BE3898947EA}"
+	ProjectSection(ProjectDependencies) = postProject
+		{327E9387-0987-4F9B-A8AF-4D02AEFDE282} = {327E9387-0987-4F9B-A8AF-4D02AEFDE282}
+	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Blog.Data", "src\Blog.Data\Blog.Data.csproj", "{A3AD3384-BA60-4242-A9DF-E4A955710D68}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blog.Data", "src\Blog.Data\Blog.Data.csproj", "{A3AD3384-BA60-4242-A9DF-E4A955710D68}"
+	ProjectSection(ProjectDependencies) = postProject
+		{327E9387-0987-4F9B-A8AF-4D02AEFDE282} = {327E9387-0987-4F9B-A8AF-4D02AEFDE282}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Blog.Business", "src\Blog.Business\Blog.Business.csproj", "{327E9387-0987-4F9B-A8AF-4D02AEFDE282}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +38,10 @@ Global
 		{A3AD3384-BA60-4242-A9DF-E4A955710D68}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A3AD3384-BA60-4242-A9DF-E4A955710D68}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A3AD3384-BA60-4242-A9DF-E4A955710D68}.Release|Any CPU.Build.0 = Release|Any CPU
+		{327E9387-0987-4F9B-A8AF-4D02AEFDE282}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{327E9387-0987-4F9B-A8AF-4D02AEFDE282}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{327E9387-0987-4F9B-A8AF-4D02AEFDE282}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{327E9387-0987-4F9B-A8AF-4D02AEFDE282}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
