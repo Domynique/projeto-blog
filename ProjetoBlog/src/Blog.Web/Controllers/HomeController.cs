@@ -1,35 +1,40 @@
+using AutoMapper;
+using Blog.Api.ViewModels;
 using Blog.Business.Interfaces;
-using Blog.Web.Models;
+using Blog.Business.Notifications;
+
 using Microsoft.AspNetCore.Mvc;
 
 namespace Blog.Web.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : BaseController
     {
         private readonly IPostService _postService;
+        private readonly IMapper _mapper;
         
-        public HomeController(IPostService postService)
+        public HomeController(IPostService postService, 
+                              IMapper mapper, 
+                              INotificador notificador) : base(notificador)
         {
-            _postService = postService;            
+            _postService = postService;
+            _mapper = mapper;
         }
 
 
         public async Task<IActionResult> Index()
         {
-            var posts = await _postService.ObterTodos();
-            return View();
-        }
-
-        public async Task<IActionResult> Detalhes(Guid id)
-        {
-            var post = await _postService.ObterPorId(id);
-            if (post == null) 
+            try
             {
-                return NotFound();
+                var posts = await _postService.ObterTodos();
+                var postViewModels = _mapper.Map<IEnumerable<PostViewModel>>(posts);
+                return View(postViewModels);
             }
-
-            return View(post);
-
+            catch (Exception ex)
+            {
+                NotificarErro("Erro ao carregar os posts. Tente novamente mais tarde.");
+                return View("Error", new ErrorViewModel { Mensagem = ex.Message });
+            }
+            
         }
 
         public IActionResult Privacy()
