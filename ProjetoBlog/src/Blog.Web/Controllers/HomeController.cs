@@ -5,8 +5,11 @@ using Blog.Business.Notifications;
 
 using Microsoft.AspNetCore.Mvc;
 
+
 namespace Blog.Web.Controllers
 {
+    [Route("")]
+    [Route("Home")]
     public class HomeController : BaseController
     {
         private readonly IPostService _postService;
@@ -20,7 +23,8 @@ namespace Blog.Web.Controllers
             _mapper = mapper;
         }
 
-
+        [HttpGet("")]
+        [HttpGet("Index")]
         public async Task<IActionResult> Index()
         {
             try
@@ -41,7 +45,7 @@ namespace Blog.Web.Controllers
         {
             return View();
         }
-
+        /*
         [Route("erro/{id:length(3,3)}")]
         public IActionResult Errors(int id)
         {
@@ -72,5 +76,6 @@ namespace Blog.Web.Controllers
 
             return View("Error", modelErro);
         }
+        */
     }
 }

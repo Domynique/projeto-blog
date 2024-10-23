@@ -7,8 +7,7 @@ using System.Security.Claims;
 using Blog.Api.ViewModels;
 using Blog.Business.Models;
 using AutoMapper;
-using Blog.Data.Repository;
-using Blog.Business.Services;
+
 
 namespace Blog.Api.Controllers
 {
