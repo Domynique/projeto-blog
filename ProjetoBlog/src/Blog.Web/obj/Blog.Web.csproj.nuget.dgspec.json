@@ -10,11 +10,11 @@
         "projectUniqueName": "C:\\Desenvolvedor.IO\\Projetos\\projeto-blog\\ProjetoBlog\\src\\Blog.Api\\Blog.Api.csproj",
         "projectName": "Blog.Api",
         "projectPath": "C:\\Desenvolvedor.IO\\Projetos\\projeto-blog\\ProjetoBlog\\src\\Blog.Api\\Blog.Api.csproj",
-        "packagesPath": "C:\\Users\\HugoNunes\\.nuget\\packages\\",
+        "packagesPath": "C:\\Users\\hugo.nunes\\.nuget\\packages\\",
         "outputPath": "C:\\Desenvolvedor.IO\\Projetos\\projeto-blog\\ProjetoBlog\\src\\Blog.Api\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\HugoNunes\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\hugo.nunes\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -118,11 +118,11 @@
         "projectUniqueName": "C:\\Desenvolvedor.IO\\Projetos\\projeto-blog\\ProjetoBlog\\src\\Blog.Business\\Blog.Business.csproj",
         "projectName": "Blog.Business",
         "projectPath": "C:\\Desenvolvedor.IO\\Projetos\\projeto-blog\\ProjetoBlog\\src\\Blog.Business\\Blog.Business.csproj",
-        "packagesPath": "C:\\Users\\HugoNunes\\.nuget\\packages\\",
+        "packagesPath": "C:\\Users\\hugo.nunes\\.nuget\\packages\\",
         "outputPath": "C:\\Desenvolvedor.IO\\Projetos\\projeto-blog\\ProjetoBlog\\src\\Blog.Business\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\HugoNunes\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\hugo.nunes\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -189,11 +189,11 @@
         "projectUniqueName": "C:\\Desenvolvedor.IO\\Projetos\\projeto-blog\\ProjetoBlog\\src\\Blog.Data\\Blog.Data.csproj",
         "projectName": "Blog.Data",
         "projectPath": "C:\\Desenvolvedor.IO\\Projetos\\projeto-blog\\ProjetoBlog\\src\\Blog.Data\\Blog.Data.csproj",
-        "packagesPath": "C:\\Users\\HugoNunes\\.nuget\\packages\\",
+        "packagesPath": "C:\\Users\\hugo.nunes\\.nuget\\packages\\",
         "outputPath": "C:\\Desenvolvedor.IO\\Projetos\\projeto-blog\\ProjetoBlog\\src\\Blog.Data\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\HugoNunes\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\hugo.nunes\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -284,11 +284,11 @@
         "projectUniqueName": "C:\\Desenvolvedor.IO\\Projetos\\projeto-blog\\ProjetoBlog\\src\\Blog.Web\\Blog.Web.csproj",
         "projectName": "Blog.Web",
         "projectPath": "C:\\Desenvolvedor.IO\\Projetos\\projeto-blog\\ProjetoBlog\\src\\Blog.Web\\Blog.Web.csproj",
-        "packagesPath": "C:\\Users\\HugoNunes\\.nuget\\packages\\",
+        "packagesPath": "C:\\Users\\hugo.nunes\\.nuget\\packages\\",
         "outputPath": "C:\\Desenvolvedor.IO\\Projetos\\projeto-blog\\ProjetoBlog\\src\\Blog.Web\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\HugoNunes\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\hugo.nunes\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -330,9 +330,17 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "dependencies": {
+            "Microsoft.AspNetCore.Identity.UI": {
+              "target": "Package",
+              "version": "[8.0.10, )"
+            },
             "Microsoft.AspNetCore.Mvc": {
               "target": "Package",
               "version": "[2.2.0, )"
+            },
+            "Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation": {
+              "target": "Package",
+              "version": "[8.0.10, )"
             },
             "Microsoft.AspnetCore.Identity.EntityFrameworkCore": {
               "target": "Package",
@@ -348,11 +356,19 @@
               "target": "Package",
               "version": "[8.0.10, )"
             },
+            "Microsoft.EntityFrameworkCore.Sqlite": {
+              "target": "Package",
+              "version": "[8.0.10, )"
+            },
             "Microsoft.EntityFrameworkCore.Tools": {
               "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
               "suppressParent": "All",
               "target": "Package",
               "version": "[8.0.10, )"
+            },
+            "automapper.extensions.microsoft.dependencyinjection": {
+              "target": "Package",
+              "version": "[12.0.1, )"
             },
             "microsoft.extensions.Logging.Console": {
               "target": "Package",
