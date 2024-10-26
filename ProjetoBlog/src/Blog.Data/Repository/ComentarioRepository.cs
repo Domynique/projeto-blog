@@ -1,6 +1,6 @@
 ﻿using Blog.Data.Context;
-using Blog.Business.Models;
-using Blog.Business.Interfaces;
+using Blog.Core.Models;
+using Blog.Core.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
 namespace Blog.Data.Repository
@@ -20,7 +20,7 @@ namespace Blog.Data.Repository
             return await Db.Comentarios
                 .AsNoTracking()
                 .Include(p => p.Post)
-                .ThenInclude(p => p.Autor)
+                .Include(p => p.Autor)
                 .OrderBy(c => c.DataCadastro)
                 .ToListAsync();
 

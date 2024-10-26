@@ -37,8 +37,7 @@
       "Blog.Web/1.0.0": {
         "dependencies": {
           "Blog.Api": "1.0.0",
-          "Blog.Business": "1.0.0",
-          "Blog.Data": "1.0.0",
+          "Blog.Core": "1.0.0",
           "Microsoft.AspNetCore.Identity.UI": "8.0.10",
           "Microsoft.AspNetCore.Mvc": "2.2.0",
           "Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation": "8.0.10",
@@ -2926,7 +2925,7 @@
       },
       "Blog.Api/1.0.0": {
         "dependencies": {
-          "Blog.Data": "1.0.0",
+          "Blog.Core": "1.0.0",
           "Microsoft.AspNetCore.Authentication.JwtBearer": "8.0.10",
           "Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore": "8.0.10",
           "Microsoft.AspNetCore.OpenApi": "8.0.10",
@@ -2946,37 +2945,23 @@
           "Blog.Api.dll": {}
         }
       },
-      "Blog.Business/1.0.0": {
+      "Blog.Core/1.0.0": {
         "dependencies": {
           "FluentValidation": "11.10.0",
-          "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "8.0.10"
-        },
-        "runtime": {
-          "Blog.Business.dll": {
-            "assemblyVersion": "1.0.0",
-            "fileVersion": "1.0.0.0"
-          }
-        },
-        "compile": {
-          "Blog.Business.dll": {}
-        }
-      },
-      "Blog.Data/1.0.0": {
-        "dependencies": {
-          "Blog.Business": "1.0.0",
+          "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "8.0.10",
           "Microsoft.EntityFrameworkCore": "8.0.10",
           "Microsoft.EntityFrameworkCore.Relational": "8.0.10",
           "Microsoft.EntityFrameworkCore.SqlServer": "8.0.10",
           "Microsoft.EntityFrameworkCore.Sqlite": "8.0.10"
         },
         "runtime": {
-          "Blog.Data.dll": {
+          "Blog.Core.dll": {
             "assemblyVersion": "1.0.0",
             "fileVersion": "1.0.0.0"
           }
         },
         "compile": {
-          "Blog.Data.dll": {}
+          "Blog.Core.dll": {}
         }
       },
       "Microsoft.AspNetCore.Antiforgery.Reference/8.0.0.0": {
@@ -6457,12 +6442,7 @@
       "serviceable": false,
       "sha512": ""
     },
-    "Blog.Business/1.0.0": {
-      "type": "project",
-      "serviceable": false,
-      "sha512": ""
-    },
-    "Blog.Data/1.0.0": {
+    "Blog.Core/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

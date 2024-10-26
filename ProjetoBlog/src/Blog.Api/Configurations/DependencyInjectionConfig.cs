@@ -1,8 +1,8 @@
-﻿using Blog.Business.Notifications;
-using Blog.Business.Interfaces;
-using Blog.Business.Services;
-using Blog.Data.Context;
-using Blog.Data.Repository;
+﻿using Blog.Core.Notifications;
+using Blog.Core.Interfaces;
+using Blog.Core.Services;
+using Blog.Core.Context;
+using Blog.Core.Repository;
 
 namespace Blog.Api.Configurations
 {

@@ -1,6 +1,6 @@
 using Blog.Api.Configurations;
-using Blog.Data.Context;
-using Blog.Business.Models;
+using Blog.Core.Context;
+using Blog.Core.Models;
 using Microsoft.AspNetCore.Identity;
 
 var builder = WebApplication.CreateBuilder(args);

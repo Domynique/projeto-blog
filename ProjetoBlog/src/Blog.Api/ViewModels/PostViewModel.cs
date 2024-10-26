@@ -1,4 +1,4 @@
-﻿using Blog.Business.Models;
+﻿using Blog.Core.Models;
 using System.ComponentModel.DataAnnotations;
 
 namespace Blog.Api.ViewModels
@@ -19,12 +19,13 @@ namespace Blog.Api.ViewModels
         [Required]
         public Guid AutorId { get; set; }
 
+        [Display(Name = "Nome do Autor")]
+        public string? NomeAutor { get; set; }
+
         [Required]
         [ScaffoldColumn(false)]
         public DateTime DataCadastro { get; set; }
 
-        public Autor? Autor { get; set; }
-
-        public ICollection<Comentario>? Comentarios { get; set; }
+        public List<ComentarioViewModel> Comentarios { get; set; }
     }
 }

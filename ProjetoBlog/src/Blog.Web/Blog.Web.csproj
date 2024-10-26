@@ -35,8 +35,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Blog.Api\Blog.Api.csproj" />
-    <ProjectReference Include="..\Blog.Business\Blog.Business.csproj" />
-    <ProjectReference Include="..\Blog.Data\Blog.Data.csproj" />
+    <ProjectReference Include="..\Blog.Core\Blog.Core.csproj" />
   </ItemGroup>
 
   <ItemGroup>

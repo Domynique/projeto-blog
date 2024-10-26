@@ -19,8 +19,8 @@ namespace Blog.Data.Repository
         {
             return await Db.Posts
                 .AsNoTracking()
-                .Include(a => a.Autor)
-                .ThenInclude(a => a.Comentarios)
+                .Include(p => p.Autor)
+                .Include(p => p.Comentarios)
                 .OrderBy(p => p.DataCadastro).ToListAsync();
         }
 

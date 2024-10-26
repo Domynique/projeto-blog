@@ -175,11 +175,7 @@ C:\Desenvolvedor.IO\Projetos\projeto-blog\ProjetoBlog\src\Blog.Web\bin\Debug\net
 C:\Desenvolvedor.IO\Projetos\projeto-blog\ProjetoBlog\src\Blog.Web\bin\Debug\net8.0\runtimes\win\lib\net6.0\System.Security.Cryptography.ProtectedData.dll
 C:\Desenvolvedor.IO\Projetos\projeto-blog\ProjetoBlog\src\Blog.Web\bin\Debug\net8.0\runtimes\win\lib\net6.0\System.Windows.Extensions.dll
 C:\Desenvolvedor.IO\Projetos\projeto-blog\ProjetoBlog\src\Blog.Web\bin\Debug\net8.0\Blog.Api.dll
-C:\Desenvolvedor.IO\Projetos\projeto-blog\ProjetoBlog\src\Blog.Web\bin\Debug\net8.0\Blog.Business.dll
-C:\Desenvolvedor.IO\Projetos\projeto-blog\ProjetoBlog\src\Blog.Web\bin\Debug\net8.0\Blog.Data.dll
 C:\Desenvolvedor.IO\Projetos\projeto-blog\ProjetoBlog\src\Blog.Web\bin\Debug\net8.0\Blog.Api.pdb
-C:\Desenvolvedor.IO\Projetos\projeto-blog\ProjetoBlog\src\Blog.Web\bin\Debug\net8.0\Blog.Business.pdb
-C:\Desenvolvedor.IO\Projetos\projeto-blog\ProjetoBlog\src\Blog.Web\bin\Debug\net8.0\Blog.Data.pdb
 C:\Desenvolvedor.IO\Projetos\projeto-blog\ProjetoBlog\src\Blog.Web\obj\Debug\net8.0\Blog.Web.csproj.AssemblyReference.cache
 C:\Desenvolvedor.IO\Projetos\projeto-blog\ProjetoBlog\src\Blog.Web\obj\Debug\net8.0\Blog.Web.GeneratedMSBuildEditorConfig.editorconfig
 C:\Desenvolvedor.IO\Projetos\projeto-blog\ProjetoBlog\src\Blog.Web\obj\Debug\net8.0\Blog.Web.AssemblyInfoInputs.cache
@@ -498,3 +494,5 @@ C:\Desenvolvedor.IO\Projetos\projeto-blog\ProjetoBlog\src\Blog.Web\bin\Debug\net
 C:\Desenvolvedor.IO\Projetos\projeto-blog\ProjetoBlog\src\Blog.Web\bin\Debug\net8.0\Microsoft.AspNetCore.Identity.UI.dll
 C:\Desenvolvedor.IO\Projetos\projeto-blog\ProjetoBlog\src\Blog.Web\bin\Debug\net8.0\Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation.dll
 C:\Desenvolvedor.IO\Projetos\projeto-blog\ProjetoBlog\src\Blog.Web\bin\Debug\net8.0\Microsoft.Extensions.FileProviders.Embedded.dll
+C:\Desenvolvedor.IO\Projetos\projeto-blog\ProjetoBlog\src\Blog.Web\bin\Debug\net8.0\Blog.Core.dll
+C:\Desenvolvedor.IO\Projetos\projeto-blog\ProjetoBlog\src\Blog.Web\bin\Debug\net8.0\Blog.Core.pdb

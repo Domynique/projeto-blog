@@ -1,11 +1,11 @@
-﻿using Blog.Business.Notifications;
-using Blog.Business.Interfaces;
+﻿using Blog.Core.Notifications;
+using Blog.Core.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
 using System.Security.Claims;
 using Blog.Api.ViewModels;
-using Blog.Business.Models;
+using Blog.Core.Models;
 using AutoMapper;
 
 

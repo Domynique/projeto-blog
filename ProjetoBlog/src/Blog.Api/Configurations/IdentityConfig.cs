@@ -1,6 +1,6 @@
 ﻿using Blog.Api.ViewModels;
-using Blog.Business.Models;
-using Blog.Data.Context;
+using Blog.Core.Models;
+using Blog.Core.Context;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;

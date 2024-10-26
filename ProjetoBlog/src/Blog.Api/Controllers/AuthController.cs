@@ -1,6 +1,6 @@
 ﻿using Blog.Api.ViewModels;
-using Blog.Business.Models;
-using Blog.Business.Notifications;
+using Blog.Core.Models;
+using Blog.Core.Notifications;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;

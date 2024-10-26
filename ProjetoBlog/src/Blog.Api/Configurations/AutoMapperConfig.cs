@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using Blog.Api.ViewModels;
-using Blog.Business.Models;
+using Blog.Core.Models;
 
 namespace Blog.Api.Configurations
 {
@@ -8,8 +8,23 @@ namespace Blog.Api.Configurations
     {
         public AutoMapperConfig() 
         {
-            CreateMap<PostViewModel, Post>().ReverseMap();
-            CreateMap<ComentarioViewModel, Comentario>().ReverseMap();
+            CreateMap<Post, PostViewModel>()
+                        .ForMember(dest => dest.NomeAutor, opt => opt.MapFrom(src => src.Autor.Nome))
+                        .ReverseMap();
+
+            CreateMap<Comentario, ComentarioViewModel>()
+                .ForMember(dest => dest.NomeAutor, opt => opt.MapFrom(src => src.Autor.Nome))
+                .ReverseMap();
+
+            CreateMap<Autor, AutorViewModel>().ReverseMap();
+            CreateMap<ApplicationUser, ApplicationUserViewModel>().ReverseMap();
+
+            CreateMap<RegisterViewModel, ApplicationUser>()
+                .ForMember(dest => dest.UserName, opt => opt.MapFrom(src => src.UserName))
+                .ForMember(dest => dest.Email, opt => opt.MapFrom(src => src.Email));
+
+            CreateMap<LoginViewModel, ApplicationUser>()
+                .ForMember(dest => dest.UserName, opt => opt.MapFrom(src => src.Email));
         }
     }
 }

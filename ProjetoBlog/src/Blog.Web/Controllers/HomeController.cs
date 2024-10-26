@@ -1,11 +1,29 @@
+using AutoMapper;
 using Blog.Api.ViewModels;
+using Blog.Core.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 public class HomeController : Controller
 {
-    public IActionResult Index()
+    private readonly IPostRepository _postRepository;
+    private readonly IMapper _mapper;
+
+    public HomeController(IPostRepository postRepository, IMapper mapper)
     {
-        return View();
+        _postRepository = postRepository;
+        _mapper = mapper;
+    }
+
+    public async Task<IActionResult> Index()
+    {
+        try
+        {
+            return View(_mapper.Map<IEnumerable<PostViewModel>>(await _postRepository.ObterPostsAutores()));
+        }
+        catch (Exception ex)
+        {
+            return View("Error", new ErrorViewModel { Mensagem = ex.Message });
+        }
     }
 
     public IActionResult Privacy()
