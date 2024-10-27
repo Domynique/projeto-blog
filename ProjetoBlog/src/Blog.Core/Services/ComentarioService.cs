@@ -39,7 +39,7 @@ namespace Blog.Core.Services
             await _comentarioRepository.Atualizar(comentario);
         }
 
-        public async Task Remover(Guid id, string userId, bool isAdmin)
+        public async Task Remover(Guid id)
         {
             var comentario = await _comentarioRepository.ObterPorId(id);
            
@@ -47,18 +47,19 @@ namespace Blog.Core.Services
             {
                 Notificar("Comentario não encontrado");
                 return;
-            }
-
-
-            if (comentario.AutorId != Guid.Parse(userId) && !isAdmin)
-            {
-                Notificar("Acesso negado.");
-                return;
-            }
-           
+            }     
 
             await _comentarioRepository.Remover(comentario.Id);
 
+        }
+
+        public async Task RemoverComentariosPorPost(Guid postId)
+        {
+            var comentarios = await _comentarioRepository.ObterComentariosPorPost(postId);
+            foreach (var comentario in comentarios)
+            {
+                await _comentarioRepository.Remover(comentario.Id);
+            }
         }
 
         public void Dispose()

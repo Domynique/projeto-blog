@@ -9,8 +9,8 @@ namespace Blog.Api.Configurations
         public AutoMapperConfig() 
         {
             CreateMap<Post, PostViewModel>()
-                        .ForMember(dest => dest.NomeAutor, opt => opt.MapFrom(src => src.Autor.Nome))
-                        .ReverseMap();
+                .ForMember(dest => dest.NomeAutor, opt => opt.MapFrom(src => src.Autor.Nome))
+                .ReverseMap();
 
             CreateMap<Comentario, ComentarioViewModel>()
                 .ForMember(dest => dest.NomeAutor, opt => opt.MapFrom(src => src.Autor.Nome))

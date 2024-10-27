@@ -9,7 +9,7 @@ builder.AddDatabaseSelector();
 
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
-builder.Services.AddIdentity<Autor, IdentityRole<Guid>>()
+builder.Services.AddIdentity<ApplicationUser, IdentityRole<Guid>>()
                 .AddEntityFrameworkStores<MeuDbContext>()
                 .AddDefaultTokenProviders();
 

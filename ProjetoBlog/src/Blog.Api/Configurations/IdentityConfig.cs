@@ -19,7 +19,7 @@ namespace Blog.Api.Configurations
 
             });
 
-            services.AddIdentity<Autor, IdentityRole<Guid>>()
+            services.AddIdentity<ApplicationUser, IdentityRole<Guid>>()
                             .AddEntityFrameworkStores<MeuDbContext>()
                             .AddDefaultTokenProviders();
 

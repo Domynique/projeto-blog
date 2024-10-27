@@ -8,6 +8,7 @@ namespace Blog.Core.Interfaces
         Task<List<Comentario>> ObterTodos();
         Task Adicionar(Comentario comentario);
         Task Atualizar(Comentario comentario);
-        Task Remover(Guid id, string userId, bool isAdmin);
+        Task Remover(Guid id);
+        Task RemoverComentariosPorPost(Guid id);
     }
 }

@@ -8,6 +8,6 @@ namespace Blog.Core.Interfaces
         Task<List<Post>> ObterTodos();
         Task Adicionar(Post post);
         Task Atualizar(Post post);
-        Task Remover(Guid id, string userId, bool isAdmin);
+        Task Remover(Guid id);
     }
 }

@@ -23,7 +23,7 @@ namespace Blog.Api.Configurations
 
         public static async Task EnsureSeedData(IServiceProvider serviceProvider)
         {
-            var userManager = serviceProvider.GetRequiredService<UserManager<Autor>>();
+            var userManager = serviceProvider.GetRequiredService<UserManager<ApplicationUser>>();
             
             var roleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole<Guid>>>();
 
@@ -41,7 +41,7 @@ namespace Blog.Api.Configurations
             }
         }
 
-        private static async Task EnsureSeedProducts(MeuDbContext context, UserManager<Autor> userManager, RoleManager<IdentityRole<Guid>> roleManager)
+        private static async Task EnsureSeedProducts(MeuDbContext context, UserManager<ApplicationUser> userManager, RoleManager<IdentityRole<Guid>> roleManager)
         {           
 
             if (context.Autores.Any())
@@ -52,36 +52,50 @@ namespace Blog.Api.Configurations
             var autor1 = new Autor
             {
                 Id = Guid.NewGuid(),
-                UserName = "hugonunes@example.com",
-                NormalizedUserName = "HUGONUNES@EXAMPLE.COM",
-                Email = "hugonunes@example.com",
-                NormalizedEmail = "HUGONUNES@EXAMPLE.COM",
                 Nome = "Hugo Nunes",
                 Biografia = "Hugo Nunes é conhecido por suas contribuições excepcionais na literatura contemporânea.",
-                PasswordHash = new PasswordHasher<Autor>().HashPassword(null, "Teste@123"),
-                EmailConfirmed = true,
-                SecurityStamp = Guid.NewGuid().ToString(),
-                ConcurrencyStamp = Guid.NewGuid().ToString()
             };
 
             var autor2 = new Autor
             {
                 Id = Guid.NewGuid(),
+                Nome = "Paula Nunes",
+                Biografia = "Paula Nunes é famosa por suas intrigantes narrativas de ficção científica.",
+            };
+
+            await context.Autores.AddRangeAsync(autor1, autor2);
+            await context.SaveChangesAsync();
+
+            var applicationUser1 = new ApplicationUser
+            {
+                UserName = "hugonunes@example.com",
+                NormalizedUserName = "HUGONUNES@EXAMPLE.COM",
+                Email = "hugonunes@example.com",
+                NormalizedEmail = "HUGONUNES@EXAMPLE.COM",
+                EmailConfirmed = true,
+                SecurityStamp = Guid.NewGuid().ToString(),
+                ConcurrencyStamp = Guid.NewGuid().ToString(),
+                AutorId = autor1.Id
+            };
+
+            var applicationUser2 = new ApplicationUser
+            {
                 UserName = "paulanunes@example.com",
                 NormalizedUserName = "PAULANUNES@EXAMPLE.COM",
                 Email = "paulanunes@example.com",
                 NormalizedEmail = "PAULANUNES@EXAMPLE.COM",
-                Nome = "Paula Nunes",
-                Biografia = "Paula Nunes é famosa por suas intrigantes narrativas de ficção científica.",
-                PasswordHash = new PasswordHasher<Autor>().HashPassword(null, "Teste@123"),
                 EmailConfirmed = true,
                 SecurityStamp = Guid.NewGuid().ToString(),
-                ConcurrencyStamp = Guid.NewGuid().ToString()
+                ConcurrencyStamp = Guid.NewGuid().ToString(),
+                AutorId = autor2.Id
             };
 
-            await context.Autores.AddRangeAsync(autor1, autor2);
 
-            await context.SaveChangesAsync();
+            applicationUser1.PasswordHash = new PasswordHasher<ApplicationUser>().HashPassword(applicationUser1, "Teste@123");
+            applicationUser2.PasswordHash = new PasswordHasher<ApplicationUser>().HashPassword(applicationUser2, "Teste@123");
+
+            await userManager.CreateAsync(applicationUser1);
+            await userManager.CreateAsync(applicationUser2);
 
             // Verificar se a role "Admin" existe, e cria se necessário
             if (!await roleManager.RoleExistsAsync("Admin"))
@@ -90,7 +104,7 @@ namespace Blog.Api.Configurations
             }
 
             // Adicionar role "Admin" ao primeiro autor
-            await userManager.AddToRoleAsync(autor1, "Admin"); 
+            await userManager.AddToRoleAsync(applicationUser1, "Admin"); 
 
 
             // Adicionando posts e comentários relacionados
@@ -125,7 +139,6 @@ namespace Blog.Api.Configurations
             };
 
             await context.Comentarios.AddRangeAsync(comentario1, comentario2);
-
             await context.SaveChangesAsync();
         }
     }

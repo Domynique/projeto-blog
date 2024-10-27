@@ -17,12 +17,12 @@ namespace Blog.Api.Controllers
     [Route("api/Conta")]
     public class AuthController : MainController
     {
-        private readonly UserManager<Autor> _userManager;
-        private readonly SignInManager<Autor> _signInManager;
+        private readonly UserManager<ApplicationUser> _userManager;
+        private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly JwtSettings _jwtSettings;
 
-        public AuthController(UserManager<Autor> userManager,
-                              SignInManager<Autor> signInManager,
+        public AuthController(UserManager<ApplicationUser> userManager,
+                              SignInManager<ApplicationUser> signInManager,
                               IOptions<JwtSettings> jwtSettings, INotificador notificador) : base(notificador)
         {
             _userManager = userManager;
@@ -40,14 +40,20 @@ namespace Blog.Api.Controllers
 
             var autor = new Autor
             {
+                Id = Guid.NewGuid(),
                 Nome = registerAutor.Nome,
-                Biografia = registerAutor.Biografia,
-                UserName = registerAutor.Email,
-                Email = registerAutor.Email,
-                EmailConfirmed = true
+                Biografia = registerAutor.Biografia
             };
 
-            var result = await _userManager.CreateAsync(autor, registerAutor.Password);
+            var applicationUser = new ApplicationUser
+            {
+                UserName = registerAutor.Email,
+                Email = registerAutor.Email,
+                EmailConfirmed = true,
+                Autor = autor
+            };
+
+            var result = await _userManager.CreateAsync(applicationUser, registerAutor.Password);
             if (!result.Succeeded)
             {
                 foreach (var error in result.Errors)

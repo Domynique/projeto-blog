@@ -5,11 +5,18 @@ namespace Blog.Api.ViewModels
     public class RegisterViewModel
     {
         [Required(ErrorMessage = "O campo {0} é obrigatório")]
-        [Display(Name = "Nome de Usuário")]
+        [Display(Name = "Login")]
         public string UserName { get; set; }
+        
+        [Required(ErrorMessage = "O campo {0} é obrigatório")]
+        [StringLength(100, ErrorMessage = "O campo {0} precisa ter entre {2} e {1} caracteres", MinimumLength = 2)]
+        public string? Nome { get; set; }
+
+        [StringLength(1000, ErrorMessage = "O campo {0} precisa ter entre {2} e {1} caracteres", MinimumLength = 2)]
+        public string? Biografia { get; set; }
 
         [Required(ErrorMessage = "O campo {0} é obrigatório")]
-        [EmailAddress]
+        [EmailAddress(ErrorMessage = "O e-mail não é válido.")]
         [Display(Name = "E-mail")]
         public string Email { get; set; }
 

@@ -7,6 +7,7 @@ using System.Security.Claims;
 using Blog.Api.ViewModels;
 using Blog.Core.Models;
 using AutoMapper;
+using Microsoft.AspNetCore.Identity;
 
 
 namespace Blog.Api.Controllers
@@ -15,24 +16,24 @@ namespace Blog.Api.Controllers
     [ApiController]
     public class PostController : MainController
     {
-        private readonly IPostRepository _postRepository;
-        private readonly IComentarioRepository _comentarioRepository;
+        private readonly UserManager<ApplicationUser> _userManager;
+        private readonly IPostRepository _postRepository;      
         private readonly IPostService _postService;
         private readonly IComentarioService _comentarioService;
         private readonly IMapper _mapper;
 
-        public PostController(INotificador notificador, 
-                              IMapper mapper,
+        public PostController(UserManager<ApplicationUser> userManager,        
+                              IPostRepository postRepository,
                               IPostService postService,
                               IComentarioService comentarioService,
-                              IPostRepository postRepository,
-                              IComentarioRepository comentarioRepository ) : base(notificador)
+                              IMapper mapper,
+                              INotificador notificador) : base(notificador)
         {
             _postRepository = postRepository;
-            _comentarioRepository = comentarioRepository;
             _postService = postService;
             _comentarioService = comentarioService;
             _mapper = mapper;
+            _userManager = userManager;
         }
 
         [HttpGet]
@@ -70,7 +71,7 @@ namespace Blog.Api.Controllers
                 return CustomResponse(ModelState);
             }
 
-            var usuarioId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var usuarioId = await ObterUsuarioId();
             if (usuarioId == null)
             {
                 NotificarErro("Autenticação necessária.");
@@ -78,8 +79,8 @@ namespace Blog.Api.Controllers
             }
 
             var novoPost = _mapper.Map<Post>(postViewModel);
-            novoPost.AutorId = Guid.Parse(usuarioId);
-            novoPost.DataCadastro = DateTime.Now;           
+            novoPost.AutorId = usuarioId.Value;
+            //novoPost.DataCadastro = DateTime.Now;           
 
             await _postService.Adicionar(novoPost);
 
@@ -100,20 +101,22 @@ namespace Blog.Api.Controllers
                 return CustomResponse(ModelState);
             }
 
-            var usuarioId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var usuarioId = await ObterUsuarioId();
             if (usuarioId == null) 
             {
                 NotificarErro("Autenticação necessária.");
                 return CustomResponse(HttpStatusCode.Unauthorized);
             }
 
-            var existePost = await _postService.ObterPorId(id);
-            if (existePost == null || (existePost.AutorId != Guid.Parse(usuarioId) && !User.IsInRole("Admin")))
+            if (!await VerificarPermissao(usuarioId.Value, id)) 
             {
                 NotificarErro("Você não tem permissão para realizar esta ação.");
                 return CustomResponse(HttpStatusCode.Forbidden);
+
             }
 
+            var existePost = await _postService.ObterPorId(id);
+            
             _mapper.Map(postViewModel, existePost);
 
             await _postService.Atualizar(existePost);
@@ -129,35 +132,37 @@ namespace Blog.Api.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> Excluir(Guid id)
         {
-            var usuarioId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var usuarioId = await ObterUsuarioId();
             if (usuarioId == null)
             {
                 NotificarErro("Autenticação necessária.");
                 return CustomResponse(HttpStatusCode.Unauthorized);
             }
 
-            var post = await ObterPost(id);
-            if (post == null)
-            {
-                return CustomResponse(HttpStatusCode.NotFound);
-            }
-
-            if(post.AutorId != Guid.Parse(usuarioId) && !User.IsInRole("Admin"))
+            if (!await VerificarPermissao(usuarioId.Value, id)) 
             {
                 NotificarErro("Você não tem permissão para realizar esta ação.");
                 return CustomResponse(HttpStatusCode.Forbidden);
             }
 
-            var comentarios =  _mapper.Map<IEnumerable<ComentarioViewModel>>(await _comentarioRepository.ObterComentarioPost(id));
-            foreach (var comentario in comentarios)
-            {
-                await _comentarioService.Remover(id, usuarioId, User.IsInRole("Admin"));
-            }
+            await _comentarioService.RemoverComentariosPorPost(id);
+            await _postService.Remover(id);
 
-            await _postService.Remover(id, usuarioId, User.IsInRole("Admin"));
             return CustomResponse(HttpStatusCode.NoContent);
 
         }
+        private async Task<Guid?> ObterUsuarioId()
+        {
+            var user = await _userManager.GetUserAsync(User);
+            return user != null ? user.Id : (Guid?)null;
+        }
+
+        private async Task<bool> VerificarPermissao(Guid usuarioId, Guid postId)
+        {
+            var post = await _postService.ObterPorId(postId);
+            return post != null && (post.AutorId == usuarioId || User.IsInRole("Admin"));
+        }
+
         private async Task<PostViewModel> ObterPost(Guid id)
         {
             return _mapper.Map<PostViewModel>(await _postRepository.ObterPostAutor(id));

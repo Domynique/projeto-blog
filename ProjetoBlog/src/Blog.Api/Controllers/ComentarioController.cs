@@ -7,6 +7,8 @@ using System.Net;
 using System.Security.Claims;
 using AutoMapper;
 using Blog.Api.ViewModels;
+using Blog.Core.Services;
+using Microsoft.AspNetCore.Identity;
 
 namespace Blog.Api.Controllers
 {
@@ -14,17 +16,21 @@ namespace Blog.Api.Controllers
     [ApiController]
     public class ComentarioController : MainController
     {
+        private readonly UserManager<ApplicationUser> _userManager;
         private readonly IComentarioRepository _comentarioRepository;
         private readonly IComentarioService _comentarioService;
+        private readonly IPostService _postService;
         private readonly IMapper _mapper;
 
         public ComentarioController(IComentarioRepository comentarioRepository, 
                                     IComentarioService comentarioService, 
+                                    IPostService postService,
                                     IMapper mapper, 
                                     INotificador notificador) : base(notificador)
         {
             _comentarioRepository = comentarioRepository;
             _comentarioService = comentarioService;
+            _postService = postService;
             _mapper = mapper;
         }
 
@@ -64,7 +70,7 @@ namespace Blog.Api.Controllers
                 return CustomResponse(ModelState);
             }
 
-            var usuarioId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var usuarioId = await ObterUsuarioId();
             if (usuarioId == null)
             {
                 NotificarErro("Autenticação necessária.");
@@ -72,8 +78,8 @@ namespace Blog.Api.Controllers
             }
 
             var novoComentario = _mapper.Map<Comentario>(comentarioViewModel);
-            novoComentario.AutorId = Guid.Parse(usuarioId);
-            novoComentario.DataCadastro = DateTime.Now;
+            novoComentario.AutorId = usuarioId.Value;
+            //novoComentario.DataCadastro = DateTime.Now;
 
             await _comentarioService.Adicionar(novoComentario);
 
@@ -94,19 +100,20 @@ namespace Blog.Api.Controllers
                 return CustomResponse(ModelState);
             }
 
-            var usuarioID = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            if( usuarioID == null)
+            var usuarioId = await ObterUsuarioId();
+            if( usuarioId == null)
             {
                 NotificarErro("Autenticação necessária.");
                 return CustomResponse(HttpStatusCode.Unauthorized);
             }
 
-            var existeComentario = await _comentarioService.ObterPorId(id);
-            if (existeComentario == null || (comentarioViewModel.AutorId != Guid.Parse(usuarioID) && !User.IsInRole("Admin")))
+            if (!await VerificarPermissao(usuarioId.Value, id))
             {
                 NotificarErro("Você não tem permissão para realizar esta ação.");
                 return CustomResponse(HttpStatusCode.Forbidden);
+
             }
+            var existeComentario = await _comentarioService.ObterPorId(id);
 
             _mapper.Map(comentarioViewModel, existeComentario);
 
@@ -124,7 +131,7 @@ namespace Blog.Api.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> Excluir(Guid id)
         {
-            var usuarioId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var usuarioId = await ObterUsuarioId();
             if (usuarioId == null)
             {
                 NotificarErro("Autenticação necessária.");
@@ -136,16 +143,28 @@ namespace Blog.Api.Controllers
             {
                 return CustomResponse(HttpStatusCode.NotFound);
             }
-
-            if (comentario.AutorId != Guid.Parse(usuarioId) && !User.IsInRole("Admin")) 
+           
+            if (!await VerificarPermissao(usuarioId.Value, id))
             {
                 NotificarErro("Você não tem permissão para realizar esta ação.");
                 return CustomResponse(HttpStatusCode.Forbidden);
+
             }
 
-            await _comentarioService.Remover(id, usuarioId, User.IsInRole("Admin"));
+            await _comentarioService.Remover(id);
             return CustomResponse(HttpStatusCode.NoContent);
 
+        }
+        private async Task<Guid?> ObterUsuarioId()
+        {
+            var user = await _userManager.GetUserAsync(User);
+            return user?.Id;
+        }
+
+        private async Task<bool> VerificarPermissao(Guid usuarioId, Guid postId)
+        {
+            var post = await _comentarioService.ObterPorId(postId);
+            return post != null && (post.AutorId == usuarioId || User.IsInRole("Admin"));
         }
         private async Task<ComentarioViewModel> ObterComentario(Guid id)
         {

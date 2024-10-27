@@ -40,7 +40,7 @@ namespace Blog.Core.Services
             await _postRepository.Atualizar(post);
         }
 
-        public async Task Remover(Guid id, string userId, bool isAdmin)
+        public async Task Remover(Guid id)
         {
             var post = await _postRepository.ObterPorId(id);
             if (post == null)
@@ -48,14 +48,6 @@ namespace Blog.Core.Services
                 Notificar("Post não encontrado");
                 return;
             }
-
-
-            if (post.AutorId != Guid.Parse(userId) && !isAdmin)
-            {
-                Notificar("Acesso negado.");
-                return;
-            }
-
             await _postRepository.Remover(post.Id);
         }
 
