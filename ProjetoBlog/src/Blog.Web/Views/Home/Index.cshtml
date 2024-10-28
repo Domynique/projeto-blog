@@ -4,47 +4,27 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="container mt-5">
-    <div class="row">
-        <aside class="col-md-3">
-            <div class="white-wrapper">
-                <img src="images/perfil.jpg" alt="Imagem de exemplo" class="img-fluid rounded-circle">
-                <p class="site-description"><br />Denali is a simple responsive blog template. Easily add new posts using the Editor or change layout and design using the Designer.</p>
+<section class="col-md-9 posts">
+    @foreach (var post in Model)
+    {
+        <div class="post">
+            <h2>@post.Titulo</h2>
+            <div class="post-info d-flex justify-content-between">
+                <p class="date-author">Publicado em: @post.DataCadastro.ToString("dd/MM/yyyy") por @post.NomeAutor</p>
             </div>
-            <div class="grey-rule"></div>
-            <div class="social-link-group">
-                <a href="#" class="social-icon-link"><i class="fab fa-facebook-f"></i></a>
-                <a href="#" class="social-icon-link"><i class="fab fa-twitter"></i></a>
-                <a href="#" class="social-icon-link"><i class="fab fa-instagram"></i></a>
-                <a href="#" class="social-icon-link"><i class="fab fa-linkedin-in"></i></a>
+            <div class="post-content">
+                <p>@post.Conteudo</p>
             </div>
-        </aside>
-        <section class="col-md-9 posts">
-            @foreach (var post in Model)
-            {
-                <div class="post">
-                    <h2>@post.Titulo</h2>
-                    <p>Publicado em: @post.DataCadastro.ToString("dd/MM/yyyy")</p>
-                    <p>Autor: @post.NomeAutor</p>
-                    <p>@post.Conteudo</p>
-                    <h3>Comentários</h3>
-                    @if (post.Comentarios.Any())
-                    {
-                        @foreach (var comentario in post.Comentarios)
-                        {
-                            <div class="comentario">
-                                <p>@comentario.Conteudo</p>
-                                <p><strong>Comentado por:</strong> @comentario.NomeAutor</p>
-                                <p><strong>Data:</strong> @comentario.DataCadastro.ToString("dd/MM/yyyy")</p>
-                            </div>
-                        }
-                    }
-                    else
-                    {
-                        <p>Sem comentários ainda.</p>
-                    }
+            <div class="post-meta d-flex justify-content-between">
+                <div>
+                    <i class="fas fa-eye"></i>
+                    <a asp-controller="Comentario" asp-action="Index" asp-route-postId="@post.Id" class="ml-3">
+                        <i class="fas fa-comments"></i> @post.Comentarios.Count
+                    </a>
                 </div>
-            }
-        </section>
-    </div>
-</div>
+            </div>
+           
+        </div>
+    }
+</section>
+

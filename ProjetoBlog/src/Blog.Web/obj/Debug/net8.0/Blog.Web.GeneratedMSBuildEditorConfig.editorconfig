@@ -18,6 +18,10 @@ build_property.GenerateRazorMetadataSourceChecksumAttributes = true
 build_property.MSBuildProjectDirectory = C:\Desenvolvedor.IO\Projetos\projeto-blog\ProjetoBlog\src\Blog.Web
 build_property._RazorSourceGeneratorDebug = 
 
+[C:/Desenvolvedor.IO/Projetos/projeto-blog/ProjetoBlog/src/Blog.Web/Views/Comentario/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29tZW50YXJpb1xJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Desenvolvedor.IO/Projetos/projeto-blog/ProjetoBlog/src/Blog.Web/Views/Home/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 

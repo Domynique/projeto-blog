@@ -17,6 +17,7 @@ namespace Blog.Api.Configurations
                 .ReverseMap();
 
             CreateMap<Autor, AutorViewModel>().ReverseMap();
+            
             CreateMap<ApplicationUser, ApplicationUserViewModel>().ReverseMap();
 
             CreateMap<RegisterViewModel, ApplicationUser>()

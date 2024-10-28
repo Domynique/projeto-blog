@@ -10,39 +10,25 @@
     margin: 0 auto;
 }
 
-main {
+.row {
     display: flex;
-    justify-content: space-between;
-    margin: 2rem 0;
 }
-
-.posts {
-    width: 70%;
-}
-
-.post {
-    background-color: #fff;
-    padding: 1rem;
-    margin-bottom: 1rem;
-    border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-
-    .post h2 {
-        margin-top: 0;
-    }
 
 aside {
     width: 25%;
 }
 
-.comentario {
-    background-color: #fff;
-    padding: 0.5rem;
-    margin-bottom: 0.5rem;
-    border-radius: 5px;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+.header-bg {
+    background: url('/images/background.jpg') no-repeat center center;
+    background-size: cover;
+    padding-bottom: 15%; /* Ajuste este valor conforme necessário */
+    position: relative;
 }
+
+    .header-bg .container {
+        padding-top: 50px; /* Adicione espaço acima do container para acomodar o header */
+        margin-top: -50px; /* Puxe o container para cima para sobrepor a imagem */
+    }
 
 .white-wrapper {
     background-color: #fff;
@@ -52,6 +38,11 @@ aside {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
+.site-description i {
+    margin-right: 5px; 
+    font-size: 1.2em; 
+}
+
 .img-fluid {
     max-width: 100%;
     height: auto;
@@ -59,6 +50,7 @@ aside {
 
 .site-description {
     color: #666;
+    text-align:justify;
 }
 
 .grey-rule {
@@ -73,6 +65,32 @@ aside {
     border-radius: 10px;
 }
 
+.social-icon-link i {
+    font-size: 18px; 
+    margin: 0 5px; 
+}
+
+.date-author {
+    display: inline-block;
+    margin-right: 10px;
+}
+
+.posts {
+    width: 100%;
+}
+
+.post {
+    background-color: #fff;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+    .post h2 {
+        margin-top: 0;
+    }
+
 .post-wrapper {
     background-color: #fff;
     padding: 1rem;
@@ -81,7 +99,58 @@ aside {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-.social-icon-link i {
-    font-size: 32px; 
-    margin: 0 12px; 
+.post-info {
+    font-size: 0.9rem;
+    color: #777;
+    margin-bottom: 0.5rem;
+}
+
+.post-content {
+    margin-top: 1rem;
+}
+
+.post-meta {
+    margin-top: 1rem;
+    font-size: 0.9rem;
+    color: #777;
+}
+
+    .post-meta i {
+        margin-right: 5px;
+    }
+
+    .post-meta .ml-3 {
+        margin-left: 15px; 
+    }
+
+
+.comentario {
+    background-color: #fff;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.comentario-info {
+    font-size: 0.9rem;
+    color: #777;
+    margin-bottom: 0.5rem;
+}
+
+.comentario-content {
+    margin-top: 1rem;
+}
+
+hr {
+    border: 0;
+    height: 1px;
+    background: gray;
+    margin: 20px 0;
+}
+
+.formulario {
+    border: 1px solid gray;
+    padding: 10px;
+    margin-top: 20px;
 }

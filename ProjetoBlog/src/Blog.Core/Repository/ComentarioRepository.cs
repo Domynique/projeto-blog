@@ -12,7 +12,11 @@ namespace Blog.Core.Repository
         }
         public async Task<IEnumerable<Comentario>> ObterComentariosPorPost(Guid postId)
         {
-            return await Buscar(c => c.PostId == postId);
+            return await Db.Comentarios
+                .AsNoTracking()
+                .Include(c => c.Autor)
+                .Where(c => c.PostId == postId)
+                .ToListAsync();
         }
 
         public async Task<IEnumerable<Comentario>> ObterComentariosPosts()

@@ -1,0 +1,39 @@
+﻿@model IEnumerable<Blog.Api.ViewModels.ComentarioViewModel>
+@{
+    ViewData["Title"] = "Comentários";
+}
+
+
+
+
+<section class="col-md-9 posts">
+    <div class="comentario">
+        
+        <h2>Comentários</h2>
+        @foreach (var comentario in Model)
+        {
+        <div class="comentario">
+            <div class="post-info d-flex justify-content-between">
+                    <p class="date-author">Publicado em: @comentario.DataCadastro.ToString("dd/MM/yyyy") por @comentario.NomeAutor</p>
+            </div>
+            <div class="post-content">
+                    <p>@comentario.Conteudo</p>
+            </div>
+            
+        </div>
+
+        }
+
+
+
+    <form asp-action="AdicionarComentario">
+        <div class="form-group">
+            <label for="conteudo">Novo Comentário</label>
+            <textarea id="conteudo" name="conteudo" class="form-control" rows="3"></textarea>
+        </div>
+        <br />
+        <input type="hidden" name="PostId" value="@ViewBag.PostId" />
+        <button type="submit" class="btn btn-primary">Enviar</button>
+    </form>
+    </div>
+</section>
