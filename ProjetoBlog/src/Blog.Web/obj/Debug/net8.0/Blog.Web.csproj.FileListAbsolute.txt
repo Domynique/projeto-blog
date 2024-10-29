@@ -1,3 +1,11 @@
+C:\Desenvolvedor.IO\Projetos\projeto-blog\ProjetoBlog\src\Blog.Web\obj\Debug\net8.0\Blog.Web.csproj.AssemblyReference.cache
+C:\Desenvolvedor.IO\Projetos\projeto-blog\ProjetoBlog\src\Blog.Web\obj\Debug\net8.0\Blog.Web.GeneratedMSBuildEditorConfig.editorconfig
+C:\Desenvolvedor.IO\Projetos\projeto-blog\ProjetoBlog\src\Blog.Web\obj\Debug\net8.0\Blog.Web.AssemblyInfoInputs.cache
+C:\Desenvolvedor.IO\Projetos\projeto-blog\ProjetoBlog\src\Blog.Web\obj\Debug\net8.0\Blog.Web.AssemblyInfo.cs
+C:\Desenvolvedor.IO\Projetos\projeto-blog\ProjetoBlog\src\Blog.Web\obj\Debug\net8.0\Blog.Web.csproj.CoreCompileInputs.cache
+C:\Desenvolvedor.IO\Projetos\projeto-blog\ProjetoBlog\src\Blog.Web\obj\Debug\net8.0\Blog.Web.MvcApplicationPartsAssemblyInfo.cs
+C:\Desenvolvedor.IO\Projetos\projeto-blog\ProjetoBlog\src\Blog.Web\obj\Debug\net8.0\Blog.Web.MvcApplicationPartsAssemblyInfo.cache
+C:\Desenvolvedor.IO\Projetos\projeto-blog\ProjetoBlog\src\Blog.Web\obj\Debug\net8.0\Blog.Web.sourcelink.json
 C:\Desenvolvedor.IO\Projetos\projeto-blog\ProjetoBlog\src\Blog.Web\bin\Debug\net8.0\Blog.Api.deps.json
 C:\Desenvolvedor.IO\Projetos\projeto-blog\ProjetoBlog\src\Blog.Web\bin\Debug\net8.0\Blog.Api.runtimeconfig.json
 C:\Desenvolvedor.IO\Projetos\projeto-blog\ProjetoBlog\src\Blog.Web\bin\Debug\net8.0\Blog.Api.exe
@@ -482,14 +490,6 @@ C:\Desenvolvedor.IO\Projetos\projeto-blog\ProjetoBlog\src\Blog.Web\bin\Debug\net
 C:\Desenvolvedor.IO\Projetos\projeto-blog\ProjetoBlog\src\Blog.Web\bin\Debug\net8.0\Blog.Core.dll
 C:\Desenvolvedor.IO\Projetos\projeto-blog\ProjetoBlog\src\Blog.Web\bin\Debug\net8.0\Blog.Api.pdb
 C:\Desenvolvedor.IO\Projetos\projeto-blog\ProjetoBlog\src\Blog.Web\bin\Debug\net8.0\Blog.Core.pdb
-C:\Desenvolvedor.IO\Projetos\projeto-blog\ProjetoBlog\src\Blog.Web\obj\Debug\net8.0\Blog.Web.csproj.AssemblyReference.cache
-C:\Desenvolvedor.IO\Projetos\projeto-blog\ProjetoBlog\src\Blog.Web\obj\Debug\net8.0\Blog.Web.GeneratedMSBuildEditorConfig.editorconfig
-C:\Desenvolvedor.IO\Projetos\projeto-blog\ProjetoBlog\src\Blog.Web\obj\Debug\net8.0\Blog.Web.AssemblyInfoInputs.cache
-C:\Desenvolvedor.IO\Projetos\projeto-blog\ProjetoBlog\src\Blog.Web\obj\Debug\net8.0\Blog.Web.AssemblyInfo.cs
-C:\Desenvolvedor.IO\Projetos\projeto-blog\ProjetoBlog\src\Blog.Web\obj\Debug\net8.0\Blog.Web.csproj.CoreCompileInputs.cache
-C:\Desenvolvedor.IO\Projetos\projeto-blog\ProjetoBlog\src\Blog.Web\obj\Debug\net8.0\Blog.Web.MvcApplicationPartsAssemblyInfo.cs
-C:\Desenvolvedor.IO\Projetos\projeto-blog\ProjetoBlog\src\Blog.Web\obj\Debug\net8.0\Blog.Web.MvcApplicationPartsAssemblyInfo.cache
-C:\Desenvolvedor.IO\Projetos\projeto-blog\ProjetoBlog\src\Blog.Web\obj\Debug\net8.0\Blog.Web.sourcelink.json
 C:\Desenvolvedor.IO\Projetos\projeto-blog\ProjetoBlog\src\Blog.Web\obj\Debug\net8.0\Blog.Web.csproj.Up2Date
 C:\Desenvolvedor.IO\Projetos\projeto-blog\ProjetoBlog\src\Blog.Web\obj\Debug\net8.0\Blog.Web.dll
 C:\Desenvolvedor.IO\Projetos\projeto-blog\ProjetoBlog\src\Blog.Web\obj\Debug\net8.0\refint\Blog.Web.dll

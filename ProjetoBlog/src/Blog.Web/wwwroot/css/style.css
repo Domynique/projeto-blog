@@ -1,8 +1,9 @@
 ﻿body {
-    font-family: Arial, sans-serif;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     margin: 0;
     padding: 0;
     background-color: #f4f4f4;
+
 }
 
 .container {
@@ -21,13 +22,13 @@ aside {
 .header-bg {
     background: url('/images/background.jpg') no-repeat center center;
     background-size: cover;
-    padding-bottom: 15%; /* Ajuste este valor conforme necessário */
+    padding-bottom: 10%; 
     position: relative;
 }
 
     .header-bg .container {
-        padding-top: 50px; /* Adicione espaço acima do container para acomodar o header */
-        margin-top: -50px; /* Puxe o container para cima para sobrepor a imagem */
+        padding-top: 50px; 
+        margin-top: -50px; 
     }
 
 .white-wrapper {
@@ -35,12 +36,14 @@ aside {
     padding: 1rem;
     margin-bottom: 1rem;
     border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
 }
 
+
+
 .site-description i {
-    margin-right: 5px; 
-    font-size: 1.2em; 
+    margin-right: 5px;
+    font-size: 1.2em;
 }
 
 .img-fluid {
@@ -49,8 +52,9 @@ aside {
 }
 
 .site-description {
-    color: #666;
-    text-align:justify;
+    font-size: 0.8rem;
+    
+    text-align: inherit;
 }
 
 .grey-rule {
@@ -72,7 +76,8 @@ aside {
 
 .date-author {
     display: inline-block;
-    margin-right: 10px;
+    font-size: 0.7rem;
+    margin-right: 5px;
 }
 
 .posts {
@@ -84,7 +89,7 @@ aside {
     padding: 1rem;
     margin-bottom: 1rem;
     border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
 }
 
     .post h2 {
@@ -129,11 +134,11 @@ aside {
     padding: 1rem;
     margin-bottom: 1rem;
     border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
 }
 
 .comentario-info {
-    font-size: 0.9rem;
+    font-size: 0.8rem;
     color: #777;
     margin-bottom: 0.5rem;
 }
@@ -141,6 +146,7 @@ aside {
 .comentario-content {
     margin-top: 1rem;
 }
+
 
 hr {
     border: 0;
@@ -150,7 +156,7 @@ hr {
 }
 
 .formulario {
-    border: 1px solid gray;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
     padding: 10px;
     margin-top: 20px;
 }
