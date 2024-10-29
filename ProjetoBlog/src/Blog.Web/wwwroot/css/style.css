@@ -2,12 +2,28 @@
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #f4f4f4;
+    background-color: #3d3d3d;
+}
 
+.navbar-brand {
+    text-align: right; /* Centraliza o texto */
+}
+
+.navbar-brand h2 {
+    margin: 0;
+    color: #d6928d;
+    font-size: 1.8rem;
+}
+
+.navbar-brand .subtitle {
+    display: block;
+    font-size: 0.8rem;
+    color: #777;
+    margin-top: 1px; /* Ajusta o espaçamento conforme necessário */
 }
 
 .container {
-    width: 80%;
+    width: 90%;
     margin: 0 auto;
 }
 
@@ -32,7 +48,7 @@ aside {
     }
 
 .white-wrapper {
-    background-color: #fff;
+    background-color: rgba(255, 255, 255, 0.8);
     padding: 1rem;
     margin-bottom: 1rem;
     border-radius: 5px;
@@ -43,7 +59,7 @@ aside {
 
 .site-description i {
     margin-right: 5px;
-    font-size: 1.2em;
+    font-size: 1.3em;
 }
 
 .img-fluid {
@@ -52,8 +68,7 @@ aside {
 }
 
 .site-description {
-    font-size: 0.8rem;
-    
+    font-size: 0.9rem;
     text-align: inherit;
 }
 
@@ -85,7 +100,7 @@ aside {
 }
 
 .post {
-    background-color: #fff;
+    background-color: rgba(255, 255, 255, 0.8);
     padding: 1rem;
     margin-bottom: 1rem;
     border-radius: 5px;
@@ -130,7 +145,7 @@ aside {
 
 
 .comentario {
-    background-color: #fff;
+    background-color: rgba(255, 255, 255, 0.8);
     padding: 1rem;
     margin-bottom: 1rem;
     border-radius: 5px;
@@ -159,4 +174,92 @@ hr {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
     padding: 10px;
     margin-top: 20px;
+}
+
+.register-form-container {
+    background-color: rgba(255, 255, 255, 0.8); 
+    padding: 40px;
+    border-radius: 10px;
+    width: 100%;
+    margin: 0 auto;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center; 
+}
+
+.inner-container {
+    max-width: 500px; 
+    margin: 0 auto; 
+}
+
+.form-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.form-group {
+    flex: 0 0 48%; 
+    text-align: left; 
+}
+
+.form-control {
+    width: 100%; 
+}
+
+.btn-primary {
+    width: 30%; 
+    margin-top: 10px;
+}
+
+.footer {
+    background-color: #3d3d3d;
+    color: #fff;
+    padding: 20px 0;
+    text-align: center;
+}
+
+.footer-container {
+    max-width: 1000px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.social-icons {
+    margin-bottom: 20px;
+}
+
+    .social-icons a {
+        color: #fff;
+        font-size: 1.5rem;
+        margin: 0 10px;
+        text-decoration: none;
+    }
+
+
+.footer-info {
+    margin-bottom: 20px;
+}
+
+    .footer-info h2 {
+        margin: 0;
+        font-size: 1.5rem;
+    }
+
+    .footer-info p {
+        margin: 5px 0;
+    }
+
+.footer-copyright {
+    font-size: 0.9rem;
+}
+
+.footer a {
+    color: #fff;
+    text-decoration: none;
+}
+
+.footer a:hover {
+    color: #ccc;
 }

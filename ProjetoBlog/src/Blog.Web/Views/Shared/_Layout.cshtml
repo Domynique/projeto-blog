@@ -14,7 +14,9 @@
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Blog do Dom</a>
+                    <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
+                        <h2>Blog do Dom</h2> <span class="subtitle">Gosta de programar?</span>
+                    </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -33,35 +35,78 @@
     </header>
     <div class="container">
         <div class="container mt-2">
-        <div class="row">
-        <aside class="col-md-3">
-            <div class="white-wrapper">
-                <img src="~/images/perfil2.jpg" alt="Imagem de exemplo" class="img-fluid rounded-circle">
-                <p class="site-description">
-                   <br />Bem-vindo ao meu blog! Estou animado para compartilhar minhas experiências e reflexões com vocês. Neste espaço, falarei sobre minha experiência no MBA DevXpert Full Stack, além de outras coisas que me inspiram.
-                                <br />Sou Hugo Domynique, tenho 40 anos, apaixonado por Desenvolvimento de Sistemas. Espero que você se junte a mim nesta jornada!
-                </p>
-                <div class="grey-rule"></div>
-                <div class="social-link-group">
-                    <a href="#" class="social-icon-link"><i class="fab fa-facebook-f"></i></a>
-                    
-                    <a href="#" class="social-icon-link"><i class="fab fa-instagram"></i></a>
-                    <a href="#" class="social-icon-link"><i class="fab fa-linkedin-in"></i></a>
-                </div>
-            </div>
+            <div class="row">
+                <aside class="col-md-4">
+                    <div class="white-wrapper">
+                        <img src="~/images/perfil2.jpg" alt="Imagem de exemplo" class="img-fluid rounded-circle">
+                        <p class="site-description">
+                           <br />Bem-vindo ao meu blog! Estou animado para compartilhar minhas experiências e reflexões com vocês. Neste espaço, falarei sobre minha experiência no MBA DevXpert Full Stack, além de outras coisas que me inspiram.
+                                        <br />Sou Hugo Domynique, tenho 40 anos, apaixonado por Desenvolvimento de Sistemas. Espero que você se junte a mim nesta jornada!
+                        </p>
+                        <div class="grey-rule"></div>
+                        <div class="social-link-group">
+                            <a href="#" class="social-icon-link"><i class="fab fa-facebook-f"></i></a>                    
+                            <a href="#" class="social-icon-link"><i class="fab fa-instagram"></i></a>
+                            <a href="#" class="social-icon-link"><i class="fab fa-linkedin-in"></i></a>
+                        </div>
+                    </div>
 
-        </aside>
-            <main role="main" class="col-md-8 pb-3">
-            @RenderBody()
-        </main>
-        </div>
+                </aside>
+
+                <main role="main" class="col-md-8 pb-3">
+                    @RenderBody()
+                </main>
+
+            </div>
+                <div class="register-form-container">
+                    <div class="inner-container ">
+                        <h2>Compartilhe a sua opinião</h2>
+                        <br />
+                        <br />
+                        <form asp-action="Register">
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="Nome">Nome</label>
+                                    <input type="text" class="form-control" id="Nome" name="Nome" required>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="Email">E-mail</label>
+                                    <input type="email" class="form-control" id="Email" name="Email" required>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="Password">Senha</label>
+                                    <input type="password" class="form-control" id="Password" name="Password" required>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="ConfirmPassword">Confirmar Senha</label>
+                                    <input type="password" class="form-control" id="ConfirmPassword" name="ConfirmPassword" required>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Registrar</button>
+                        </form>
+                    </div>
+                </div>
         </div>
     </div>
     </div>
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2024 - Blog do Dom - <a asp-area="" asp-controller="Home" asp-action="Privacy">Sobre</a>
-        </div>
+    <footer class="footer"> 
+        <div class="footer-container"> 
+            <div class="social-icons"> 
+                <a href="#"><i class="fab fa-facebook-f"></i></a> 
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-linkedin-in"></i></a>
+            </div> 
+            <div class="footer-info"> 
+                <h2>Blog do Dom</h2> 
+                <p>55-21-999355154</p> 
+                <p>hugodomynique@gmail.com</p> 
+            </div> 
+            <div class="footer-copyright"> 
+                <p>&copy; 2024 - Blog do Dom - <a asp-area="" asp-controller="Home" asp-action="Privacy">Sobre</a></p>
+            </div> 
+        </div> 
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
