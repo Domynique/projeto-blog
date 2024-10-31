@@ -1,0 +1,16 @@
+﻿@model Blog.Api.ViewModels.PostViewModel
+
+<div class="container mt-5">
+    <h2>Excluir Post</h2>
+    <p>Tem certeza de que deseja excluir este post?</p>
+    <h3>@Model.Titulo</h3>
+    <p>@Model.Conteudo</p>
+    <form asp-action="Delete" method="post">
+        <input type="hidden" name="id" value="@Model.Id" />
+        <label> 
+            <input type="checkbox" name="deleteComments" value="true" /> Excluir comentários também 
+        </label>
+        <button type="submit" class="btn btn-danger">Excluir</button>
+        <a href="@Url.Action("Index", "Home")" class="btn btn-secondary">Cancelar</a>
+    </form>
+</div>

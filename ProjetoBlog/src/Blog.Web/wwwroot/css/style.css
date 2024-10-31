@@ -6,21 +6,34 @@
 }
 
 .navbar-brand {
-    text-align: right; /* Centraliza o texto */
+    text-align: right; 
 }
 
 .navbar-brand h2 {
     margin: 0;
     color: #d6928d;
-    font-size: 1.8rem;
+    font-size: 1.6rem;
 }
 
 .navbar-brand .subtitle {
     display: block;
     font-size: 0.8rem;
     color: #777;
-    margin-top: 1px; /* Ajusta o espaçamento conforme necessário */
+    margin-top: 1px; 
 }
+
+.navbar-nav .nav-link {
+    color: #777 !important;
+    text-decoration: none !important;
+}
+
+    .navbar-nav .nav-link:hover {
+        color: #d6928d !important;
+    }
+
+    .navbar-nav .nav-link:active {
+        color: #d6928d !important; 
+    }
 
 .container {
     width: 90%;
@@ -178,7 +191,7 @@ hr {
 
 .register-form-container {
     background-color: rgba(255, 255, 255, 0.8); 
-    padding: 40px;
+    padding: 20px;
     border-radius: 10px;
     width: 100%;
     margin: 0 auto;
@@ -191,6 +204,19 @@ hr {
     margin: 0 auto; 
 }
 
+    .inner-container h2 {
+        color: #d6928d;
+        font-size: 1.8rem;
+    }
+
+    .inner-container .subtitle {
+        display: block;
+        margin-bottom: 25px;
+        font-size: 0.7rem;
+        color: #777;
+    }
+
+
 .form-row {
     display: flex;
     justify-content: space-between;
@@ -202,13 +228,19 @@ hr {
     text-align: left; 
 }
 
+    .form-group label {
+        font-size: 0.8rem;
+        color: #777;
+        margin-bottom: 0.5rem;
+    }
+
 .form-control {
     width: 100%; 
 }
 
 .btn-primary {
     width: 30%; 
-    margin-top: 10px;
+    margin-top: 25px;
 }
 
 .footer {
