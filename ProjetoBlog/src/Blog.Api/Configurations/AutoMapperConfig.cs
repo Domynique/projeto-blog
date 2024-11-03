@@ -8,16 +8,17 @@ namespace Blog.Api.Configurations
     {
         public AutoMapperConfig() 
         {
+
+            CreateMap<Autor, AutorViewModel>().ReverseMap();
+
             CreateMap<Post, PostViewModel>()
                 .ForMember(dest => dest.NomeAutor, opt => opt.MapFrom(src => src.Autor.Nome))
                 .ReverseMap();
 
             CreateMap<Comentario, ComentarioViewModel>()
-                .ForMember(dest => dest.NomeAutor, opt => opt.MapFrom(src => src.Autor.Nome))
+				.ForMember(dest => dest.NomeAutor, opt => opt.MapFrom(src => src.Autor.Nome))
                 .ReverseMap();
-
-            CreateMap<Autor, AutorViewModel>().ReverseMap();
-            
+                        
             CreateMap<ApplicationUser, ApplicationUserViewModel>().ReverseMap();
 
             CreateMap<RegisterViewModel, ApplicationUser>()

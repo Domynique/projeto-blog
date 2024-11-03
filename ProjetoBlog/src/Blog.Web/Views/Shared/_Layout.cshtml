@@ -25,6 +25,12 @@
                         <li class="nav-item">
                             <a class="nav-link"  asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
+                            @if (User.Identity.IsAuthenticated)
+                            {
+                                <li class="nav-item">
+                                    <a asp-area="" asp-controller="Post" asp-action="Index" class="nav-link">Posts</a>
+                                </li>
+                            }
                         <li class="nav-item">
                             <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Privacy">Sobre</a>
                         </li>
@@ -32,20 +38,19 @@
                     <ul class="navbar-nav ml-auto"> 
                         @if (User.Identity.IsAuthenticated)
                         {
+
                             <li class="nav-item">
-                                <a class="nav-link" asp-area="" asp-controller="Account" asp-action="Logout">Logout</a>
+                                <form asp-area="" asp-controller="Account" asp-action="Logout" method="post" id="logoutForm"> 
+                                    <button type="submit" class="nav-link btn btn-link">Logout</button> 
+                                </form> 
                             </li>
                         }
                         else
                         {
                             <li class="nav-item">
-                                <a class="nav-link" asp-area="" asp-controller="Account" asp-action="Login" id="showLogin">Login</a>
+									<a asp-area="" asp-controller="Account" asp-action="Login" class="nav-link" id="showLogin">Login</a>
                             </li> 
-                            @*
-                            <li class="nav-item"> 
-                                <a class="nav-link" href="@Url.Action("Register", "Account")">Register</a> 
-                            </li>
-                            *@
+                           
                         }
                     </ul>
                 </div>
@@ -56,7 +61,7 @@
         <div class="container mt-2">
 
             <div class="row">
-                <aside class="col-md-4">
+                <aside class="col-md-3">
                     <div class="white-wrapper">
                         <img src="~/images/perfil2.jpg" alt="Imagem de exemplo" class="img-fluid rounded-circle">
                         <p class="site-description">
@@ -75,7 +80,7 @@
 
                 </aside>
 
-                <main role="main" class="col-md-8 pb-3">
+                <main role="main" class="col-md-9 pb-3">
                     <div id="renderBody">
                         @RenderBody()
 					</div>
@@ -83,7 +88,7 @@
 
             </div>
 
-			<div id="registerPartial">
+            <div id="registerPartial">
 				@Html.Partial("_RegisterPartial", new Blog.Api.ViewModels.RegisterViewModel())
 			</div>
 
@@ -114,12 +119,17 @@
     <script src="~/js/site.js" asp-append-version="true"></script>
 	@await RenderSectionAsync("Scripts", required: false)
 	<script>
-        $(document).ready(function () { 
+        $(document).ready(function () {
+
+            if (@User.Identity.IsAuthenticated.ToString().ToLower()) {
+                $('#registerPartial').hide(); 
+            }
             
             $('#showLogin').click(function () { 
                 $('#registerPartial').appendTo('#renderBody').hide();
                 $('#loginForm').show();
             }); 
+
             $('#showRegister').click(function (e) { 
                 e.preventDefault(); 
                 $('#registerPartial').appendTo('#renderBody').show();

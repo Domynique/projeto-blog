@@ -12,7 +12,12 @@ namespace Blog.Core.Repository
         }
         public async Task<IEnumerable<Post>> ObterPostsPorAutor(Guid autorId)
         {
-            return await Buscar(p => p.AutorId == autorId);
+            return await Db.Posts
+                .AsNoTracking()
+                .Where(p => p.AutorId == autorId)
+                .Include(p => p.Autor)
+                .ToListAsync();
+
         }
  
         public async Task<IEnumerable<Post>> ObterPostsAutores()

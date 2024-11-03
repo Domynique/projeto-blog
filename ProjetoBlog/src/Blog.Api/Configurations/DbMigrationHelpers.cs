@@ -2,6 +2,7 @@
 using Blog.Core.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using System.Security.Claims;
 
 namespace Blog.Api.Configurations
 {
@@ -42,8 +43,7 @@ namespace Blog.Api.Configurations
         }
 
         private static async Task EnsureSeedProducts(MeuDbContext context, UserManager<ApplicationUser> userManager, RoleManager<IdentityRole<Guid>> roleManager)
-        {           
-
+        {
             if (context.Autores.Any())
             {
                 return;
@@ -64,14 +64,14 @@ namespace Blog.Api.Configurations
             };
 
             await context.Autores.AddRangeAsync(autor1, autor2);
-            await context.SaveChangesAsync();
+            await context.SaveChangesAsync(); // Certifique-se de salvar antes de usar os IDs
 
             var applicationUser1 = new ApplicationUser
             {
-                UserName = "hugonunes@example.com",
-                NormalizedUserName = "HUGONUNES@EXAMPLE.COM",
-                Email = "hugonunes@example.com",
-                NormalizedEmail = "HUGONUNES@EXAMPLE.COM",
+                UserName = "hugonunes@teste.com",
+                NormalizedUserName = "HUGONUNES@TESTE.COM",
+                Email = "hugonunes@teste.com",
+                NormalizedEmail = "HUGONUNES@TESTE.COM",
                 EmailConfirmed = true,
                 SecurityStamp = Guid.NewGuid().ToString(),
                 ConcurrencyStamp = Guid.NewGuid().ToString(),
@@ -80,16 +80,15 @@ namespace Blog.Api.Configurations
 
             var applicationUser2 = new ApplicationUser
             {
-                UserName = "paulanunes@example.com",
-                NormalizedUserName = "PAULANUNES@EXAMPLE.COM",
-                Email = "paulanunes@example.com",
-                NormalizedEmail = "PAULANUNES@EXAMPLE.COM",
+                UserName = "paulanunes@teste.com",
+                NormalizedUserName = "PAULANUNES@TESTE.COM",
+                Email = "paulanunes@teste.com",
+                NormalizedEmail = "PAULANUNES@TESTE.COM",
                 EmailConfirmed = true,
                 SecurityStamp = Guid.NewGuid().ToString(),
                 ConcurrencyStamp = Guid.NewGuid().ToString(),
                 AutorId = autor2.Id
             };
-
 
             applicationUser1.PasswordHash = new PasswordHasher<ApplicationUser>().HashPassword(applicationUser1, "Teste@123");
             applicationUser2.PasswordHash = new PasswordHasher<ApplicationUser>().HashPassword(applicationUser2, "Teste@123");
@@ -97,17 +96,17 @@ namespace Blog.Api.Configurations
             await userManager.CreateAsync(applicationUser1);
             await userManager.CreateAsync(applicationUser2);
 
-            // Verificar se a role "Admin" existe, e cria se necessário
-            if (!await roleManager.RoleExistsAsync("Admin"))
-            {
-                await roleManager.CreateAsync(new IdentityRole<Guid>("Admin"));
+            await userManager.AddClaimAsync(applicationUser1, new Claim("AutorId", applicationUser1.AutorId.ToString())); 
+            await userManager.AddClaimAsync(applicationUser2, new Claim("AutorId", applicationUser2.AutorId.ToString()));
+
+
+            if (!await roleManager.RoleExistsAsync("Admin")) 
+            { 
+                await roleManager.CreateAsync(new IdentityRole<Guid>("Admin")); 
             }
 
-            // Adicionar role "Admin" ao primeiro autor
-            await userManager.AddToRoleAsync(applicationUser1, "Admin"); 
+            await userManager.AddToRoleAsync(applicationUser1, "Admin");
 
-
-            // Adicionando posts e comentários relacionados
             var post1 = new Post
             {
                 Titulo = "Primeiro Post",
@@ -139,7 +138,18 @@ namespace Blog.Api.Configurations
             };
 
             await context.Comentarios.AddRangeAsync(comentario1, comentario2);
-            await context.SaveChangesAsync();
+
+            await context.SaveChangesAsync(); // Salva todas as alterações uma vez no final
         }
+
+
+        private static async Task EnsureRoleExists(RoleManager<IdentityRole<Guid>> roleManager, string roleName)
+        {
+            if (!await roleManager.RoleExistsAsync(roleName))
+            {
+                await roleManager.CreateAsync(new IdentityRole<Guid>(roleName));
+            }
+        }
+
     }
 }

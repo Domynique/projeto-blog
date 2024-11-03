@@ -10,7 +10,6 @@ namespace Blog.Api.Configurations
     {
         public static IServiceCollection ResolveDependencies(this IServiceCollection services) 
         {
-            services.AddScoped<MeuDbContext>();
             services.AddScoped<IAutorRepository, AutorRepository>();
             services.AddScoped<IAutorService, AutorService>();
             services.AddScoped<IPostRepository, PostRepository>();

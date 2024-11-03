@@ -3,7 +3,6 @@ using Blog.Core.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
-using System.Security.Claims;
 using Blog.Api.ViewModels;
 using Blog.Core.Models;
 using AutoMapper;
@@ -79,7 +78,7 @@ namespace Blog.Api.Controllers
             }
 
             var novoPost = _mapper.Map<Post>(postViewModel);
-            novoPost.AutorId = usuarioId.Value;
+            novoPost.AutorId = usuarioId.AutorId;
             //novoPost.DataCadastro = DateTime.Now;           
 
             await _postService.Adicionar(novoPost);
@@ -108,7 +107,7 @@ namespace Blog.Api.Controllers
                 return CustomResponse(HttpStatusCode.Unauthorized);
             }
 
-            if (!await VerificarPermissao(usuarioId.Value, id)) 
+            if (!await VerificarPermissao(usuarioId.AutorId, id)) 
             {
                 NotificarErro("Você não tem permissão para realizar esta ação.");
                 return CustomResponse(HttpStatusCode.Forbidden);
@@ -139,7 +138,7 @@ namespace Blog.Api.Controllers
                 return CustomResponse(HttpStatusCode.Unauthorized);
             }
 
-            if (!await VerificarPermissao(usuarioId.Value, id)) 
+            if (!await VerificarPermissao(usuarioId.AutorId, id)) 
             {
                 NotificarErro("Você não tem permissão para realizar esta ação.");
                 return CustomResponse(HttpStatusCode.Forbidden);
@@ -151,10 +150,20 @@ namespace Blog.Api.Controllers
             return CustomResponse(HttpStatusCode.NoContent);
 
         }
-        private async Task<Guid?> ObterUsuarioId()
+
+        [HttpGet("obter-usuario-id")]
+        public async Task<ApplicationUser> ObterUsuarioId()
         {
             var user = await _userManager.GetUserAsync(User);
-            return user != null ? user.Id : (Guid?)null;
+            if (user == null)
+            {
+                Console.WriteLine("Usuário não encontrado.");
+            }
+            else
+            {
+                Console.WriteLine($"Usuário encontrado: {user.UserName}");
+            }
+            return user;
         }
 
         private async Task<bool> VerificarPermissao(Guid usuarioId, Guid postId)

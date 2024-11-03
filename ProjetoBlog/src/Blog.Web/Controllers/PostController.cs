@@ -3,6 +3,7 @@ using Blog.Api.ViewModels;
 using Blog.Core.Interfaces;
 using Blog.Core.Models;
 using Blog.Core.Notifications;
+using Blog.Core.Repository;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
@@ -14,24 +15,37 @@ namespace Blog.Web.Controllers
     public class PostController : BaseController
     {
         private readonly IPostService _postService;
+        private readonly IPostRepository _postRepository;
         private readonly IComentarioService _comentarioService;
         private readonly IMapper _mapper;
         public PostController(IPostService postService,
+                              IPostRepository postRepository,
                               IComentarioService comentarioService,
                               IMapper mapper,                            
                               INotificador notificador) : base(notificador)
         {
             _postService = postService;
+            _postRepository = postRepository;
             _comentarioService = comentarioService;
             _mapper = mapper;
         }
 
-        [HttpGet("Create")]
+        [HttpGet("")]
+        public async Task<IActionResult> Index() 
+        { 
+            var autorId = Guid.Parse(User.FindFirstValue("AutorId"));
+          
+            return View(_mapper.Map<IEnumerable<PostViewModel>>(await _postRepository.ObterPostsPorAutor(autorId)));
+
+        }
+
+		[HttpGet("Create")]
         public IActionResult Create()
         {
             return View();
         }
 
+        [HttpPost("create")]
         public async Task<IActionResult> Create(PostViewModel postViewModel) 
         {
             if (!ModelState.IsValid)
@@ -41,7 +55,7 @@ namespace Blog.Web.Controllers
 
             var post = _mapper.Map<Post>(postViewModel);
             
-            post.AutorId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+            post.AutorId = Guid.Parse(User.FindFirstValue("AutorId"));
 
             await _postService.Adicionar(post);
 

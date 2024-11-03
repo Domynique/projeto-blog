@@ -16,7 +16,7 @@ namespace Blog.Core.Base.Validations
                     .Length(2, 1000).WithMessage("O campo {PropertyName} precisa ter entre {MinLength} e {MaxLength} caracteres");
 
             RuleFor(post => post.AutorId)
-                    .NotEmpty().WithMessage("O ID do autor é obrigatório.");
+                    .NotEmpty().WithMessage("O autor é obrigatório.");
         }
     }
 }

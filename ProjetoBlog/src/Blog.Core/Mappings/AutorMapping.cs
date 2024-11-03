@@ -21,11 +21,7 @@ namespace Blog.Core.Mappings
                 .HasColumnType("varchar(1000)")
                 .HasMaxLength(1000);
 
-            builder.HasOne<ApplicationUser>()
-                        .WithOne(u => u.Autor)
-                        .HasForeignKey<ApplicationUser>(u => u.AutorId);
-
-            builder.HasMany(a => a.Posts)
+             builder.HasMany(a => a.Posts)
                        .WithOne(p => p.Autor)
                        .HasForeignKey(p => p.AutorId);
 

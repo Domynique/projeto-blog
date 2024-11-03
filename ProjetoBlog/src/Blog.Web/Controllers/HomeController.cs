@@ -16,14 +16,9 @@ public class HomeController : Controller
 
     public async Task<IActionResult> Index()
     {
-        try
-        {
-            return View(_mapper.Map<IEnumerable<PostViewModel>>(await _postRepository.ObterPostsAutores()));
-        }
-        catch (Exception ex)
-        {
-            return View("Error", new ErrorViewModel { Mensagem = ex.Message });
-        }
+    
+       return View(_mapper.Map<IEnumerable<PostViewModel>>(await _postRepository.ObterPostsAutores()));
+
     }
 
     public IActionResult Privacy()

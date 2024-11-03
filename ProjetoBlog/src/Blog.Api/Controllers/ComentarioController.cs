@@ -166,6 +166,7 @@ namespace Blog.Api.Controllers
             var post = await _comentarioService.ObterPorId(postId);
             return post != null && (post.AutorId == usuarioId || User.IsInRole("Admin"));
         }
+
         private async Task<ComentarioViewModel> ObterComentario(Guid id)
         {
             return _mapper.Map<ComentarioViewModel>(await _comentarioRepository.ObterComentarioPost(id));

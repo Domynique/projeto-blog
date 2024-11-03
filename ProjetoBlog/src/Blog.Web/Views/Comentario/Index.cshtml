@@ -27,7 +27,7 @@
 			</div>
 		</div>
         }
-        
+        <fieldset class="custom-fieldset">
         <form asp-action="AdicionarComentario">
             <div class="form-group">
                 <label for="conteudo">Comentário</label>
@@ -36,5 +36,6 @@
             <input type="hidden" name="PostId" value="@ViewBag.PostId" />
             <button type="submit" class="btn btn-primary">Enviar</button>
         </form>
+        </fieldset>
     </div>
 </section>

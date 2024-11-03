@@ -410,5 +410,25 @@
         "StatusCode": 404
       }
     ]
+  },
+  {
+    "ContainingType": "Blog.Api.Controllers.PostController",
+    "Method": "ObterUsuarioId",
+    "RelativePath": "api/Posts/obter-usuario-id",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "Blog.Core.Models.ApplicationUser",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
   }
 ]

@@ -3,35 +3,41 @@ using Blog.Api.ViewModels;
 using Blog.Core.Interfaces;
 using Blog.Core.Models;
 using Blog.Core.Notifications;
+using Blog.Core.Repository;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using System.Net;
 using System.Security.Claims;
 
 namespace Blog.Web.Controllers
 {
-    
+
     [Route("comentario")]
     public class ComentarioController : BaseController
     {
+        private UserManager<ApplicationUser> _userManager;
         private IComentarioService _comentarioService;
         private IComentarioRepository _comentarioRepository;
         private IPostService _postService;
         private IMapper _mapper;
 
-        public ComentarioController(IComentarioService comentarioService,
+        public ComentarioController(UserManager<ApplicationUser> userManager,
+                                    IComentarioService comentarioService,
                                     IComentarioRepository comentarioRepository,
                                     IPostService postService,
-                                    IMapper mapper, 
+                                    IMapper mapper,
                                     INotificador notificador) : base(notificador)
         {
+            _userManager = userManager;
             _comentarioService = comentarioService;
             _comentarioRepository = comentarioRepository;
             _postService = postService;
             _mapper = mapper;
         }
-        
+
         [HttpGet("{postId}")]
-        public async Task<IActionResult> Index(Guid postId) 
+        public async Task<IActionResult> Index(Guid postId)
         {
             var comentariosViewModel = _mapper.Map<IEnumerable<ComentarioViewModel>>(await _comentarioRepository.ObterComentariosPorPost(postId));
 
@@ -44,34 +50,60 @@ namespace Blog.Web.Controllers
             };
 
             ViewBag.PostId = postId;
-            
+
             return View(viewModel);
         }
-		
+
+
         [Authorize]
-		[HttpPost("{postId}")]
+        [HttpPost("{postId}")]
         public async Task<IActionResult> Create(ComentarioViewModel comentarioViewModel)
         {
-            if (!ModelState.IsValid)
+
+            var comentariosPostViewModel = await ObterComentariosPostViewModel(comentarioViewModel.PostId);
+
+            if (!ModelState.IsValid) 
             {
-                return View("Index", comentarioViewModel);
+                return View("Index", comentariosPostViewModel);
             }
 
-            var comentario = _mapper.Map<Comentario>(comentarioViewModel); 
-            
-            comentario.AutorId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+            var usuarioId = await ObterUsuarioId();
 
-            await _comentarioService.Adicionar(comentario);
+            var novoComentario = _mapper.Map<Comentario>(comentarioViewModel); 
+            novoComentario.AutorId = usuarioId.Value;
 
-            if (!OperacaoValida())
-            {
-                return View(comentarioViewModel);              
-            
+            await _comentarioService.Adicionar(novoComentario); 
+
+            if (!OperacaoValida()) 
+            { 
+                return View("Index", comentariosPostViewModel); 
             }
             
             TempData["Sucesso"] = "Comentário adicionado com sucesso!";
-            
-            return RedirectToAction("Index", new {postId = comentarioViewModel.PostId});
+
+            return RedirectToAction("Index", new { postId = comentarioViewModel.PostId });
+
+        }
+
+        private async Task<ComentariosPostViewModel> ObterComentariosPostViewModel(Guid postId)
+        {
+            var post = await _postService.ObterPorId(postId);
+			var postViewModel = _mapper.Map<PostViewModel>(post);
+
+			var comentarios = await _comentarioRepository.ObterComentariosPorPost(postId);
+            var comentariosViewModels = comentarios.Select(c => _mapper.Map<ComentarioViewModel>(c)).ToList();
+
+            return new ComentariosPostViewModel
+            {
+                Post = postViewModel,
+                Comentarios = comentariosViewModels
+            };
+        }
+
+        private async Task<Guid?> ObterUsuarioId()
+        {
+            var user = await _userManager.GetUserAsync(User);
+            return user?.Id;
         }
     }
 }

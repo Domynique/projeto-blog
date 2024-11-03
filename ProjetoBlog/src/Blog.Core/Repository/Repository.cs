@@ -2,10 +2,11 @@
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
 using Blog.Core.Interfaces;
+using Blog.Core.Models.Base;
 
 namespace Blog.Core.Repository
 {
-    public abstract class Repository<TEntity> : IRepository<TEntity> where TEntity : class, new()
+    public abstract class Repository<TEntity> : IRepository<TEntity> where TEntity : Entity, new()
     {
         protected readonly MeuDbContext Db;
         protected readonly DbSet<TEntity> DbSet;

@@ -1,5 +1,6 @@
 ﻿body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #777 !important;
     margin: 0;
     padding: 0;
     background-color: #3d3d3d;
@@ -19,7 +20,7 @@
     display: block;
     font-size: 0.8rem;
     color: #777;
-    margin-top: 1px; 
+    margin-top: -2px; 
 }
 
 .navbar-nav .nav-link {
@@ -108,6 +109,7 @@ aside {
     margin-right: 5px;
 }
 
+
 .posts {
     width: 100%;
 }
@@ -121,6 +123,8 @@ aside {
 }
 
     .post h2 {
+        font-size: 1.8rem;
+        color: #777;
         margin-top: 0;
     }
 
@@ -139,7 +143,7 @@ aside {
 }
 
 .post-content {
-    margin-top: 1rem;
+    margin-top: 0.5rem;
 }
 
 .post-meta {
@@ -147,6 +151,14 @@ aside {
     font-size: 0.9rem;
     color: #777;
 }
+    .post-meta a {
+        color: #777;
+        text-decoration: none;
+    }
+
+    .post-meta a:hover {
+        color: #0d6efd;
+    }
 
     .post-meta i {
         margin-right: 5px;
@@ -189,7 +201,18 @@ hr {
     margin-top: 20px;
 }
 
-.register-form-container {
+.custom-fieldset {
+    padding: 1rem;
+    margin-bottom: 1rem;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
+    .custom-fieldset legend {
+        color: #d6928d; /* Opcional: Altera a cor do texto da legenda */
+    }
+
+.form-container {
     background-color: rgba(255, 255, 255, 0.8); 
     padding: 20px;
     border-radius: 10px;
@@ -214,7 +237,25 @@ hr {
         margin-bottom: 25px;
         font-size: 0.7rem;
         color: #777;
+        margin-top: -5px;
     }
+
+    .inner-container span {
+        font-size: 0.8rem;
+        color: #777;
+        margin-bottom: 0.5rem;
+    }
+
+    .inner-container a {
+        color: #0d6efd;
+        margin-top: -5px;
+        text-decoration: none;
+    }
+
+        .inner-container a:hover {
+            color: #0d6efd;
+        }
+
 
 
 .form-row {
