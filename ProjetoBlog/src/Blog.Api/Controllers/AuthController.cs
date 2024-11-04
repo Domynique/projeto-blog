@@ -1,7 +1,6 @@
 ﻿using Blog.Api.ViewModels;
 using Blog.Core.Business.Interfaces;
 using Blog.Core.Business.Models;
-using Blog.Core.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
@@ -18,12 +17,12 @@ namespace Blog.Api.Controllers
     [Route("api/Conta")]
     public class AuthController : MainController
     {
-        private readonly UserManager<ApplicationUser> _userManager;
-        private readonly SignInManager<ApplicationUser> _signInManager;
+        private readonly UserManager<IdentityUser> _userManager;
+        private readonly SignInManager<IdentityUser> _signInManager;
         private readonly JwtSettings _jwtSettings;
 
-        public AuthController(UserManager<ApplicationUser> userManager,
-                              SignInManager<ApplicationUser> signInManager,
+        public AuthController(UserManager<IdentityUser> userManager,
+                              SignInManager<IdentityUser> signInManager,
                               IOptions<JwtSettings> jwtSettings, INotificador notificador) : base(notificador)
         {
             _userManager = userManager;
@@ -36,25 +35,18 @@ namespace Blog.Api.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return ValidationProblem(ModelState);
+                return CustomResponse(ModelState);
             }
 
-            var autor = new Autor
-            {
-                Id = Guid.NewGuid(),
-                Nome = registerAutor.Nome,
-                Biografia = registerAutor.Biografia
-            };
-
-            var applicationUser = new ApplicationUser
+            var autor = new IdentityUser
             {
                 UserName = registerAutor.Email,
                 Email = registerAutor.Email,
-                EmailConfirmed = true,
-                Autor = autor
+                EmailConfirmed = true
             };
 
-            var result = await _userManager.CreateAsync(applicationUser, registerAutor.Password);
+            var result = await _userManager.CreateAsync(autor, registerAutor.Password);
+            
             if (!result.Succeeded)
             {
                 foreach (var error in result.Errors)
@@ -74,10 +66,11 @@ namespace Blog.Api.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return ValidationProblem(ModelState);
+                return CustomResponse(ModelState);
             }
 
-            var result = await _signInManager.PasswordSignInAsync(loginAutor.Email, loginAutor.Password, false, false);
+            var result = await _signInManager.PasswordSignInAsync(loginAutor.Email!, loginAutor.Password, false, true);
+            
             if (!result.Succeeded)
             {
                 NotificarErro("Autenticação falhou.");
@@ -93,7 +86,8 @@ namespace Blog.Api.Controllers
         private string GerarJwt()
         {
             var tokenHandler = new JwtSecurityTokenHandler();
-            var key = Encoding.ASCII.GetBytes(_jwtSettings.Segredo);
+            
+            var key = Encoding.ASCII.GetBytes(_jwtSettings.Segredo!);
 
             var token = tokenHandler.CreateToken(new SecurityTokenDescriptor
             {

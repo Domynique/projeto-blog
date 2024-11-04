@@ -1,5 +1,4 @@
 ﻿using Blog.Core.Business.Models;
-using System.Threading.Tasks;
 
 namespace Blog.Core.Business.Interfaces
 {

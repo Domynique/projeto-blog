@@ -28,7 +28,7 @@ namespace Blog.Core.Extension
             return _accessor.HttpContext?.User.Identity is { IsAuthenticated: true };
         }
 
-        public bool IsInBusinessRule(string user)
+        public bool BusinessRule(string user)
         {
             if (string.IsNullOrEmpty(user))
             {

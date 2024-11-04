@@ -1,6 +1,5 @@
 ﻿using Blog.Core.Business.Interfaces;
 using Blog.Core.Business.Notifications;
-using Blog.Core.Notifications;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using System.Net;
@@ -35,7 +34,7 @@ namespace Blog.Api.Controllers
 
             return BadRequest(new
             {
-                errors = _notificador.obterNotificacoes().Select(n => n.Mensagem)
+                errors = _notificador.ObterNotificacoes().Select(n => n.Mensagem)
             });
         }
 

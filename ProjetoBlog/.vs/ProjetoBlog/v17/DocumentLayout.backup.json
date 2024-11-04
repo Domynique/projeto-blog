@@ -3,12 +3,12 @@
   "WorkspaceRootPath": "C:\\Desenvolvedor.IO\\Projetos\\projeto-blog\\ProjetoBlog\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{120BF541-A2CB-40A3-A8C5-B4C456A0187C}|src\\Blog.App\\Blog.App.csproj|c:\\desenvolvedor.io\\projetos\\projeto-blog\\projetoblog\\src\\blog.app\\blog.app.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
-      "RelativeMoniker": "D:0:0:{120BF541-A2CB-40A3-A8C5-B4C456A0187C}|src\\Blog.App\\Blog.App.csproj|solutionrelative:src\\blog.app\\blog.app.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{4AAF3ABB-DC65-45DF-920B-0559F7348966}|src\\Blog.Web\\Blog.Web.csproj|c:\\desenvolvedor.io\\projetos\\projeto-blog\\projetoblog\\src\\blog.web\\blog.web.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
       "RelativeMoniker": "D:0:0:{4AAF3ABB-DC65-45DF-920B-0559F7348966}|src\\Blog.Web\\Blog.Web.csproj|solutionrelative:src\\blog.web\\blog.web.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{120BF541-A2CB-40A3-A8C5-B4C456A0187C}|src\\Blog.App\\Blog.App.csproj|c:\\desenvolvedor.io\\projetos\\projeto-blog\\projetoblog\\src\\blog.app\\blog.app.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{120BF541-A2CB-40A3-A8C5-B4C456A0187C}|src\\Blog.App\\Blog.App.csproj|solutionrelative:src\\blog.app\\blog.app.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
     },
     {
       "AbsoluteMoniker": "D:0:0:{4B8C5799-3A4C-4F27-84B0-0BE3898947EA}|src\\Blog.Api\\Blog.Api.csproj|c:\\desenvolvedor.io\\projetos\\projeto-blog\\projetoblog\\src\\blog.api\\configurations\\automappersettings.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -46,11 +46,11 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 1,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "Blog.App",
               "DocumentMoniker": "C:\\Desenvolvedor.IO\\Projetos\\projeto-blog\\ProjetoBlog\\src\\Blog.App\\Blog.App.csproj",
               "RelativeDocumentMoniker": "src\\Blog.App\\Blog.App.csproj",
@@ -63,7 +63,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 0,
               "Title": "Blog.Web",
               "DocumentMoniker": "C:\\Desenvolvedor.IO\\Projetos\\projeto-blog\\ProjetoBlog\\src\\Blog.Web\\Blog.Web.csproj",
               "RelativeDocumentMoniker": "src\\Blog.Web\\Blog.Web.csproj",
