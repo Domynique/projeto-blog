@@ -1,8 +1,7 @@
 ﻿using AutoMapper;
 using Blog.Api.ViewModels;
-using Blog.Core.Interfaces;
-using Blog.Core.Models;
-using Blog.Core.Notifications;
+using Blog.Core.Business.Interfaces;
+using Blog.Core.Business.Models;
 using Blog.Core.Repository;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;

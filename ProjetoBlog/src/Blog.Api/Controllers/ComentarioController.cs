@@ -1,7 +1,4 @@
-﻿using Blog.Core.Models;
-using Blog.Core.Notifications;
-using Blog.Core.Interfaces;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
 using System.Security.Claims;
@@ -9,6 +6,8 @@ using AutoMapper;
 using Blog.Api.ViewModels;
 using Blog.Core.Services;
 using Microsoft.AspNetCore.Identity;
+using Blog.Core.Business.Interfaces;
+using Blog.Core.Business.Models;
 
 namespace Blog.Api.Controllers
 {

@@ -1,14 +1,13 @@
-﻿using Blog.Core.Notifications;
-using Blog.Core.Interfaces;
-using Blog.Core.Services;
-using Blog.Core.Context;
-using Blog.Core.Repository;
+﻿using Blog.Core.Business.Interfaces;
+using Blog.Core.Business.Notifications;
+using Blog.Core.Data.Repository;
+using Blog.Core.Business.Services;
 
 namespace Blog.Api.Configurations
 {
     public static class DependencyInjectionConfig
     {
-        public static IServiceCollection ResolveDependencies(this IServiceCollection services) 
+        public static IServiceCollection AddResolveDependencies(this IServiceCollection services) 
         {
             services.AddScoped<IAutorRepository, AutorRepository>();
             services.AddScoped<IAutorService, AutorService>();
@@ -16,6 +15,8 @@ namespace Blog.Api.Configurations
             services.AddScoped<IPostService, PostService>();
             services.AddScoped<IComentarioRepository, ComentarioRepository>();
             services.AddScoped<IComentarioService, ComentarioService>();
+            services.AddScoped<IIdentityUserRepository, IdentityUserRepository>();
+            services.AddScoped<IIdentityUserService, IdentityUserService>();
             services.AddScoped<INotificador, Notificador>();
 
             return services;

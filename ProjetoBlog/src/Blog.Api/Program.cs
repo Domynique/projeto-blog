@@ -2,40 +2,28 @@ using Blog.Api.Configurations;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.AddDatabaseSelector();
+    builder.Services.AddApiConfig();
 
-builder.Services.AddDatabaseDeveloperPageExceptionFilter();
+    builder.Services.AddSwaggerConfig();
 
-builder.Services.ResolveDependencies();
+    builder.Services.AddAutoMapperConfig();
 
-builder.Services.AddControllers()
-    .ConfigureApiBehaviorOptions(options =>
-    {
-        options.SuppressModelStateInvalidFilter = true;
-    });
+    builder.Services.AddResolveDependencies();
 
-builder.Services.AddIdentityConfig(builder.Configuration);
+    builder.Services.AddIdentityConfig(builder.Configuration);
 
-builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+    builder.Services.AddDbContext(builder.Configuration);
 
-builder.Services.AddEndpointsApiExplorer();
-
-builder.Services.AddSwaggerConfig();
+    builder.Services.AddJwtConfig(builder.Configuration);
 
 var app = builder.Build();
 
-app.UseSwaggerConfig();
+    app.UseSwaggerConfig();
 
-app.UseHttpsRedirection();
+    app.UseApiConfig(app.Environment);
 
-app.UseRouting();
+    app.MapControllers();
 
-app.UseAuthentication();
+    app.UseDbMigrationHelper();
 
-app.UseAuthorization();
-
-app.MapControllers();
-
-app.UseDbMigrationHelper();
-
-app.Run();
+    app.Run();

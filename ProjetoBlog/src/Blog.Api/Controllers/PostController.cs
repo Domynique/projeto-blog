@@ -1,12 +1,11 @@
-﻿using Blog.Core.Notifications;
-using Blog.Core.Interfaces;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
 using Blog.Api.ViewModels;
-using Blog.Core.Models;
 using AutoMapper;
 using Microsoft.AspNetCore.Identity;
+using Blog.Core.Business.Interfaces;
+using Blog.Core.Business.Models;
 
 
 namespace Blog.Api.Controllers

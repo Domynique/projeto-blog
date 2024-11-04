@@ -1,4 +1,4 @@
-﻿using Blog.Core.Notifications;
+﻿using Blog.Core.Business.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Blog.Web.Controllers

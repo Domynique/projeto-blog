@@ -7,6 +7,8 @@ namespace Blog.Api.Configurations
     {
         public static IServiceCollection AddSwaggerConfig(this IServiceCollection services)
         {
+            services.AddEndpointsApiExplorer();
+            
             services.AddSwaggerGen(c =>
             {
                 c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme

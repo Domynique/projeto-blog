@@ -1,6 +1,6 @@
 using AutoMapper;
 using Blog.Api.ViewModels;
-using Blog.Core.Interfaces;
+using Blog.Core.Business.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 public class HomeController : Controller

@@ -1,32 +1,13 @@
-﻿using AutoMapper;
-using Blog.Api.ViewModels;
-using Blog.Core.Models;
-
-namespace Blog.Api.Configurations
+﻿namespace Blog.Api.Configurations
 {
-    public class AutoMapperConfig : Profile
+    public static class AutoMapperConfig
     {
-        public AutoMapperConfig() 
+        public static IServiceCollection AddAutoMapperConfig(this IServiceCollection services)
         {
 
-            CreateMap<Autor, AutorViewModel>().ReverseMap();
-
-            CreateMap<Post, PostViewModel>()
-                .ForMember(dest => dest.NomeAutor, opt => opt.MapFrom(src => src.Autor.Nome))
-                .ReverseMap();
-
-            CreateMap<Comentario, ComentarioViewModel>()
-				.ForMember(dest => dest.NomeAutor, opt => opt.MapFrom(src => src.Autor.Nome))
-                .ReverseMap();
-                        
-            CreateMap<ApplicationUser, ApplicationUserViewModel>().ReverseMap();
-
-            CreateMap<RegisterViewModel, ApplicationUser>()
-                .ForMember(dest => dest.UserName, opt => opt.MapFrom(src => src.UserName))
-                .ForMember(dest => dest.Email, opt => opt.MapFrom(src => src.Email));
-
-            CreateMap<LoginViewModel, ApplicationUser>()
-                .ForMember(dest => dest.UserName, opt => opt.MapFrom(src => src.Email));
+            services.AddAutoMapper(typeof(AutoMapperSettings).Assembly);
+            
+            return services;
         }
     }
 }
