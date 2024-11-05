@@ -24,7 +24,7 @@ namespace Blog.Core.Business.Models.Base
 
         protected void Notificar(string mensagem)
         {
-            _notificador.Handle(new Notificacao(mensagem));
+            _notificador.AddNotificacao(new Notificacao(mensagem));
         }
 
         protected bool ExecutarValidacao<TV, TE>(TV validacao, TE entidade) where TV : AbstractValidator<TE>

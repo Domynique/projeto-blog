@@ -9,16 +9,16 @@ namespace Blog.Core.Business.Services
     {
         protected readonly IComentarioRepository _comentarioRepository;
         protected readonly IIdentityUserService _identityUserService;
-        protected readonly IAppUser _applicationUser;
+        protected readonly IAppUser _appUser;
 
         public ComentarioService(IComentarioRepository comentarioRepository,
                                  IIdentityUserService identityUserService,
-                                 IAppUser applicationUser,
+                                 IAppUser appUser,
                                  INotificador notificador) : base(notificador)
         {
             _comentarioRepository = comentarioRepository;
             _identityUserService = identityUserService;
-            _applicationUser = applicationUser;
+            _appUser = appUser;
 
         }
         public async Task<Comentario?> ObterPorId(Guid id)
@@ -33,7 +33,7 @@ namespace Blog.Core.Business.Services
 
         public async Task Adicionar(Comentario comentario)
         {
-            var userId = _applicationUser.GetUser();
+            var userId = _appUser.GetUserId();
             var user = await _identityUserService.GetUserById(userId);
 
             comentario.UserId = userId;

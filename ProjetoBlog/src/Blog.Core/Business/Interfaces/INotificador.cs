@@ -6,6 +6,6 @@ namespace Blog.Core.Business.Interfaces
     {
         bool TemNotificacao();
         List<Notificacao> ObterNotificacoes();
-        void Handle(Notificacao notificacao);
+        void AddNotificacao(Notificacao notificacao);
     }
 }

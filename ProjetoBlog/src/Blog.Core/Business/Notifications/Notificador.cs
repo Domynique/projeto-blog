@@ -10,7 +10,7 @@ namespace Blog.Core.Business.Notifications
         {
             _notificacoes = new List<Notificacao>();
         }
-        public void Handle(Notificacao notificacao)
+        public void AddNotificacao(Notificacao notificacao)
         {
             _notificacoes.Add(notificacao);
         }

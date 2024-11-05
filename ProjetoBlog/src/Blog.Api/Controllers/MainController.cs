@@ -11,10 +11,20 @@ namespace Blog.Api.Controllers
     public abstract class MainController : ControllerBase
     {
         private readonly INotificador _notificador;
+        public readonly IAppUser _appUser;
 
-        protected MainController(INotificador notificador)
+        protected bool UsuarioAutenticado { get; set; }
+
+        protected MainController(INotificador notificador, IAppUser appUser)
         {
-            _notificador = notificador;            
+            _notificador = notificador;
+            _appUser = appUser;
+
+            if (appUser.IsAuthenticated())
+            {
+                UsuarioAutenticado = true;
+            }
+
         }
 
         protected bool OperacaoValida()
@@ -47,6 +57,7 @@ namespace Blog.Api.Controllers
         protected void NotificarErroModelInvalida(ModelStateDictionary modelState)
         {
             var erros = modelState.Values.SelectMany(e => e.Errors);
+            
             foreach (var erro in erros)
             {
                 var errorMsg = erro.Exception == null ? erro.ErrorMessage : erro.Exception.Message;
@@ -55,7 +66,7 @@ namespace Blog.Api.Controllers
         }
         protected void NotificarErro(string mensagem)
         {
-            _notificador.Handle(new Notificacao(mensagem));
+            _notificador.AddNotificacao(new Notificacao(mensagem));
         }
     }
 }

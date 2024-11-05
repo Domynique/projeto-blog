@@ -9,16 +9,16 @@ namespace Blog.Core.Business.Services
     {
         private readonly IPostRepository _postRepository;
         private readonly IAutorRepository _autorRepository;
-        private readonly IAppUser _applicationUser;
+        private readonly IAppUser _appUser;
 
         public PostService(IPostRepository postRepository,
                            IAutorRepository autorRepository,
-                           IAppUser applicationUser, 
+                           IAppUser appUser, 
                            INotificador notificador) : base(notificador)
         {
             _postRepository = postRepository;
             _autorRepository = autorRepository;
-            _applicationUser = applicationUser;
+            _appUser = appUser;
         }
 
         public async Task<Post?> ObterPorId(Guid id)
@@ -33,7 +33,7 @@ namespace Blog.Core.Business.Services
 
         public async Task Adicionar(Post post)
         {
-            var userId = _applicationUser.GetUser();
+            var userId = _appUser.GetUserId();
             var autor = await _autorRepository.ObterAutorPorUserId(userId);
 
             if (autor == null)
@@ -52,6 +52,7 @@ namespace Blog.Core.Business.Services
 
         public async Task Atualizar(Post post)
         {
+
             if (!ExecutarValidacao(new PostValidation(), post)) return;
 
             await _postRepository.Atualizar(post);

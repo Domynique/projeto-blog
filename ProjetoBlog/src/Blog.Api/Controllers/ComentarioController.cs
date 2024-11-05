@@ -1,13 +1,11 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
-using System.Security.Claims;
 using AutoMapper;
 using Blog.Api.ViewModels;
-using Blog.Core.Services;
-using Microsoft.AspNetCore.Identity;
 using Blog.Core.Business.Interfaces;
 using Blog.Core.Business.Models;
+
 
 namespace Blog.Api.Controllers
 {
@@ -15,7 +13,6 @@ namespace Blog.Api.Controllers
     [ApiController]
     public class ComentarioController : MainController
     {
-        private readonly UserManager<ApplicationUser> _userManager;
         private readonly IComentarioRepository _comentarioRepository;
         private readonly IComentarioService _comentarioService;
         private readonly IPostService _postService;
@@ -25,7 +22,7 @@ namespace Blog.Api.Controllers
                                     IComentarioService comentarioService, 
                                     IPostService postService,
                                     IMapper mapper, 
-                                    INotificador notificador) : base(notificador)
+                                    INotificador notificador, IAppUser appUser) : base(notificador, appUser)
         {
             _comentarioRepository = comentarioRepository;
             _comentarioService = comentarioService;
@@ -36,21 +33,21 @@ namespace Blog.Api.Controllers
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<ActionResult<IEnumerable<ComentarioViewModel>>> ObterTodos()
+        public async Task<ActionResult<IEnumerable<ComentarioViewModel>>> ObterTodos(Guid postId)
         {
-            var comentarios = _mapper.Map<IEnumerable<ComentarioViewModel>>(await _comentarioRepository.ObterComentariosPosts());
+            var comentarios = _mapper.Map<IEnumerable<ComentarioViewModel>>(await _comentarioRepository.ObterComentariosPorPost(postId));
             return CustomResponse(HttpStatusCode.OK, comentarios);
         }
 
         [HttpGet("{id:guid}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<ActionResult<ComentarioViewModel>> ObterPorId(Guid id)
-        {
-            var comentario = await ObterComentario(id);
+        public async Task<ActionResult<ComentarioViewModel>> ObterPorId(Guid id,Guid postId)
+        {;
+            var comentario = _mapper.Map<ComentarioViewModel>(await _comentarioRepository.ObterComentarioPorPost(id, postId));
             if (comentario == null)
             {
-                NotificarErro("Comentário não encontrado!");
+                NotificarErro("Comentário não encontrado.");
                 return CustomResponse(HttpStatusCode.NotFound);
             }
 
@@ -62,27 +59,30 @@ namespace Blog.Api.Controllers
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        public async Task<IActionResult> Adicionar(ComentarioViewModel comentarioViewModel)
+        public async Task<IActionResult> Adicionar(Guid postId, [FromBody]ComentarioViewModel comentarioViewModel)
         {
             if (!ModelState.IsValid)
             {
                 return CustomResponse(ModelState);
             }
 
-            var usuarioId = await ObterUsuarioId();
-            if (usuarioId == null)
+            if (postId != comentarioViewModel.PostId)
             {
-                NotificarErro("Autenticação necessária.");
-                return CustomResponse(HttpStatusCode.Unauthorized);
+                NotificarErro("IDs não conferem.");
+                return CustomResponse();
             }
 
-            var novoComentario = _mapper.Map<Comentario>(comentarioViewModel);
-            novoComentario.AutorId = usuarioId.Value;
-            //novoComentario.DataCadastro = DateTime.Now;
+            var post = await _postService.ObterPorId(postId);
 
-            await _comentarioService.Adicionar(novoComentario);
+            if (post == null)
+            {
+                NotificarErro("Post não encontrado.");
+                return CustomResponse(HttpStatusCode.NotFound);
+            }
 
-            return CreatedAtAction(nameof(ObterPorId), new { id = novoComentario.Id }, novoComentario);
+            await _comentarioService.Adicionar(_mapper.Map<Comentario>(comentarioViewModel));
+
+            return CustomResponse(HttpStatusCode.Created);
 
         }
 
@@ -92,31 +92,36 @@ namespace Blog.Api.Controllers
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
-        public async Task<IActionResult> Atualizar(Guid id, ComentarioViewModel comentarioViewModel)
+        public async Task<IActionResult> Atualizar(Guid id, Guid postId, [FromBody]ComentarioViewModel comentarioViewModel)
         {
             if (!ModelState.IsValid)
             {
                 return CustomResponse(ModelState);
             }
 
-            var usuarioId = await ObterUsuarioId();
-            if( usuarioId == null)
+            if (postId != comentarioViewModel.PostId)
             {
-                NotificarErro("Autenticação necessária.");
+                NotificarErro("IDs não conferem.");
+                return CustomResponse();
+            }
+
+            var comentario = await _comentarioRepository.ObterComentarioPorPost(id, postId);
+            if (comentario == null)
+            {
+                NotificarErro("Comentário não encontrado.");
+                return CustomResponse(HttpStatusCode.NotFound);
+            }
+
+            var autorizado = _appUser.BusinessRule(comentario.Post.Autor.UserId);
+            if (!autorizado)
+            {
+                NotificarErro("Autorização necessária.");
                 return CustomResponse(HttpStatusCode.Unauthorized);
             }
 
-            if (!await VerificarPermissao(usuarioId.Value, id))
-            {
-                NotificarErro("Você não tem permissão para realizar esta ação.");
-                return CustomResponse(HttpStatusCode.Forbidden);
+            comentario.Conteudo = comentarioViewModel.Conteudo;
 
-            }
-            var existeComentario = await _comentarioService.ObterPorId(id);
-
-            _mapper.Map(comentarioViewModel, existeComentario);
-
-            await _comentarioService.Atualizar(existeComentario);
+            await _comentarioService.Atualizar(comentario);
 
             return CustomResponse(HttpStatusCode.NoContent);
 
@@ -128,47 +133,28 @@ namespace Blog.Api.Controllers
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> Excluir(Guid id)
+        public async Task<IActionResult> Excluir(Guid id, Guid postId)
         {
-            var usuarioId = await ObterUsuarioId();
-            if (usuarioId == null)
+
+            var comentario = await _comentarioRepository.ObterComentarioPorPost(id, postId);
+            if (comentario == null)
             {
-                NotificarErro("Autenticação necessária.");
+                NotificarErro("Comentário não encontrado.");
+                return CustomResponse(HttpStatusCode.NotFound);
+            }
+
+            var autorizado = _appUser.BusinessRule(comentario.Post.Autor.UserId);
+            if (!autorizado)
+            {
+                NotificarErro("Autorização necessária.");
                 return CustomResponse(HttpStatusCode.Unauthorized);
             }
 
-            var comentario = await ObterComentario(id);
-            if (comentario == null)
-            {
-                return CustomResponse(HttpStatusCode.NotFound);
-            }
-           
-            if (!await VerificarPermissao(usuarioId.Value, id))
-            {
-                NotificarErro("Você não tem permissão para realizar esta ação.");
-                return CustomResponse(HttpStatusCode.Forbidden);
-
-            }
-
             await _comentarioService.Remover(id);
+           
             return CustomResponse(HttpStatusCode.NoContent);
 
         }
-        private async Task<Guid?> ObterUsuarioId()
-        {
-            var user = await _userManager.GetUserAsync(User);
-            return user?.Id;
-        }
-
-        private async Task<bool> VerificarPermissao(Guid usuarioId, Guid postId)
-        {
-            var post = await _comentarioService.ObterPorId(postId);
-            return post != null && (post.AutorId == usuarioId || User.IsInRole("Admin"));
-        }
-
-        private async Task<ComentarioViewModel> ObterComentario(Guid id)
-        {
-            return _mapper.Map<ComentarioViewModel>(await _comentarioRepository.ObterComentarioPost(id));
-        }
+      
     }
 }
