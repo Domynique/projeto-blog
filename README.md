@@ -1,4 +1,4 @@
-# 🎓**[Blog] - Aplicação de Blog Simples com MVC e API RESTful**
+# 🎓 **[Blog] - Aplicação de Blog Simples com MVC e API RESTful**
 
 
 
@@ -8,7 +8,7 @@ Bem-vindo ao repositório do projeto **[Blog]**. Este projeto é uma entrega do 
 O objetivo principal desenvolver uma aplicação de blog que permite aos usuários criar, editar, visualizar e excluir posts e comentários, tanto através de uma interface web utilizando MVC quanto através de uma API RESTful.
 Descreva livremente mais detalhes do seu projeto aqui.
 
-### **Autor(es) **
+### **Autor(es)**
 - **Hugo Nunes**
 
 ## **2. Proposta do Projeto**
