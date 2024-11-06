@@ -40,7 +40,7 @@ O projeto consiste em:
 
 A estrutura do projeto é organizada da seguinte forma:
 
-- ```
+```
   src/
     ├── BlogApp/          - Projeto MVC
     ├── BlogApi/          - API RESTful
@@ -48,7 +48,7 @@ A estrutura do projeto é organizada da seguinte forma:
   README.md               - Arquivo de Documentação do Projeto
   FEEDBACK.md             - Arquivo para Consolidação dos Feedbacks
   .gitignore              - Arquivo de Ignoração do Git
-  ```
+```
 
 ## **5. Funcionalidades**
 
