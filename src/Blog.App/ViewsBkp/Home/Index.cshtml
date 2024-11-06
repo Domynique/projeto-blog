@@ -1,4 +1,5 @@
-﻿@using System.Security.Claims
+﻿@*
+@using System.Security.Claims
 
 @model IEnumerable<Blog.Api.ViewModels.PostViewModel>
 
@@ -12,7 +13,7 @@
         <div class="post row">
             <div class="col-md-3">
                 <i class="fas fa-image fa-3x text-muted"></i>
-                @*
+                
                 @if (string.IsNullOrEmpty(post.ImagePath))
                 {
                    <i class="fas fa-image fa-3x text-muted"></i>
@@ -21,7 +22,7 @@
                 {
                     <img src="@post.ImagePath" alt="Imagem do Post" class="img-fluid" onerror="this.onerror=null; this.src='/path/to/generic-image.png';" />
                 }
-                *@
+                
             </div>
             <div class="col-md-9">
                 <h2>@post.Titulo</h2>
@@ -49,4 +50,4 @@
         </div>
     }
 </section>
-
+*@
