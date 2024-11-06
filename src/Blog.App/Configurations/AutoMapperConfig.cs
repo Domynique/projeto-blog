@@ -1,4 +1,4 @@
-﻿namespace Blog.Api.Configurations
+﻿namespace Blog.App.Configurations
 {
     public static class AutoMapperConfig
     {

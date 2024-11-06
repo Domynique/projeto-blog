@@ -1,4 +1,5 @@
 using Blog.Api.Configurations;
+using Blog.Core.Data.Configurations;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,7 +11,7 @@ var builder = WebApplication.CreateBuilder(args);
 
     builder.Services.AddResolveDependencies();
 
-    builder.Services.AddIdentityConfig(builder.Configuration);
+    builder.Services.AddIdentityConfig();
 
     builder.Services.AddDbContext(builder.Configuration);
 

@@ -3,13 +3,14 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.11.35327.3
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blog.Web", "src\Blog.Web\Blog.Web.csproj", "{4AAF3ABB-DC65-45DF-920B-0559F7348966}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blog.Api", "src\Blog.Api\Blog.Api.csproj", "{4B8C5799-3A4C-4F27-84B0-0BE3898947EA}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blog.Core", "src\Blog.Core\Blog.Core.csproj", "{5AE0ED85-90BB-4D1C-BAB7-58A89D093C1B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Blog.App", "src\Blog.App\Blog.App.csproj", "{120BF541-A2CB-40A3-A8C5-B4C456A0187C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blog.App", "src\Blog.App\Blog.App.csproj", "{120BF541-A2CB-40A3-A8C5-B4C456A0187C}"
+	ProjectSection(ProjectDependencies) = postProject
+		{5AE0ED85-90BB-4D1C-BAB7-58A89D093C1B} = {5AE0ED85-90BB-4D1C-BAB7-58A89D093C1B}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,10 +18,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{4AAF3ABB-DC65-45DF-920B-0559F7348966}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{4AAF3ABB-DC65-45DF-920B-0559F7348966}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{4AAF3ABB-DC65-45DF-920B-0559F7348966}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{4AAF3ABB-DC65-45DF-920B-0559F7348966}.Release|Any CPU.Build.0 = Release|Any CPU
 		{4B8C5799-3A4C-4F27-84B0-0BE3898947EA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{4B8C5799-3A4C-4F27-84B0-0BE3898947EA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4B8C5799-3A4C-4F27-84B0-0BE3898947EA}.Release|Any CPU.ActiveCfg = Release|Any CPU

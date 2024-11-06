@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Blog.Api.ViewModels
+namespace Blog.App.Models
 {
     public class ComentarioViewModel
     {

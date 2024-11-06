@@ -23,7 +23,9 @@ namespace Blog.Api.Controllers
 
         public AuthController(UserManager<IdentityUser> userManager,
                               SignInManager<IdentityUser> signInManager,
-                              IOptions<JwtSettings> jwtSettings, INotificador notificador) : base(notificador)
+                              IOptions<JwtSettings> jwtSettings, 
+                              INotificador notificador,
+                              IAppUser appUser) : base(notificador, appUser)
         {
             _userManager = userManager;
             _signInManager = signInManager;

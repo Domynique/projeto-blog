@@ -1,5 +1,4 @@
-﻿using Blog.Core.Models;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace Blog.Api.ViewModels
 {
