@@ -112,7 +112,7 @@ namespace Blog.Api.Controllers
                 return CustomResponse(HttpStatusCode.NotFound);
             }
 
-            var autorizado = _appUser.BusinessRule(comentario.Post.Autor.UserId);
+            var autorizado = _appUser.IsUserAuthorize(comentario.Post.Autor.UserId);
             if (!autorizado)
             {
                 NotificarErro("Autorização necessária.");
@@ -143,7 +143,7 @@ namespace Blog.Api.Controllers
                 return CustomResponse(HttpStatusCode.NotFound);
             }
 
-            var autorizado = _appUser.BusinessRule(comentario.Post.Autor.UserId);
+            var autorizado = _appUser.IsUserAuthorize(comentario.Post.Autor.UserId);
             if (!autorizado)
             {
                 NotificarErro("Autorização necessária.");

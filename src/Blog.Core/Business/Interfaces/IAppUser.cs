@@ -5,7 +5,7 @@
         string GetUserId();
         bool IsAuthenticated();
         bool IsAdmin();
-        bool BusinessRule(string user);
+        bool IsUserAuthorize(string user);
 
         
     }

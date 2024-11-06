@@ -28,15 +28,10 @@ namespace Blog.Core.Extension
             return _accessor.HttpContext?.User.Identity is { IsAuthenticated: true };
         }
 
-        public bool BusinessRule(string user)
+        public bool IsUserAuthorize(string user)
         {
-            if (string.IsNullOrEmpty(user))
-            {
-                return false;
-            }
 
-            var rule = IsAdmin() || user == GetUserId(); 
-            return rule;
+            return  IsAdmin() || user == GetUserId();
 
         }
     }
