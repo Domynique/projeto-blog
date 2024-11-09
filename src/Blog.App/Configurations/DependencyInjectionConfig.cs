@@ -3,6 +3,7 @@ using Blog.Core.Data.Repository;
 using Blog.Core.Business.Services;
 using Blog.Core.Extension;
 using Blog.Core.Data.Context;
+using Blog.Core.Business.Notifications;
 
 namespace Blog.App.Configurations
 {
@@ -23,7 +24,9 @@ namespace Blog.App.Configurations
            
             services.AddScoped<IIdentityUserRepository, IdentityUserRepository>();
             services.AddScoped<IIdentityUserService, IdentityUserService>();
-                      
+
+            services.AddScoped<INotificador, Notificador>();
+
             services.AddScoped<IAppUser, AppUserExtension>();
 
             return services;

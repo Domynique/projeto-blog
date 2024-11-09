@@ -1,4 +1,21 @@
-﻿// Please see documentation at https://learn.microsoft.com/aspnet/core/client-side/bundling-and-minification
-// for details on configuring this project to bundle and minify static web assets.
+﻿$(document).ready(function () {
 
-// Write your JavaScript code.
+    if (@User.Identity.IsAuthenticated.ToString().ToLower()) {
+        $('#registerPartial').hide();
+    }
+
+    $('#showLogin').click(function () {
+        $('#registerPartial').appendTo('#renderBody').hide();
+        $('#loginForm').show();
+    });
+
+    $('#showRegister').click(function (e) {
+        e.preventDefault();
+        $('#registerPartial').appendTo('#renderBody').show();
+        $('#loginForm').hide();
+    });
+
+    if (window.location.href.indexOf("Account/Login") > -1) {
+        $('#registerPartial').appendTo('#renderBody').hide();
+    }
+});

@@ -21,7 +21,7 @@ namespace Blog.App.Controllers
 
         protected bool ValidarPermissao(string user)
         {
-            return _appUser.BusinessRule(user);
+            return _appUser.IsUserAuthorize(user);
         }
     }
 }

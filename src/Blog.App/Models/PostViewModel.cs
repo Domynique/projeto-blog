@@ -13,10 +13,11 @@ namespace Blog.App.Models
         [Required(ErrorMessage = "O campo {0} é obrigatório.")]
         [StringLength(1000, ErrorMessage = "O campo {0} precisa ter entre {2} e {1} caracteres", MinimumLength = 2)]
         public string? Conteudo { get; set; }
-        [Required]
+        public DateTime? PublicadoEm { get; set; }        
+        public Guid AutorId { get; set; }
         public AutorViewModel? Autor { get; set; }
-        public IEnumerable<ComentarioViewModel> Comentarios { get; set; }
-        public DateTime PublicadoEm { get; set; }
+        public IEnumerable<ComentarioViewModel>? Comentarios { get; set; }
+        public bool Autorizado { get; set; }
 
     }
 }

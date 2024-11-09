@@ -93,7 +93,7 @@ namespace Blog.Api.Controllers
                 return CustomResponse();
             }
 
-            var post = await _postService.ObterPorId(id);
+            var post = await _postRepository.ObterPorId(id);
             
             if (post == null)
             {
@@ -126,7 +126,7 @@ namespace Blog.Api.Controllers
         public async Task<IActionResult> Excluir(Guid id)
         {
 
-            var post = await _postService.ObterPorId(id);
+            var post = await _postRepository.ObterPorId(id);
 
             if (post == null)
             {

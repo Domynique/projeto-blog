@@ -1,34 +1,34 @@
-﻿@* @model RegisterViewModel
+﻿@*
+@page
+
+@model Blog.App.Models.RegisterViewModel
 
 <div class="form-container">
     <div class="inner-container ">
         <h2>Registre-se</h2><span class="subtitle">e compartilhe a sua opinião.</span>
         <fieldset class="custom-fieldset">
-        <form asp-action="Register" method="post">
-            <div class="form-row">
-                <div class="form-group col-md-6">
-                    <label asp-for="Nome">Nome</label>
-                    <input type="text" class="form-control" id="Nome" asp-for="Nome" >
-                </div>
-                <div class="form-group col-md-6">
-                    <label asp-for="Email">E-mail</label>
-                    <input type="email" class="form-control" id="Email" asp-for="Email" >
-                </div>
+        <form id="registerForm" asp-route-returnUrl="@Model.ReturnUrl" method="post">
+            <h2>Create a new account.</h2>
+            <hr />
+            <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
+            <div class="form-floating mb-3">
+                <input asp-for="Input.Email" class="form-control" autocomplete="username" aria-required="true" placeholder="name@example.com" />
+                <label asp-for="Input.Email">Email</label>
+                <span asp-validation-for="Input.Email" class="text-danger"></span>
             </div>
-            <div class="form-row">
-                <div class="form-group col-md-6">
-                    <label asp-for="Password">Senha</label>
-                    <input type="password" class="form-control" id="Password" asp-for="Password" >
-                </div>
-                <div class="form-group col-md-6">
-                    <label asp-for="ConfirmPassword">Confirmar Senha</label>
-                    <input type="password" class="form-control" id="ConfirmPassword" asp-for="ConfirmPassword" required>
-                </div>
+            <div class="form-floating mb-3">
+                <input asp-for="Input.Password" class="form-control" autocomplete="new-password" aria-required="true" placeholder="password" />
+                <label asp-for="Input.Password">Password</label>
+                <span asp-validation-for="Input.Password" class="text-danger"></span>
             </div>
-            <div class="form-group col-md-9">
-                <button type="submit" class="btn btn-primary">Confirmar</button>
+            <div class="form-floating mb-3">
+                <input asp-for="Input.ConfirmPassword" class="form-control" autocomplete="new-password" aria-required="true" placeholder="password" />
+                <label asp-for="Input.ConfirmPassword">Confirm Password</label>
+                <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
             </div>
+            <button id="registerSubmit" type="submit" class="w-100 btn btn-lg btn-primary">Register</button>
         </form>
         </fieldset>
     </div>
-</div> *@
+</div>
+*@

@@ -15,18 +15,18 @@ namespace Blog.Api.Controllers
     {
         private readonly IComentarioRepository _comentarioRepository;
         private readonly IComentarioService _comentarioService;
-        private readonly IPostService _postService;
+        private readonly IPostRepository _postRepository;
         private readonly IMapper _mapper;
 
         public ComentarioController(IComentarioRepository comentarioRepository, 
-                                    IComentarioService comentarioService, 
-                                    IPostService postService,
+                                    IComentarioService comentarioService,
+                                    IPostRepository postRepository,
                                     IMapper mapper, 
                                     INotificador notificador, IAppUser appUser) : base(notificador, appUser)
         {
             _comentarioRepository = comentarioRepository;
             _comentarioService = comentarioService;
-            _postService = postService;
+            _postRepository = postRepository;
             _mapper = mapper;
         }
 
@@ -72,7 +72,7 @@ namespace Blog.Api.Controllers
                 return CustomResponse();
             }
 
-            var post = await _postService.ObterPorId(postId);
+            var post = await _postRepository.ObterPorId(postId);
 
             if (post == null)
             {

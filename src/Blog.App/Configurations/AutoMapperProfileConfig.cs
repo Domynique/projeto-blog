@@ -14,9 +14,12 @@ namespace Blog.App.Configurations
                     .ForMember(dest => dest.PublicadoEm, opt => opt.MapFrom(src => src.DataCadastro))
                     .ReverseMap();
 
+            CreateMap<PostViewModel, Post>()
+                .ForMember(dest => dest.DataCadastro, opt => opt.MapFrom(src => src.PublicadoEm));
+
             CreateMap<Post, PostViewModel>()
-                    .ForMember(dest => dest.PublicadoEm, opt => opt.MapFrom(src => src.DataCadastro))
-                    .ReverseMap();
+                .ForMember(dest => dest.PublicadoEm, opt => opt.MapFrom(src => src.DataCadastro));
+
 
             CreateMap<Autor, AutorViewModel>()
                     .ForMember(dest => dest.NomeAutor, opt => opt.MapFrom(src => src.User.UserName))

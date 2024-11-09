@@ -7,11 +7,7 @@ namespace Blog.App.Configurations
     {
         public static IServiceCollection AddIdentityConfig(this IServiceCollection services) 
         {
-
-            services.AddIdentity<IdentityUser, IdentityRole>()
-                            .AddEntityFrameworkStores<MeuDbContext>()
-                            .AddRoles<IdentityRole>()
-                            .AddDefaultTokenProviders();            
+            services.AddDefaultIdentity<IdentityUser>().AddEntityFrameworkStores<MeuDbContext>();
 
             return services;
         }

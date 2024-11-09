@@ -28,7 +28,7 @@ namespace Blog.Core.Extension
             return _accessor.HttpContext?.User.Identity is { IsAuthenticated: true };
         }
 
-        public bool IsUserAuthorize(string user)
+        public bool IsUserAuthorize(string? user)
         {
 
             return  IsAdmin() || user == GetUserId();

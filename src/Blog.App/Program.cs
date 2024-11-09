@@ -1,17 +1,21 @@
 using Blog.App.Configurations;
 using Blog.Core.Data.Configurations;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddDbContext(builder.Configuration);
+    builder.Services.AddDbContext(builder.Configuration);
 
-builder.Services.AddDatabaseDeveloperPageExceptionFilter();
+    builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
-builder.Services.AddIdentityConfig();
+    builder.Services.AddIdentityConfig();
 
-builder.Services.AddControllersWithViews();
+    builder.Services.AddResolveDependencies();
 
-builder.Services.AddAutoMapperConfig();
+    builder.Services.AddControllersWithViews();
+
+    builder.Services.AddAutoMapperConfig();
 
 var app = builder.Build();
 
@@ -28,18 +32,19 @@ else
     app.UseHsts();
 }
 
-app.UseHttpsRedirection();
-app.UseStaticFiles();
+    app.UseHttpsRedirection();
+    app.UseStaticFiles();
 
-app.UseRouting();
+    app.UseRouting();
 
-app.UseAuthorization();
+    app.UseAuthorization();
 
-app.MapControllerRoute(
-    name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
-app.MapRazorPages();
+    app.MapControllerRoute(
+        name: "default",
+        pattern: "{controller=Home}/{action=Index}/{id?}");
 
-app.UseDbMigrationHelper();
+    app.MapRazorPages();
 
-app.Run();
+    app.UseDbMigrationHelper();
+
+    app.Run();
