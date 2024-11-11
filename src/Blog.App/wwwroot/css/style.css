@@ -52,7 +52,8 @@ aside {
 .header-bg {
     background: url('/images/background.jpg') no-repeat center center;
     background-size: cover;
-    padding-bottom: 10%; 
+    background-attachment: fixed;
+    padding-bottom: 10%;
     position: relative;
 }
 
@@ -107,26 +108,49 @@ aside {
     display: inline-block;
     font-size: 0.7rem;
     margin-right: 5px;
+    padding-bottom: -1px;
 }
 
+
+.btn-transparent {
+    background-color: #007bff; /* Transparência para o fundo do botão */
+    color: #fff; /* Cor do texto */
+    border: 1px solid rgba(0, 123, 255, 0.5); /* Bordas com transparência */
+}
+
+.transparent-grey-background {
+    padding-top: 1px;
+    background-color: rgba(128, 128, 128, 0.5); /* Fundo cinza transparente */
+
+}
 
 .posts {
     width: 100%;
 }
 
 .post {
-    background-color: rgba(255, 255, 255, 0.8);
+    background-color: rgba(255, 255, 255, 0.7);
     padding: 1rem;
     margin-bottom: 1rem;
     border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
 }
 
     .post h2 {
-        font-size: 1.8rem;
+        font-size: 1.6rem;
         color: #777;
         margin-top: 0;
     }
+
+        .post h2 a {
+            color: #777;
+            text-decoration: none;
+        }
+
+            .post h2 a:hover {
+                color: #777;
+                text-decoration: none;
+            }
 
 .post-wrapper {
     background-color: #fff;
@@ -137,22 +161,24 @@ aside {
 }
 
 .post-info {
-    font-size: 0.9rem;
+    font-size: 0.7rem;
     color: #777;
     margin-bottom: 0.5rem;
 }
 
 .post-content {
-    margin-top: 0.5rem;
+    margin-top: 1.4rem;
+    font-size: 0.9rem;
+    margin-bottom: 1.8rem;
 }
 
 .post-meta {
-    margin-top: 1rem;
+    margin-top: 1.4rem;
     font-size: 0.9rem;
     color: #777;
 }
     .post-meta a {
-        color: #777;
+        color: #0d6efd;
         text-decoration: none;
     }
 
@@ -165,16 +191,17 @@ aside {
     }
 
     .post-meta .ml-3 {
-        margin-left: 15px; 
+        margin-left: 5px; 
     }
 
 
 .comentario {
-    background-color: rgba(255, 255, 255, 0.8);
+    background-color: rgba(255, 255, 255, 0.7);
     padding: 1rem;
     margin-bottom: 1rem;
     border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
 }
 
 .comentario-info {
@@ -213,7 +240,7 @@ hr {
     }
 
 .form-container {
-    background-color: rgba(255, 255, 255, 0.8); 
+    background-color: rgba(255, 255, 255, 0.7); 
     padding: 20px;
     border-radius: 10px;
     width: 100%;

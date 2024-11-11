@@ -4,23 +4,27 @@ using Blog.Core.Business.Interfaces;
 using Blog.Core.Business.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Hosting;
 
 namespace Blog.App.Controllers
 {
-    [Route("{postId:Guid}/comentarios")]
+    [Route("/posts/{postId:Guid}/comentarios")]
     public class ComentarioController : BaseController
     {
 
+        private readonly IComentarioService _comentarioService;
         private readonly IComentarioRepository _comentarioRepository;
         private readonly IPostRepository _postRepository;
         private readonly IMapper _mapper;
         private readonly IAppUser _user;
 
-        public ComentarioController(IComentarioRepository comentarioRepository,
+        public ComentarioController(IComentarioService comentarioService,
+                                    IComentarioRepository comentarioRepository,
                                     IPostRepository postRepository,
                                     IMapper mapper,
                                     INotificador notificador, IAppUser appUser) : base(notificador, appUser)
         {
+            _comentarioService = comentarioService;
             _comentarioRepository = comentarioRepository;
             _postRepository = postRepository;
             _mapper = mapper;
@@ -45,7 +49,7 @@ namespace Blog.App.Controllers
 
             var comentarioViewModel = _mapper.Map<ComentarioViewModel>(comentario);
 
-            return PartialView("_ComentarioPartial", comentarioViewModel);
+            return PartialView("_ComentarioForm", comentarioViewModel);
         }
 
         [Authorize]
@@ -56,10 +60,10 @@ namespace Blog.App.Controllers
             
             if (!ModelState.IsValid)
             {
-                return PartialView("_ComentarioPartial", comentarioViewModel);
+                return PartialView("_ComentarioForm", comentarioViewModel);
             }
 
-            var post = await _postRepository.ObterPorId(postId);
+            var post = await _postRepository.ObterPostPorId(postId);
 
             if (post == null)
             {
@@ -67,13 +71,14 @@ namespace Blog.App.Controllers
             }
             
             var postViewModel = ObterAutorizacao(post, _user);
+
+            await _comentarioService.Adicionar(_mapper.Map<Comentario>(comentarioViewModel));
            
-            await _comentarioRepository.Adicionar(_mapper.Map<Comentario>(comentarioViewModel));
+            var comentariosViewModel = _mapper.Map<IEnumerable<ComentarioViewModel>>(post.Comentarios);
 
             ViewBag.Autorizado = postViewModel.Autorizado;
             
-
-            return PartialView("_ComentarioListaPartial", _mapper.Map<IEnumerable<ComentarioViewModel>>(postViewModel.Comentarios));
+            return PartialView("_ComentarioList", comentariosViewModel);
         }
 
         [Authorize]
@@ -81,6 +86,12 @@ namespace Blog.App.Controllers
         public async Task<IActionResult> Edit(Guid id, Guid postId)
         {
             var comentario = await _comentarioRepository.ObterComentarioPorPost(id, postId);
+            var post = await _postRepository.ObterPostPorId(postId);
+
+            if (comentario == null || post == null) 
+            {
+                return RedirectToAction("Index", "Error", new { statusCode = 404 });
+            }
 
             var validationStatusCode = ValidarComentario(comentario);
 
@@ -90,8 +101,24 @@ namespace Blog.App.Controllers
             }
 
             var comentarioViewModel = _mapper.Map<ComentarioViewModel>(comentario);
+            var postViewModel = _mapper.Map<PostViewModel>(post);
+            var comentarios = await _comentarioRepository.ObterComentariosPorPost(postId);
 
-            return PartialView("_ComentarioPartial", comentarioViewModel);
+            var comentariosViewModel = _mapper.Map<IEnumerable<ComentarioViewModel>>(comentarios);
+
+            var postComentarioViewModel = new PostComentarioViewModel
+            {
+                Post = postViewModel,
+                Comentarios = comentariosViewModel,
+                Comentario = comentarioViewModel
+            };
+
+            if (HttpContext.Request.Headers["X-Requested-With"] == "XMLHttpRequest") 
+            { 
+                return PartialView("_ComentarioForm", comentarioViewModel); 
+            }
+            
+            return View(postComentarioViewModel);
         }
 
         [Authorize]
@@ -100,7 +127,7 @@ namespace Blog.App.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return PartialView("_ComentarioPartial", comentarioViewModel);
+                return PartialView("_ComentarioForm", comentarioViewModel);
             }
             
             if (id != comentarioViewModel.Id || postId != comentarioViewModel.PostId)
@@ -120,19 +147,36 @@ namespace Blog.App.Controllers
             comentario.Conteudo = comentarioViewModel.Conteudo;
 
             await _comentarioRepository.Atualizar(comentario);
-            
-            var comentarios = _mapper.Map<IEnumerable<ComentarioViewModel>>(await _comentarioRepository.ObterComentariosPorPost(comentario.PostId));
-           
+
+            var comentariosAtualizados = await _comentarioRepository.ObterComentariosPorPost(comentario.PostId);
+            var comentariosViewModel = _mapper.Map<IEnumerable<ComentarioViewModel>>(comentariosAtualizados);
+
             var postViewModel = ObterAutorizacao(comentario.Post, _user);
 
             ViewBag.Autorizado = postViewModel.Autorizado;          
            
-            return PartialView("_ComentarioListaPartial", comentarios);
+            return PartialView("_ComentarioList", comentariosViewModel);
+        }
+
+        [Authorize]
+        [HttpGet("excluir/{id:Guid}")] 
+        public async Task<IActionResult> Delete(Guid id, Guid postId) 
+        { 
+            var comentario = await _comentarioRepository.ObterComentarioPorPost(id, postId); 
+            var validationStatusCode = ValidarComentario(comentario); 
+            if (validationStatusCode.HasValue) 
+            { 
+                return RedirectToAction("Index", "Error", new { statusCode = validationStatusCode.Value }); 
+            } 
+            
+            var comentarioViewModel = _mapper.Map<ComentarioViewModel>(comentario); 
+            
+            return View(comentarioViewModel); 
         }
 
         [Authorize]
         [HttpPost("excluir/{id:Guid}")]
-        public async Task<IActionResult> Delete(Guid id, Guid postId)
+        public async Task<IActionResult> DeleteConfirmed(Guid id, Guid postId)
         {
             var comentario = await _comentarioRepository.ObterComentarioPorPost(id, postId);
 
@@ -144,21 +188,23 @@ namespace Blog.App.Controllers
             }
 
             await _comentarioRepository.Remover(id);
+
+            var comentariosAtualizados = await _comentarioRepository.ObterComentariosPorPost(comentario.PostId); 
+            var comentariosViewModel = _mapper.Map<List<ComentarioViewModel>>(comentariosAtualizados);
             
-            var comentarios = await _comentarioRepository.ObterComentariosPorPost(comentario.PostId);
-
             var postViewModel = ObterAutorizacao(comentario.Post, _user);
-
+            
             ViewBag.Autorizado = postViewModel.Autorizado;
-          
-            return PartialView("_ComentarioPartial", comentarios);
+
+            return RedirectToAction("Index", "Post");
         }
+
 
         private int? ValidarComentario(Comentario comentario) 
         { 
             if (comentario == null) return 404;
             
-            var autorizado = ValidarPermissao(comentario.Post!.Autor!.UserId); 
+            var autorizado = ValidarPermissao(comentario.Post!.Autor!.UsuarioId); 
             
             if (!autorizado) return 403;
             
@@ -170,7 +216,7 @@ namespace Blog.App.Controllers
         {
             var postViewModel = _mapper.Map<PostViewModel>(post);
             
-            postViewModel.Autorizado = appUser.IsUserAuthorize(postViewModel.Autor!.UserId!);
+            postViewModel.Autorizado = appUser.IsUserAuthorize(postViewModel.Autor!.UsuarioId!);
 
             return postViewModel;
         }

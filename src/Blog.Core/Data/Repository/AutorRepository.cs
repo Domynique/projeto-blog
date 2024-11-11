@@ -11,9 +11,9 @@ namespace Blog.Core.Data.Repository
         {
         }
 
-        public async Task<Autor> ObterAutorPorUserId(string userId)
+        public async Task<Autor?> ObterAutorPorUserId(string userId)
         {
-            return await _db.Autores.FirstOrDefaultAsync(a => a.UserId == userId);
+            return await Db.Autores.FirstOrDefaultAsync(a => a.UsuarioId == userId && a.Ativo == true);
         }
 
 

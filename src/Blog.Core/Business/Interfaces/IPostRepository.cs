@@ -5,6 +5,6 @@ namespace Blog.Core.Business.Interfaces
     public interface IPostRepository : IRepository<Post>
     {
         Task<IEnumerable<Post>> ObterPosts();
-        Task<Post> ObterPostPorId(Guid id);
+        Task<Post?> ObterPostPorId(Guid id);
     }
 }

@@ -43,10 +43,7 @@ namespace Blog.Core.Data.Configurations
 
         private static async Task EnsureSeedProducts(MeuDbContext context)
         {
-            if (context.Autores.Any())
-            {
-                return;
-            }
+            if (context.Posts.Any() || context.Users.Any()) return;
 
             var autor1 = new IdentityUser
             {
@@ -61,6 +58,7 @@ namespace Blog.Core.Data.Configurations
 
             var autor2 = new IdentityUser
             {
+                Id = Guid.NewGuid().ToString(),
                 UserName = "paulanunes@teste.com",
                 NormalizedUserName = "PAULANUNES@TESTE.COM",
                 Email = "paulanunes@teste.com",
@@ -78,7 +76,7 @@ namespace Blog.Core.Data.Configurations
                 Conteudo = "Este é o conteúdo do primeiro post.",
                 Autor = new Autor
                 {
-                    UserId = autor1.Id,
+                    UsuarioId = autor1.Id,
                     DataCadastro = DateTime.Now,
                     DataAtualizacao = DateTime.Now,
                     Ativo = true
@@ -92,7 +90,7 @@ namespace Blog.Core.Data.Configurations
                         Conteudo = "Este é um comentário no primeiro post.",
                         DataCadastro= DateTime.Now,
                         DataAtualizacao= DateTime.Now,
-                        UserId = autor2.Id
+                        UsuarioId = autor2.Id
                     }
                 }
                 
@@ -104,7 +102,7 @@ namespace Blog.Core.Data.Configurations
                 Conteudo = "Este é o conteúdo do segundo post.",
                 Autor = new Autor
                 {
-                    UserId = autor2.Id,
+                    UsuarioId = autor2.Id,
                     DataCadastro = DateTime.Now,
                     DataAtualizacao = DateTime.Now,
                     Ativo = true
@@ -118,14 +116,14 @@ namespace Blog.Core.Data.Configurations
                         Conteudo = "Este é um comentário no segundo post.",
                         DataCadastro= DateTime.Now,
                         DataAtualizacao= DateTime.Now,
-                        UserId = autor1.Id
+                        UsuarioId = autor1.Id
                     },
                     new()
                     {
                         Conteudo = "Este é um outro comentário no segundo post.",
                         DataCadastro= DateTime.Now,
                         DataAtualizacao= DateTime.Now,
-                        UserId = autor2.Id
+                        UsuarioId = autor2.Id
                     }
                 }
 

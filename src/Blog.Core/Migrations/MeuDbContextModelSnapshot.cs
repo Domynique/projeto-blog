@@ -32,13 +32,13 @@ namespace Blog.Core.Migrations
                     b.Property<DateTime>("DataCadastro")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("UserId")
+                    b.Property<string>("UsuarioId")
                         .IsRequired()
                         .HasColumnType("varchar(100)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("UsuarioId");
 
                     b.ToTable("Autores", (string)null);
                 });
@@ -66,7 +66,7 @@ namespace Blog.Core.Migrations
                     b.Property<Guid>("PostId")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("UserId")
+                    b.Property<string>("UsuarioId")
                         .IsRequired()
                         .HasColumnType("varchar(100)");
 
@@ -74,7 +74,7 @@ namespace Blog.Core.Migrations
 
                     b.HasIndex("PostId");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("UsuarioId");
 
                     b.ToTable("Comentarios", (string)null);
                 });
@@ -252,9 +252,11 @@ namespace Blog.Core.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
                     b.Property<string>("LoginProvider")
+                        .HasMaxLength(128)
                         .HasColumnType("varchar(100)");
 
                     b.Property<string>("ProviderKey")
+                        .HasMaxLength(128)
                         .HasColumnType("varchar(100)");
 
                     b.Property<string>("ProviderDisplayName")
@@ -292,9 +294,11 @@ namespace Blog.Core.Migrations
                         .HasColumnType("varchar(100)");
 
                     b.Property<string>("LoginProvider")
+                        .HasMaxLength(128)
                         .HasColumnType("varchar(100)");
 
                     b.Property<string>("Name")
+                        .HasMaxLength(128)
                         .HasColumnType("varchar(100)");
 
                     b.Property<string>("Value")
@@ -307,12 +311,12 @@ namespace Blog.Core.Migrations
 
             modelBuilder.Entity("Blog.Core.Business.Models.Autor", b =>
                 {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "User")
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "Usuario")
                         .WithMany()
-                        .HasForeignKey("UserId")
+                        .HasForeignKey("UsuarioId")
                         .IsRequired();
 
-                    b.Navigation("User");
+                    b.Navigation("Usuario");
                 });
 
             modelBuilder.Entity("Blog.Core.Business.Models.Comentario", b =>
@@ -322,14 +326,14 @@ namespace Blog.Core.Migrations
                         .HasForeignKey("PostId")
                         .IsRequired();
 
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "User")
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "Usuario")
                         .WithMany()
-                        .HasForeignKey("UserId")
+                        .HasForeignKey("UsuarioId")
                         .IsRequired();
 
                     b.Navigation("Post");
 
-                    b.Navigation("User");
+                    b.Navigation("Usuario");
                 });
 
             modelBuilder.Entity("Blog.Core.Business.Models.Post", b =>

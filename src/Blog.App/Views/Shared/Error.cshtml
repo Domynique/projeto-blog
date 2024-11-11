@@ -7,15 +7,19 @@
     if (Model == null)
 
     {
-        <div>
-            <h2>Ooops! Ocorreu um erro, mas não se preocupe. Nosso time será avisado e iremos corrigir em breve!</h2>
+
+        <div class="alert alert-warning">
+            <p><i class="fas fa-exclamation-triangle"></i> Ooops! Ocorreu um erro, mas não se preocupe. Nosso time será avisado e iremos corrigir em breve!</p>
         </div>
     }
 
     else
 
     {
-        <h1>@Html.Raw(Model.Titulo)</h1>
-        <h2 class="text-danger">@Html.Raw(Model.Mensagem)</h2>
+        <h2>@Html.Raw(Model.Titulo)</h2>
+        <br />
+        <div class="alert alert-danger">
+            <p> <i class="fas fa-exclamation-triangle"></i>  @Html.Raw(Model.Mensagem)</p>
+        </div>
     }
 }

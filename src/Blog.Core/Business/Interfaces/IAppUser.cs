@@ -2,10 +2,10 @@
 {
     public interface IAppUser
     {
-        string GetUserId();
+        public string GetUserId();
         bool IsAuthenticated();
-        bool IsAdmin();
-        bool IsUserAuthorize(string user);
+        public bool IsAdmin();
+        public bool IsUserAuthorize(string user);
 
         
     }

@@ -22,7 +22,7 @@ namespace Blog.App.Controllers
             } 
             else if (id == 404) 
             { 
-                modelErro.Mensagem = "A página que está procurando não existe! <br />Em caso de dúvidas entre em contato com nosso suporte"; 
+                modelErro.Mensagem = "A página que está procurando não existe! Em caso de dúvidas entre em contato com nosso suporte"; 
                 modelErro.Titulo = "Ops! Página não encontrada."; 
                 modelErro.ErroCode = id; 
             } 

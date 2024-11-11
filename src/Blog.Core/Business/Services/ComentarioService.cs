@@ -21,23 +21,14 @@ namespace Blog.Core.Business.Services
             _appUser = appUser;
 
         }
-        public async Task<Comentario?> ObterPorId(Guid id)
-        {
-            return await _comentarioRepository.ObterPorId(id);
-        }
-
-        public async Task<List<Comentario>> ObterTodos()
-        {
-            return await _comentarioRepository.ObterTodos();
-        }
 
         public async Task Adicionar(Comentario comentario)
         {
             var userId = _appUser.GetUserId();
             var user = await _identityUserService.GetUserById(userId);
 
-            comentario.UserId = userId;
-            comentario.User = user;
+            comentario.UsuarioId = userId;
+            comentario.Usuario = user;
 
             if (!ExecutarValidacao(new ComentarioValidation(), comentario)) return;
 

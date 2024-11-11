@@ -1,7 +1,5 @@
 using Blog.App.Configurations;
 using Blog.Core.Data.Configurations;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,7 +13,9 @@ var builder = WebApplication.CreateBuilder(args);
 
     builder.Services.AddControllersWithViews();
 
-    builder.Services.AddAutoMapperConfig();
+    builder.Services.AddSingleton<RazorViewToStringRenderer>();
+
+builder.Services.AddAutoMapperConfig();
 
 var app = builder.Build();
 

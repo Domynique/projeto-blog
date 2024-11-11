@@ -7,7 +7,7 @@ namespace Blog.Core.Business.Models
         public string? Titulo { get; set; }
         public string? Conteudo { get; set; }
         public Guid AutorId { get; set; }
-        public Autor? Autor { get; set; }
+        public Autor Autor { get; set; }
         public ICollection<Comentario>? Comentarios { get; set; }
 
       

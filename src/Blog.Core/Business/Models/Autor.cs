@@ -5,7 +5,7 @@ namespace Blog.Core.Business.Models
 {
     public class Autor : Entity
     {
-        public string UserId { get; set; }
-        public IdentityUser User { get; set; }
+        public string UsuarioId { get; set; }
+        public IdentityUser Usuario { get; set; }
     }
 }

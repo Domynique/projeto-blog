@@ -1,0 +1,85 @@
+﻿@model PostViewModel
+@{
+    ViewData["Title"] = "Excluir Post";
+    
+}
+<div class="row">
+    <section>
+
+        <div class="d-flex justify-content-end mb-3">
+            <a asp-action="Index" class="btn btn-outline-primary btn-transparent"><i class="fas fa-arrow-left"></i> Voltar</a>
+
+        </div>    
+
+        <div class="col-md-11 mx-auto">
+
+            <div style="font-size: 0.9rem;" class="alert alert-warning">
+                <i class="fas fa-exclamation-triangle"></i> 
+
+
+                
+                @if (Model.Comentarios != null && Model.Comentarios.Any())
+                {
+                    <span>Tem certeza que deseja remover este Post e seus Comentários?</span>
+                }
+                else
+                {
+                    <span>Tem certeza que deseja remover este Post?</span>
+                }
+
+                <div style="padding-top: 20px" asp-validation-summary="ModelOnly" class="text-warning"></div>
+            </div>
+    
+        </div>
+        
+        <div class="col-md-11 mx-auto">
+            <div class="post row">
+                <div class="col-md-3">
+                    <i class="fas fa-image fa-3x text-muted"></i>
+                </div>
+                <div class="col-md-9">
+                    <h2>@Model.Titulo</h2><hr />
+                    <div class="post-content">
+                        <p>@Model.Conteudo</p>
+                    </div>
+                    <div class="post-meta d-flex justify-content-between">
+                        <div class="post-info d-flex justify-content-end col-md-12">
+                            <span class="date-author">Publicado em: @Model.PublicadoEm?.ToString("dd/MM/yyyy") por @Model.Autor?.Nome </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            @if (Model.Comentarios != null)
+            {
+                <div class="row">
+                    <div class="col-md-9 mx-auto">
+                        @foreach (var comentario in Model.Comentarios)
+                        {
+                            <div class="comentario row">
+                                <div class="comentario-content">
+                                    <p>@comentario.Conteudo</p>
+                                </div>
+                                <div class="post-meta d-flex justify-content-between ">
+                                    <div class="post-info d-flex justify-content-end col-md-9">
+                                        <span class="date-author">Publicado em: @comentario.PublicadoEm.ToString("dd/MM/yyyy") por @comentario.NomeUsuario</span>
+                                    </div>
+                                </div>
+
+                            </div>
+                        }
+                    </div>
+                </div>
+            }
+            
+        </div>
+        <div class="col-md-11 mx-auto">
+            <form asp-action="Delete" class="text-center">
+            <input type="hidden" asp-for="Id" />
+            <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+                    <button type="submit" class="btn btn-outline-danger"><i class="fas fa-trash-alt"></i> Excluir</button>
+            </div>
+            </form>
+        </div>
+    </section>
+    
+</div>

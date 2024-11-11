@@ -101,7 +101,7 @@ namespace Blog.Api.Controllers
                 return CustomResponse(HttpStatusCode.NotFound);
             }
 
-            var autorizado = _appUser.IsUserAuthorize(post.Autor!.UserId);
+            var autorizado = _appUser.IsUserAuthorize(post.Autor!.UsuarioId);
 
             if (!autorizado) 
             {
@@ -134,7 +134,7 @@ namespace Blog.Api.Controllers
                 return CustomResponse(HttpStatusCode.NotFound);
             }
 
-            var autorizado = _appUser.IsUserAuthorize(post.Autor!.UserId);
+            var autorizado = _appUser.IsUserAuthorize(post.Autor!.UsuarioId);
 
             if (!autorizado)
             {

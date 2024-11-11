@@ -10,7 +10,7 @@ namespace Blog.Api.Configurations
         {
 
             CreateMap<Comentario, ComentarioViewModel>()
-                    .ForMember(dest => dest.NomeAutor, opt => opt.MapFrom(src => src.User.UserName))
+                    .ForMember(dest => dest.Autor, opt => opt.MapFrom(src => src.Usuario.UserName))
                     .ForMember(dest => dest.PublicadoEm, opt => opt.MapFrom(src => src.DataCadastro));
 
             CreateMap<Post, PostViewModel>()
@@ -18,7 +18,7 @@ namespace Blog.Api.Configurations
                     .ReverseMap();
 
             CreateMap<Autor, AutorViewModel>()
-                    .ForMember(dest => dest.NomeAutor, opt => opt.MapFrom(src => src.User.UserName))
+                    .ForMember(dest => dest.NomeAutor, opt => opt.MapFrom(src => src.Usuario.UserName))
                     .ReverseMap();
 
             CreateMap<ComentarioViewModel, Comentario>()

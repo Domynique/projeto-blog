@@ -21,15 +21,6 @@ namespace Blog.Core.Business.Services
             _appUser = appUser;
         }
 
-        public async Task<Post?> ObterPorId(Guid id)
-        {
-            return await _postRepository.ObterPorId(id);
-        }
-
-        public async Task<List<Post>> ObterTodos()
-        {
-            return await _postRepository.ObterTodos();
-        }
 
         public async Task Adicionar(Post post)
         {
@@ -38,12 +29,13 @@ namespace Blog.Core.Business.Services
 
             if (autor == null)
             {
-                autor = new Autor { UserId = userId };
+                autor = new Autor { UsuarioId = userId };
                 await _autorRepository.Adicionar(autor);
             }
 
             post.Autor = autor;
-            
+
+
             if (!ExecutarValidacao(new PostValidation(), post)) return;
             
             await _postRepository.Adicionar(post);

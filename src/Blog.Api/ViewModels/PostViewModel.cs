@@ -15,7 +15,7 @@ namespace Blog.Api.ViewModels
         public string? Conteudo { get; set; }
         [Required]
         public AutorViewModel? Autor { get; set; }
-        public IEnumerable<ComentarioViewModel> Comentarios { get; set; }
+        public IEnumerable<ComentarioViewModel>? Comentarios { get; set; }
         public DateTime PublicadoEm { get; set; }
 
     }

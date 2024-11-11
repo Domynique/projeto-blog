@@ -1,50 +1,80 @@
 ﻿using AutoMapper;
+using Blog.App.Configurations;
 using Blog.App.Models;
 using Blog.Core.Business.Interfaces;
 using Blog.Core.Business.Models;
+using Blog.Core.Data.Repository;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
+
 namespace Blog.App.Controllers
 {
-    [Route("post")]
+    [Route("posts")]
     public class PostController : BaseController
     {
         private readonly IPostRepository _postRepository;
         private readonly IPostService _postService;
+        private readonly IComentarioRepository _comentarioRepository;
         private readonly IMapper _mapper;
-        private readonly IAppUser _user; 
+        private readonly IAppUser _user;
+        private readonly RazorViewToStringRenderer _renderer;
 
         public PostController(IPostService postService, 
                               IPostRepository postRepository,
+                              IComentarioRepository comentarioRepository,
                               IMapper mapper,
+                              RazorViewToStringRenderer renderer,
                               INotificador notificador, IAppUser appUser) : base(notificador, appUser)
         {
             _postService = postService;
             _mapper = mapper;
             _user = appUser;
             _postRepository = postRepository;
+            _comentarioRepository = comentarioRepository;
+            _renderer = renderer;
         }
         
         [HttpGet]
         public async Task<IActionResult> Index() 
         {
-            var postViewModel = _mapper.Map<IEnumerable<PostViewModel>>(await _postRepository.ObterTodos());
+            var postViewModel = _mapper.Map<IEnumerable<PostViewModel>>(await _postRepository.ObterPosts());
 
             ObterAutorizacoes(postViewModel, _user);
 
             return View(postViewModel);
         }
 
+        [HttpGet("detalhes/{id:Guid}")]
+        public async Task<IActionResult> Details(Guid id)
+        {
+            var post = await _postRepository.ObterPostPorId(id);
+
+            if (post == null)
+            {
+                return RedirectToAction("Index", "Error", new { statusCode = 404 });
+            }
+
+            var postViewModel = _mapper.Map<PostViewModel>(post);
+
+            ObterAutorizacao(postViewModel, _user);
+
+            ViewBag.UserLoggedIn = _user.IsAuthenticated();
+
+            return View(postViewModel);
+        }
+
         [Authorize] 
-        [HttpGet("adicionar")]
+        [HttpGet("novo")]
         public IActionResult Create()
         {
-            return View();
+            var postViewModel = new PostViewModel();
+           
+            return View(postViewModel);
         }
 
         [Authorize]
-        [HttpPost("adicionar")]
+        [HttpPost("novo")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(PostViewModel postViewModel)
         {
@@ -65,9 +95,9 @@ namespace Blog.App.Controllers
         [HttpGet("editar/{id:Guid}")]
         public async Task<IActionResult> Edit(Guid id)
         {
-            var post = await _postRepository.ObterPorId(id);
+            var post = await _postRepository.ObterPostPorId(id);
 
-            var validationStatusCode = ValidarPost(post);
+            var validationStatusCode = ValidarPost(post!);
 
             if (validationStatusCode.HasValue)
             {
@@ -76,25 +106,38 @@ namespace Blog.App.Controllers
 
             var postViewModel = _mapper.Map<PostViewModel>(post);
 
-            ObterAutorizacao(postViewModel, _user);                  
-
+            ObterAutorizacao(postViewModel, _user);
+           
             return View(postViewModel);
         }
 
         [Authorize] 
-        [HttpPost("editar/{id:long}")]
+        [HttpPost("editar/{id:Guid}")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(Guid id, PostViewModel postViewModel)
         {
 
-            if (!ModelState.IsValid)  return View(postViewModel);
-
+            if (!ModelState.IsValid) 
+            {
+                var comentarios = await _comentarioRepository.ObterComentariosPorPost(id);
+                
+                var html = await _renderer.RenderViewToStringAsync(ControllerContext, "_PostForm", postViewModel); 
+                var comentariosHtml = await _renderer.RenderViewToStringAsync(ControllerContext, "_ComentarioList", comentarios); 
+                return Json(new 
+                { 
+                    success = false, 
+                    html, 
+                    comentariosHtml,
+                    mensagens = ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage)
+                });
+            }
+            
             if (id != postViewModel.Id)
             {
                 return RedirectToAction("Index", "Error", new { statusCode = 404 });
             }
-
-            var post = await _postRepository.ObterPorId(id);
+            
+            var post = await _postRepository.ObterPostPorId(id);
 
             var validationStatusCode = ValidarPost(post);
 
@@ -104,15 +147,28 @@ namespace Blog.App.Controllers
             }
 
             post.Titulo = postViewModel.Titulo;
-            post.Conteudo = postViewModel.Conteudo;
+            post.Conteudo = postViewModel.Conteudo; 
 
             await _postService.Atualizar(post);
 
-            if (!OperacaoValida()) return View(postViewModel);
+            if (!OperacaoValida()) 
+            {
+                var comentarios = await _comentarioRepository.ObterComentariosPorPost(id);
+
+                var html = await _renderer.RenderViewToStringAsync(ControllerContext, "_PostForm", postViewModel);
+                var comentariosHtml = await _renderer.RenderViewToStringAsync(ControllerContext, "_ComentarioList", comentarios);
+                return Json(new
+                {
+                    success = false,
+                    html,
+                    comentariosHtml,
+                    mensagens = TempData["Errors"]
+                });
+            }
 
             TempData["Sucesso"] = "Post editado com sucesso!";
 
-            return RedirectToAction("Index");
+            return Json(new { success = true, mensagem = TempData["Sucesso"] });
 
         }
 
@@ -120,7 +176,7 @@ namespace Blog.App.Controllers
         [HttpGet("excluir/{id:Guid}")]
         public async Task<IActionResult> Delete(Guid id)
         {
-            var post = await _postRepository.ObterPorId(id);
+            var post = await _postRepository.ObterPostPorId(id);
 
             var validationStatusCode = ValidarPost(post);
 
@@ -141,7 +197,7 @@ namespace Blog.App.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(Guid id)
         {
-            var post = await _postRepository.ObterPorId(id);
+            var post = await _postRepository.ObterPostPorId(id);
 
             var validationStatusCode = ValidarPost(post);
 
@@ -154,8 +210,6 @@ namespace Blog.App.Controllers
 
             if (!OperacaoValida()) return View(post);
 
-            TempData["Sucesso"] = "Post excluido com sucesso!";
-
             return RedirectToAction("Index");
         }
 
@@ -164,7 +218,7 @@ namespace Blog.App.Controllers
         {
             if (post == null) return 404;
 
-            var autorizado = ValidarPermissao(post.Autor!.UserId);
+            var autorizado = ValidarPermissao(post.Autor!.UsuarioId);
 
             if (!autorizado) return 403;
 
@@ -173,20 +227,20 @@ namespace Blog.App.Controllers
 
         private PostViewModel ObterAutorizacao(PostViewModel post, IAppUser appUser) 
         { 
-            post.Autorizado = appUser.IsUserAuthorize(post.Autor?.UserId!); 
+            post.Autorizado = appUser.IsUserAuthorize(post.Autor?.UsuarioId); 
             
             return post; 
         }
+
         private IEnumerable<PostViewModel> ObterAutorizacoes(IEnumerable<PostViewModel> posts, IAppUser appUser) 
         { 
             foreach (var post in posts) 
             {
-                ObterAutorizacao(post, appUser); 
-            } 
-            
+                ObterAutorizacao(post, appUser);
+            }
             return posts; 
         }
-
+        
 
     }
 

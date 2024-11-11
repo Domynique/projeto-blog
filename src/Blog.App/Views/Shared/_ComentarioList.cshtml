@@ -1,0 +1,36 @@
+﻿@model IEnumerable<ComentarioViewModel>
+
+<section id="comentario-lista">
+@if (Model != null && Model.Any())
+{
+
+    @foreach (var comentario in Model)
+    {
+        <div class="comentario row">
+                
+
+            <div class="comentario-content">
+                <p>@comentario.Conteudo</p>
+            </div>
+
+            <div class="post-meta d-flex justify-content-between ">
+                <div class="col-md-3">
+                    @if(ViewBag.Autorizado)
+                    {
+                        <a asp-controller="Comentario" asp-action="Edit" asp-route-id="@comentario.Id" asp-route-postId="@comentario.PostId" class="ml-3" title="editar"> <i class="fas fa-edit"></i></a>
+                        <a asp-controller="Comentario" asp-action="Delete" asp-route-id="@comentario.Id" asp-route-postId="@comentario.PostId" class="ml-3" title="excluir"><i class="fas fa-trash-alt"></i></a>
+
+                    }
+                </div>
+                <div class="col-md-9">
+                    <span class="date-author">Publicado em: @comentario.PublicadoEm.ToString("dd/MM/yyyy") por @comentario.NomeUsuario</span>
+                </div>
+            </div>
+
+        </div>
+
+
+    }
+}
+</section>
+    

@@ -1,0 +1,84 @@
+﻿@model PostViewModel
+@{
+    ViewData["Title"] = "Detalhes";
+    ViewBag.Autorizado = Model.Autorizado;
+}
+<div class="row">
+    <section>
+
+        <div class="d-flex justify-content-end mb-3">
+            <a asp-action="Index" class="btn btn-outline-primary btn-transparent"><i class="fas fa-arrow-left"></i> Voltar</a>
+
+        </div>    
+      
+        <div class="col-md-11 mx-auto">
+            <div class="post row">
+                <div class="col-md-3">
+                    <i class="fas fa-image fa-3x text-muted"></i>
+                </div>
+                <div class="col-md-9">
+                    <h2>
+                        @if (Model.Comentarios?.Count() >= 1)
+
+                        {
+                            <i class="fa-solid fa-folder-open"></i>
+                        }
+
+                        else
+
+                        {
+                            <i class="fa-solid fa-folder"></i>
+                        }
+                        @Model.Titulo
+                    </h2><hr />
+                    <div class="post-content">
+                        <p>@Model.Conteudo</p>
+                    </div>
+                    <div class="post-meta d-flex justify-content-between">
+                        <div class="col-md-3">
+                            @if (Model.Autorizado)
+                            {
+                                <a asp-action="Edit" asp-route-id="@Model.Id" class="ml-3" title="editar"> <i class="fas fa-edit"></i></a>
+                                <a asp-action="Delete" asp-route-id="@Model.Id" class="ml-3" title="excluir"><i class="fas fa-trash-alt"></i></a>
+                            }
+                        </div>
+                        <div class="post-info d-flex justify-content-end col-md-9">
+                            <span class="date-author">Publicado em: @Model.PublicadoEm?.ToString("dd/MM/yyyy") por @Model.Autor?.Nome </span>
+                        </div>
+                    </div>
+                </div>
+            </div>            
+        </div>
+        <div class="col-md-11 mx-auto">
+
+            <div class="comentario row">
+                <h3>Comentários</h3><hr />
+
+                <div id="comentarios">
+                    <div class="col-md-9 mx-auto">
+                        <partial name="_ComentarioList" model="Model.Comentarios" />
+                    </div>
+                </div>
+
+
+
+                @if (ViewBag.UserLoggedIn)
+                {
+                    <div id=""> <partial name="_ComentarioForm" model="new ComentarioViewModel { PostId = Model.Id }" /> </div>
+                }
+                else
+                {
+                    <div class="alert alert-info"> <i class="fas fa-info-circle"></i> Para adicionar um comentário, por favor, <a href="@Url.Action("Login", "Account")">faça login</a> ou <a href="@Url.Action("Register", "Account")">registre-se</a>. </div>
+                }
+
+            </div>
+
+        </div>
+    </section>    
+</div>
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+        <script src="~/js/site.js" type="text/javascript"></script>
+    }
+}

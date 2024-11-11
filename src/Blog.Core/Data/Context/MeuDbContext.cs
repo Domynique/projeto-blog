@@ -1,6 +1,8 @@
 ﻿using Blog.Core.Business.Models;
+using Blog.Core.Business.Models.Base;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using System.Linq.Expressions;
 
 namespace Blog.Core.Data.Context
 {
@@ -9,8 +11,7 @@ namespace Blog.Core.Data.Context
         public MeuDbContext(DbContextOptions<MeuDbContext> options)
             : base(options)
         {
-            ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
-            ChangeTracker.AutoDetectChangesEnabled = false;
+            
         }
 
         public DbSet<Autor> Autores { get; set; }
@@ -27,14 +28,28 @@ namespace Blog.Core.Data.Context
                 property.SetColumnType("varchar(100)");
             }
 
-            modelBuilder.ApplyConfigurationsFromAssembly(typeof(MeuDbContext).Assembly);
-
-            foreach (var relationship in modelBuilder.Model.GetEntityTypes()
-                                                           .SelectMany(e => e.GetForeignKeys()))
+            foreach (var softDeleteEntity in typeof(Entity).Assembly.GetTypes()
+                                                                    .Where(type => typeof(Entity)
+                                                                    .IsAssignableFrom(type) 
+                                                                    && type.IsClass 
+                                                                    && !type.IsAbstract))
             {
-                relationship.DeleteBehavior = DeleteBehavior.ClientSetNull;
-            }
+                var parameter = Expression.Parameter(softDeleteEntity, "x");
+                var ativoProperty = Expression.Property(parameter, "Ativo");
+                var ativoCheck = Expression.Equal(ativoProperty, Expression.Constant(true));
 
+                var lambda = Expression.Lambda(ativoCheck, parameter);
+                modelBuilder.Entity(softDeleteEntity).HasQueryFilter(lambda);
+            }
+                /*
+                foreach (var relationship in modelBuilder.Model.GetEntityTypes()
+                                                               .SelectMany(e => e.GetForeignKeys()))
+                {
+                    relationship.DeleteBehavior = DeleteBehavior.ClientSetNull;
+                }
+                */
+                modelBuilder.ApplyConfigurationsFromAssembly(typeof(MeuDbContext).Assembly);
+                
             base.OnModelCreating(modelBuilder);
         }
 

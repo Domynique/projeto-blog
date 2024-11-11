@@ -14,7 +14,6 @@ namespace Blog.App.Configurations
             services.AddScoped<MeuDbContext>();
 
             services.AddScoped<IAutorRepository, AutorRepository>();
-            services.AddScoped<IAutorService, AutorService>();
 
             services.AddScoped<IPostRepository, PostRepository>();
             services.AddScoped<IPostService, PostService>();

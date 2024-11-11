@@ -21,9 +21,9 @@ namespace Blog.Core.Data.Mappings
                    .WithMany(p => p.Comentarios)
                    .HasForeignKey(c => c.PostId);
 
-            builder.HasOne(c => c.User)
+            builder.HasOne(c => c.Usuario)
                    .WithMany()
-                   .HasForeignKey(c => c.UserId);
+                   .HasForeignKey(c => c.UsuarioId);
         }
     }
 }

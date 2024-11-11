@@ -11,24 +11,26 @@ namespace Blog.Core.Data.Repository
         {
         }
 
-        public async Task<Post> ObterPostPorId(Guid id)
+        public async Task<Post?> ObterPostPorId(Guid id)
         {
-            return await _db.Posts
+            return await Db.Posts
                             .Include(p => p.Autor)
-                            .ThenInclude(a => a.User)
+                            .ThenInclude(a => a.Usuario)
                             .Include(p => p.Comentarios)
-                            .ThenInclude(c => c.User)
-                            .FirstOrDefaultAsync(p => p.Id == id);
+                            .ThenInclude(c => c.Usuario)
+                            .FirstOrDefaultAsync(p => p.Id == id && p.Ativo == true);
         }
 
         public async Task<IEnumerable<Post>> ObterPosts()
         {
-            return await _db.Posts
+            return await Db.Posts
                             .AsNoTracking()
                             .Include(p => p.Autor)
-                            .ThenInclude(a => a.User)
-                            .Include(p => p.Comentarios)
-                            .ThenInclude(c => c.User)
+                            .ThenInclude(a => a.Usuario)
+                            .Include(p => p.Comentarios)!
+                            .ThenInclude(c => c.Usuario)
+                            .OrderByDescending(c => c.DataCadastro)
+                            .Where(p => p.Ativo == true)
                             .ToListAsync();
         }
 

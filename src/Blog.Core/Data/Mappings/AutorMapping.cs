@@ -12,7 +12,7 @@ namespace Blog.Core.Data.Mappings
 
             builder.HasKey(a => a.Id);
 
-            builder.HasOne(a => a.User);
+            builder.HasOne(a => a.Usuario);
 
             
         }
