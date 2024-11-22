@@ -71,7 +71,7 @@ A estrutura do projeto é organizada da seguinte forma:
 1. **Clone o Repositório:**
    
    ```bash
-   git clone https://github.com/Domynique/projeto-blog.git
+   git clone https://github.com/hugoDomynique/projeto-blog.git
    cd projeto-blog
    ```
    
